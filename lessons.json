@@ -497,6 +497,141 @@
           "b": "دیر"
         }
       ]
+    },
+    {
+      "id": "lmv8g3xz2",
+      "title": "املا محله ما",
+      "type": "spell",
+      "mode": "listen",
+      "extra": 3,
+      "seconds": 25,
+      "cat": "فارسی",
+      "words": [
+        {
+          "w": "خانواده اش",
+          "audio": "audio/mv8g54oepmnb.wav"
+        },
+        {
+          "w": "محلّه",
+          "audio": "audio/mv8gatz109k4.wav"
+        },
+        {
+          "w": "ثبت نام",
+          "audio": "audio/mv8gaxgevipo.wav"
+        },
+        {
+          "w": "هنوز",
+          "audio": "audio/mv8gb08tdq59.wav"
+        },
+        {
+          "w": "عادت",
+          "audio": "audio/mv8gb34bihdu.wav"
+        },
+        {
+          "w": "ناراحت",
+          "audio": "audio/mv8gb61u13hx.wav"
+        },
+        {
+          "w": "وسایل",
+          "audio": "audio/mv8gb9k1of5o.wav"
+        },
+        {
+          "w": "دقّت",
+          "audio": "audio/mv8gbcmpim2v.wav"
+        },
+        {
+          "w": "اطراف",
+          "audio": "audio/mv8gbfnimsnt.wav"
+        },
+        {
+          "w": "صف نانوایی",
+          "audio": "audio/mv8gbjtgxcbs.wav"
+        },
+        {
+          "w": "مغازه",
+          "audio": "audio/mv8gbn52twwh.wav"
+        },
+        {
+          "w": "موادّ غذایی",
+          "audio": "audio/mv8gbqebxn72.wav"
+        },
+        {
+          "w": "قنّادی",
+          "audio": "audio/mv8gbt4f7u1n.wav"
+        },
+        {
+          "w": "گلدسته",
+          "audio": "audio/mv8gbvmm30c7.wav"
+        },
+        {
+          "w": "گنبد فیروزه ای",
+          "audio": "audio/mv8gbzw4p4qd.wav"
+        },
+        {
+          "w": "عظمت",
+          "audio": "audio/mv8gc2d9zr8i.wav"
+        },
+        {
+          "w": "فضای سبز",
+          "audio": "audio/mv8gc7xgzhp6.wav"
+        },
+        {
+          "w": "بوستان",
+          "audio": "audio/mv8gcdjn7qd5.wav"
+        },
+        {
+          "w": "فوتبال",
+          "audio": "audio/mv8gcgozn0jc.wav"
+        },
+        {
+          "w": "مسابقه",
+          "audio": "audio/mv8ge59gl7tl.wav"
+        },
+        {
+          "w": "بهارستان",
+          "audio": "audio/mv8gcogauzkd.wav"
+        },
+        {
+          "w": "برگزار",
+          "audio": "audio/mv8gcr6mgwrk.wav"
+        },
+        {
+          "w": "قبلاً",
+          "audio": "audio/mv8gctriy2q7.wav"
+        },
+        {
+          "w": "معّرفی",
+          "audio": "audio/mv8gcx55eoeh.wav"
+        },
+        {
+          "w": "نظر",
+          "audio": "audio/mv8gd0k7r5w2.wav"
+        },
+        {
+          "w": "دروازه بان",
+          "audio": "audio/mv8gd3d2wttp.wav"
+        },
+        {
+          "w": "خاطرات",
+          "audio": "audio/mv8gd6ym0736.wav"
+        },
+        {
+          "w": "احساس",
+          "audio": "audio/mv8gd9jztapv.wav"
+        },
+        {
+          "w": "بایستد",
+          "audio": "audio/mv8gdci6f29k.wav"
+        },
+        {
+          "w": "تشکّر",
+          "audio": "audio/mv8gdfj2zb45.wav"
+        },
+        {
+          "w": "عصا",
+          "audio": "audio/mv8gdi0o1wlx.wav"
+        }
+      ]
     }
   ],
   "cats": [
