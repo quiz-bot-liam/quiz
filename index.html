@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>آزمون‌های چهارگزینه‌ای</title>
+<style>
+:root{
+  --bg:#e6f2f1; --g1:#e9f6f5; --g2:#f4f0fb;
+  --paper:rgba(255,255,255,.8); --ink:#12353b; --muted:#4f6f74;
+  --brand:#0e6670; --brand-press:#0a4e56; --on-brand:#ffffff;
+  --hi:#ffd84d; --line:#c9dedd;
+  --ok:#1f7a45; --ok-bg:#d9f4e4; --bad:#b3262b; --bad-bg:#fde3e3;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0c1d20; --g1:#10282c; --g2:#161b30;
+    --paper:rgba(20,43,47,.82); --ink:#eaf6f5; --muted:#9bbcbc;
+    --brand:#5cc7d1; --brand-press:#8adbe3; --on-brand:#08262a;
+    --hi:#ffd84d; --line:#2a4b50;
+    --ok:#6fe0a0; --ok-bg:#16402a; --bad:#ff9a9d; --bad-bg:#4a1c1e;
+    color-scheme: dark;
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{
+  background-color:var(--bg);
+  background-image:linear-gradient(135deg,var(--g1),var(--g2));
+  background-attachment:fixed;
+  color:var(--ink);
+  font-family:Tahoma,"Segoe UI","Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif;
+  line-height:1.9; font-size:18px;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  transition:background-color .4s;
+}
+.app{max-width:600px;margin:0 auto;padding:16px}
+.hidden{display:none !important}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.icon-btn{background:var(--paper);border:2px solid var(--line);border-radius:12px;min-width:44px;height:44px;font-size:20px}
+
+.card{
+  background:var(--paper);border:2px solid var(--line);border-radius:20px;
+  padding:22px 18px;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.card.ruled{
+  background-image:repeating-linear-gradient(transparent 0 33px,var(--line) 33px 34px);
+  background-position:0 6px;
+}
+
+.lens{font-size:72px;line-height:1;text-align:center;margin:4px 0 8px}
+h1{font-size:30px;line-height:1.5;margin:0 0 8px;text-align:center}
+h1 mark,.qtitle span{background:var(--hi);color:#12353b;padding:0 10px;border-radius:8px}
+.sub{text-align:center;color:var(--muted);margin:0 0 20px}
+.btn{
+  display:block;width:100%;border:0;border-radius:16px;padding:14px 18px;
+  background:var(--brand);color:var(--on-brand);font-weight:bold;font-size:20px;
+  box-shadow:0 4px 0 var(--brand-press);transition:transform .08s,box-shadow .08s;
+}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--brand-press)}
+.btn:disabled{opacity:.6;cursor:default}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line);box-shadow:none;font-size:17px}
+.btn.small{display:inline-block;width:auto;font-size:15px;padding:6px 14px;border-radius:12px}
+.link{background:none;border:0;color:var(--muted);text-decoration:underline;display:block;margin:18px auto 0;font-size:15px}
+
+.lessons{display:grid;gap:10px}
+.lesson-btn{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:right;
+  background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:14px 16px;
+  font-size:20px;font-weight:bold;line-height:1.6;
+}
+.lesson-btn:hover{border-color:var(--brand)}
+.lesson-btn small{color:var(--muted);font-weight:normal;font-size:15px;white-space:nowrap}
+
+.progress{height:14px;background:var(--line);border-radius:99px;overflow:hidden;flex:1}
+.progress i{display:block;height:100%;width:0;background:var(--brand);border-radius:99px;transition:width .35s}
+.count{font-weight:bold;min-width:70px;text-align:left;color:var(--muted);font-size:16px}
+.qtitle{text-align:center;font-weight:bold;font-size:19px;margin:0 0 12px;line-height:1.7}
+.qtext{font-size:22px;font-weight:bold;line-height:1.9;margin:0 0 18px}
+.opts{display:grid;gap:10px}
+.opt{
+  text-align:right;background:var(--paper);border:2px solid var(--line);border-radius:14px;
+  padding:12px 14px;font-size:19px;line-height:1.7;width:100%;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.opt:hover:not(:disabled){border-color:var(--brand)}
+.opt .mark{flex:none;width:28px;text-align:center}
+.opt .body{flex:1;min-width:0}
+.opt.img-opt{align-items:center}
+.opt.img-opt .body{text-align:center}
+.opt img{display:block;max-width:100%;max-height:150px;margin:0 auto;border-radius:10px;object-fit:contain;background:#fff}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:bold}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt:disabled{cursor:default;opacity:1}
+.opt.dim{opacity:.6}
+.feedback{min-height:32px;margin:14px 0 4px;font-weight:bold;font-size:19px}
+.feedback.good{color:var(--ok)} .feedback.bad{color:var(--bad)}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(6px)}50%{transform:translateX(-6px)}75%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}.btn,.progress i,body{transition:none}}
+
+.score{font-size:56px;font-weight:bold;text-align:center;line-height:1.4;margin:0}
+.stars{text-align:center;font-size:40px;letter-spacing:6px;margin:4px 0}
+.msg{text-align:center;font-size:21px;margin:6px 0 16px}
+.review{margin:16px 0 0;padding:0;list-style:none}
+.review li{background:var(--bad-bg);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:16px;line-height:1.8}
+.review b{color:var(--ok)}
+.review img{height:56px;vertical-align:middle;border-radius:8px;background:#fff}
+.row{display:grid;gap:10px;margin-top:14px}
+
+.lb{list-style:none;margin:10px 0 0;padding:0}
+.lb li{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:var(--paper);border:2px solid var(--line);margin-bottom:6px;font-size:17px}
+.lb li.me{border-color:var(--brand);background:var(--hi);color:#12353b}
+.lb li.empty{justify-content:center;color:var(--muted)}
+.lb .rk{width:34px;text-align:center;font-weight:bold;flex:none}
+.lb .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb .sc{font-size:14px;color:var(--muted);white-space:nowrap}
+.lb li.me .sc{color:#12353b}
+.lbsave{margin:10px 0}
+.nm-row{display:flex;gap:8px;align-items:center}
+.lb-h{margin:14px 0 0;text-align:center;font-size:19px}
+
+.cover{display:block;margin:0 auto 12px;max-width:100%;max-height:170px;border-radius:16px;object-fit:contain;background:#fff;border:2px solid var(--line)}
+.lesson-btn .th{width:56px;height:56px;border-radius:12px;object-fit:cover;flex:none;background:#fff;border:2px solid var(--line)}
+.lesson-btn .lt{flex:1;min-width:0}
+.cat-btn{font-size:22px;padding:18px 16px}
+.meta{margin:12px 0}
+.cover-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.cover-row .thumb{width:64px;height:64px;object-fit:cover;border-radius:12px;background:#fff;border:2px solid var(--line)}
+.pair-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.pair-row input{flex:1;min-width:0}
+.mt-cols{display:flex;gap:12px;direction:rtl;align-items:flex-start}
+.mt-col{flex:1;min-width:0;display:grid;gap:10px}
+.mw{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:12px 8px;font-size:19px;font-weight:bold;line-height:1.5;min-height:52px;word-break:break-word}
+.mw.sel{border-color:var(--brand);box-shadow:0 0 0 3px var(--hi)}
+.mw.done{cursor:default}
+.mw:disabled{color:var(--ink);opacity:1}
+.mw.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.sp-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;min-height:44px}
+.pill{background:var(--hi);color:#12353b;border-radius:99px;padding:2px 14px;font-weight:bold;font-size:19px;min-width:96px;text-align:center}
+.pill.low{background:var(--bad-bg);color:var(--bad)}
+.sp-hint{color:var(--muted);text-align:center;margin:0 0 14px;font-size:16px}
+.tiles,.slots{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;direction:rtl}
+.tile{
+  width:54px;height:58px;border-radius:12px;border:2px solid var(--line);background:var(--paper);
+  font-size:30px;font-weight:bold;line-height:1;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 0 var(--line);padding:0;
+}
+.tile:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.tile.used{opacity:.22;box-shadow:none}
+.tile:disabled{cursor:default}
+.slots{margin:18px 0 6px;padding:16px 8px 10px;border:3px solid var(--ink);border-radius:18px;background:var(--paper)}
+.slot{
+  width:48px;height:62px;background:none;border:0;border-bottom:5px solid var(--line);border-radius:4px;
+  font-size:32px;font-weight:bold;line-height:1.3;padding:0;
+}
+.slot.filled{border-bottom-color:var(--brand)}
+.slot.ok{color:var(--ok);border-bottom-color:var(--ok)}
+.slot.bad{color:var(--bad);border-bottom-color:var(--bad)}
+.radio-row{display:flex;gap:8px;align-items:center;margin:6px 0;font-size:16px}
+.radio-row input{width:20px;height:20px;accent-color:var(--brand);flex:none}
+
+.ed-q{border:2px solid var(--line);border-radius:16px;padding:12px;margin-bottom:14px;background:var(--paper)}
+.ed-q h3{margin:0 0 8px;font-size:17px;display:flex;justify-content:space-between;align-items:center}
+label.lbl{display:block;font-size:15px;color:var(--muted);margin:8px 0 2px}
+textarea,input[type=text],input[type=password],input[type=number]{
+  width:100%;font:inherit;font-size:17px;padding:8px 10px;border-radius:10px;
+  border:2px solid var(--line);background:var(--bg);color:var(--ink);
+}
+textarea{min-height:70px;resize:vertical}
+.ltr{direction:ltr;text-align:left}
+.ed-opt{display:flex;gap:6px;align-items:center;margin-top:6px}
+.ed-opt input[type=radio]{width:22px;height:22px;flex:none;accent-color:var(--brand)}
+.ed-opt input[type=text]{flex:1;min-width:0}
+.ed-opt .thumb{flex:1;height:48px;min-width:0;object-fit:contain;object-position:right;border-radius:8px;background:#fff;border:2px solid var(--line)}
+.ed-opt .icon-btn{min-width:40px;height:40px;font-size:18px;padding:0}
+.del{background:var(--bad-bg);color:var(--bad);border:0;border-radius:10px;padding:4px 12px;font-size:15px}
+.hint{font-size:15px;color:var(--muted);margin:4px 0 10px}
+.hint ol{margin:6px 0;padding-inline-start:22px}
+.err{color:var(--bad);font-weight:bold;font-size:16px;min-height:26px;margin:8px 0 0}
+.m-item{border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:10px;background:var(--paper)}
+.m-item .t{font-weight:bold;font-size:19px}
+.m-item .t small{color:var(--muted);font-weight:normal;font-size:15px}
+.m-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);
+  padding:10px 18px;border-radius:12px;font-size:16px;z-index:20;max-width:90vw;text-align:center}
+.fall{position:fixed;top:-40px;font-size:28px;pointer-events:none;z-index:10;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- فهرست درس‌ها -->
+  <section id="s-home">
+    <div class="top"><span></span><button class="icon-btn snd" aria-label="صدا">🔊</button></div>
+    <div class="card">
+      <h1 id="home-title">آزمون‌ها</h1>
+      <p class="sub" id="home-sub">یک درس رو انتخاب کن</p>
+      <div class="lessons" id="lessons">در حال آماده‌سازی…</div>
+    </div>
+    <button class="link" id="open-ed">✏️ مدیریت درس‌ها و سؤال‌ها</button>
+  </section>
+
+  <!-- شروع یک درس -->
+  <section id="s-start" class="hidden">
+    <div class="top"><span></span><button class="icon-btn snd" aria-label="صدا">🔊</button></div>
+    <div class="card">
+      <img class="cover hidden" id="cover" alt="">
+      <h1 id="title"></h1>
+      <p class="sub" id="sub"></p>
+      <button class="btn" id="go">شروع آزمون</button>
+      <div class="row"><button class="btn ghost" id="open-board">🏆 جدول برتر</button></div>
+    </div>
+    <button class="link" id="to-lessons">همه‌ی درس‌ها</button>
+    <button class="link" id="open-ed2">✏️ مدیریت درس‌ها و سؤال‌ها</button>
+  </section>
+
+  <!-- سؤال‌ها -->
+  <section id="s-quiz" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="home" aria-label="خانه">🏠</button>
+      <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+      <div class="count" id="count"></div>
+      <button class="icon-btn snd" aria-label="صدا">🔊</button>
+    </div>
+    <div class="qtitle"><span id="qtitle"></span></div>
+    <div class="card ruled">
+      <p class="qtext" id="qtext"></p>
+      <div class="opts" id="opts"></div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <button class="btn hidden" id="next">سؤال بعدی</button>
+    </div>
+  </section>
+
+  <!-- نتیجه -->
+  <section id="s-result" class="hidden">
+    <div class="top"><span></span><button class="icon-btn snd" aria-label="صدا">🔊</button></div>
+    <div class="card">
+      <div class="stars" id="stars" aria-hidden="true"></div>
+      <p class="score" id="score"></p>
+      <p class="msg" id="msg"></p>
+      <div id="lb-save" class="lbsave hidden">
+        <p class="hint" id="lb-time"></p>
+        <div class="nm-row">
+          <input type="text" id="lb-name" maxlength="20" placeholder="اسمت رو بنویس" autocomplete="off">
+          <button class="btn small" id="lb-btn">ثبت</button>
+        </div>
+      </div>
+      <h3 class="lb-h">🏆 جدول برتر این دستگاه</h3>
+      <ol class="lb" id="lb"></ol>
+      <div id="review-wrap" class="hidden">
+        <p class="hint">این سؤال‌ها رو دوباره مرور کن:</p>
+        <ul class="review" id="review"></ul>
+      </div>
+      <div class="row">
+        <button class="btn" id="again">بازی دوباره</button>
+        <button class="btn ghost" id="to-home">همه‌ی درس‌ها</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- فهرست درس‌های یک موضوع -->
+  <section id="s-cat" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="cat-back" aria-label="بازگشت">➡️</button>
+      <strong id="cat-title"></strong><span></span>
+    </div>
+    <div class="card"><div class="lessons" id="cat-lessons"></div></div>
+  </section>
+
+  <!-- بازی جور کردن -->
+  <section id="s-match" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="mt-home" aria-label="خانه">🏠</button>
+      <div class="progress" aria-hidden="true"><i id="mt-bar"></i></div>
+      <div class="count" id="mt-count"></div>
+      <button class="icon-btn snd" aria-label="صدا">🔊</button>
+    </div>
+    <div class="qtitle"><span id="mtitle"></span></div>
+    <div class="card">
+      <p class="sp-hint" id="mt-hint"></p>
+      <div class="mt-cols"><div class="mt-col" id="mt-a"></div><div class="mt-col" id="mt-b"></div></div>
+      <div class="feedback" id="mt-fb" aria-live="polite"></div>
+      <button class="btn hidden" id="mt-next">مرحله‌ی بعد</button>
+    </div>
+  </section>
+
+  <!-- بازی املا -->
+  <section id="s-spell" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="sp-home" aria-label="خانه">🏠</button>
+      <div class="progress" aria-hidden="true"><i id="sp-bar"></i></div>
+      <div class="count" id="sp-count"></div>
+      <button class="icon-btn snd" aria-label="صدا">🔊</button>
+    </div>
+    <div class="qtitle"><span id="stitle"></span></div>
+    <div class="card">
+      <div class="sp-top">
+        <span class="pill hidden" id="sp-timer"></span>
+        <button class="btn small hidden" id="sp-listen" type="button">🔊 شنیدن کلمه</button>
+      </div>
+      <p class="sp-hint" id="sp-hint"></p>
+      <div class="tiles" id="sp-tiles"></div>
+      <div class="slots" id="sp-slots"></div>
+      <div class="feedback" id="sp-fb" aria-live="polite"></div>
+      <button class="btn hidden" id="sp-next">کلمه‌ی بعدی</button>
+    </div>
+  </section>
+
+  <!-- جدول برتر -->
+  <section id="s-board" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="board-back" aria-label="بازگشت">➡️</button>
+      <strong id="board-title"></strong><span></span>
+    </div>
+    <div class="card">
+      <h3 class="lb-h" style="margin-top:0">🏆 جدول برتر این دستگاه</h3>
+      <ol class="lb" id="lb2"></ol>
+    </div>
+  </section>
+
+  <!-- ویرایش -->
+  <section id="s-edit" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="ed-back" aria-label="بازگشت">➡️</button>
+      <strong id="ed-head">مدیریت درس‌ها</strong><span></span>
+    </div>
+
+    <!-- ورود با رمز -->
+    <div id="p-login" class="hidden">
+      <div class="card">
+        <p class="hint">برای ویرایش، «رمز ویرایش» لازمه. این رمز یه توکن گیت‌هابه که فقط تو داری و فقط یک بار می‌سازیش:</p>
+        <div class="hint">
+          <ol>
+            <li>وارد github.com شو و از منوی پروفایل بزن: Settings</li>
+            <li>پایین منو: Developer settings ← Personal access tokens ← Fine-grained tokens ← Generate new token</li>
+            <li>Repository access: «Only select repositories» و فقط مخزن همین بازی رو انتخاب کن</li>
+            <li>Permissions ← Add permissions ← Contents ← «Read and write»</li>
+            <li>بساز و کدی که نشون می‌ده رو همین‌جا بچسبون (بعداً دیگه نشون داده نمی‌شه)</li>
+          </ol>
+        </div>
+        <label class="lbl" for="ed-owner">نام کاربری گیت‌هاب</label>
+        <input type="text" id="ed-owner" class="ltr" autocapitalize="off" autocomplete="off">
+        <label class="lbl" for="ed-repo">نام مخزن (repository)</label>
+        <input type="text" id="ed-repo" class="ltr" autocapitalize="off" autocomplete="off">
+        <label class="lbl" for="ed-token">رمز ویرایش (توکن)</label>
+        <input type="password" id="ed-token" class="ltr" autocapitalize="off" autocomplete="off">
+        <div class="err" id="ed-err" role="alert"></div>
+        <div class="row"><button class="btn" id="ed-login-btn">ورود</button></div>
+      </div>
+    </div>
+
+    <!-- فهرست درس‌ها برای مدیریت -->
+    <div id="p-manager" class="hidden">
+      <p class="hint">اول دسته‌ها (مثل علوم، فارسی، اجتماعی) رو بساز. بعد وارد هر دسته شو و درس‌ها (آزمون، املا، جور کردن) رو یکی‌یکی توش بساز. بعد از هر تغییر «ذخیره‌ی همه در نسخه اصلی» رو بزن.</p>
+      <label class="lbl" for="m-site-title">عنوان کلی صفحه‌ی اول</label>
+      <input type="text" id="m-site-title" maxlength="40" style="margin-bottom:12px">
+      <div id="m-list"></div>
+      <div class="row">
+        <button class="btn ghost" id="m-add-cat">➕ دسته‌ی جدید</button>
+        <button class="btn" id="m-save">ذخیره‌ی همه در نسخه اصلی</button>
+        <button class="btn ghost" id="m-logout">خروج (پاک کردن رمز از این دستگاه)</button>
+      </div>
+    </div>
+
+    <!-- درس‌های یک دسته -->
+    <div id="p-cat" class="hidden">
+      <p class="hint" id="c-hint"></p>
+      <div id="c-list"></div>
+      <div class="row">
+        <button class="btn" id="m-new">➕ درس جدید (انتخاب نوع بازی)</button>
+      </div>
+      <div id="tpl-box" class="hidden">
+        <label class="lbl" for="tpl-title">۱) نام درس یا زیرمجموعه</label>
+        <input type="text" id="tpl-title" maxlength="80" placeholder="مثلاً: درس اول" style="margin-bottom:12px">
+        <p class="hint">۲) نوع بازی را از بسته‌ی قالب‌های آماده انتخاب کن:</p>
+        <div class="lessons" id="tpl-list"></div>
+        <div class="row"><button class="btn ghost" id="tpl-cancel">انصراف</button></div>
+      </div>
+      <div class="row">
+        <button class="btn ghost" id="c-save">ذخیره‌ی همه در نسخه اصلی</button>
+        <button class="btn ghost" id="c-back">برگشت به دسته‌ها</button>
+      </div>
+    </div>
+
+    <!-- ویرایش درس جور کردن -->
+    <div id="p-match" class="hidden">
+      <p class="hint">برای هر ردیف، یه کلمه توی کادر اول (ستون راست) و جفتش (مترادف یا متضادش) توی کادر دوم (ستون چپ) بنویس. بازی خودش کلمه‌ها رو قاطی می‌کنه. هر کلمه فقط یک بار توی هر ستون بیاد.</p>
+      <label class="lbl" for="me-title">اسم درس</label>
+      <input type="text" id="me-title" style="margin-bottom:10px">
+      <label class="lbl" for="me-hint">راهنمای بالای بازی (مثلاً: کلمه‌های هم‌معنی رو به هم وصل کن)</label>
+      <input type="text" id="me-hint" style="margin-bottom:10px">
+      <div id="slot-match"></div>
+      <div id="me-pairs"></div>
+      <div class="row">
+        <button class="btn ghost" id="me-add">➕ جفت جدید</button>
+        <button class="btn ghost" id="me-apply">تأیید و برگشت به لیست درس‌ها</button>
+        <button class="btn" id="me-save">ذخیره‌ی همه در نسخه اصلی</button>
+      </div>
+    </div>
+
+    <!-- ویرایش درس املا -->
+    <div id="p-spell" class="hidden">
+      <p class="hint">کلمه‌ها رو بنویس. توی حالت «با صدا» برای هر کلمه صدا ضبط کن (🎤) یا فایل صوتی انتخاب کن (📁)؛ بچه فقط صدا رو می‌شنوه و باید حروف رو درست بچینه. توی حالت «حروف به‌هم‌ریخته» صدا لازم نیست.</p>
+      <label class="lbl" for="se-title">اسم درس</label>
+      <input type="text" id="se-title" style="margin-bottom:10px">
+      <label class="lbl">نوع بازی</label>
+      <label class="radio-row"><input type="radio" name="se-mode" id="se-mode-listen" value="listen"> با صدا: فقط جای خالی + صدای کلمه + زمان</label>
+      <label class="radio-row"><input type="radio" name="se-mode" id="se-mode-scramble" value="scramble"> حروف به‌هم‌ریخته بالا + جای خالی</label>
+      <label class="lbl" for="se-extra">تعداد حرف اضافه برای گیج کردن (پیشنهاد: ۳)</label>
+      <input type="number" id="se-extra" min="0" max="6" inputmode="numeric">
+      <label class="lbl" for="se-secs">زمان هر کلمه به ثانیه (۰ یعنی بدون زمان)</label>
+      <input type="number" id="se-secs" min="0" max="120" inputmode="numeric" style="margin-bottom:14px">
+      <div id="slot-spell"></div>
+      <div id="se-words"></div>
+      <div class="row">
+        <button class="btn ghost" id="se-add">➕ کلمه‌ی جدید</button>
+        <button class="btn ghost" id="se-apply">تأیید و برگشت به لیست درس‌ها</button>
+        <button class="btn" id="se-save">ذخیره‌ی همه در نسخه اصلی</button>
+      </div>
+    </div>
+
+    <!-- ویرایش یک درس -->
+    <div id="p-lesson" class="hidden">
+      <p class="hint">برای هر سؤال، دایره‌ی کنار جواب درست رو انتخاب کن. هر گزینه یا متنه یا تصویر: با دکمه‌ی 🖼️ تصویر بذار و با ✕ برش گردون. گزینه‌ی خالی نادیده گرفته می‌شه (حداقل ۲ گزینه لازمه).</p>
+      <label class="lbl" for="ed-title">اسم درس (بالای آزمون و توی فهرست نشون داده می‌شه)</label>
+      <input type="text" id="ed-title" style="margin-bottom:14px">
+      <div id="slot-quiz"></div>
+      <div id="ed-list"></div>
+      <div class="row">
+        <button class="btn ghost" id="ed-add">➕ سؤال جدید</button>
+        <button class="btn ghost" id="ed-apply">تأیید و برگشت به لیست درس‌ها</button>
+        <button class="btn" id="ed-save">ذخیره‌ی همه در نسخه اصلی</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- تصویر درس؛ توی پنل ویرایشِ درس باز قرار می‌گیره -->
+<div id="meta-holder" class="hidden">
+  <div id="lesson-meta" class="m-item meta">
+    <label class="lbl">تصویر درس (کنار اسم درس نشون داده می‌شه)</label>
+    <div class="cover-row">
+      <img id="lm-thumb" class="thumb hidden" alt="">
+      <button type="button" class="btn small ghost" id="lm-pick">🖼️ انتخاب تصویر</button>
+      <button type="button" class="btn small ghost hidden" id="lm-clr">✕ حذف تصویر</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== درس اول (اگه lessons.json خونده نشد، از این استفاده می‌شه) =====
+   answer = شماره‌ی گزینه‌ی درست (از ۰ شروع می‌شه)
+   گزینه‌ی تصویری با "img:مسیر" ذخیره می‌شه */
+var DEFAULT_LIB = {
+  lessons: [{
+    id: "pajoohesh",
+    title: "پژوهشگر کوچک",
+    questions: [
+      {q:"اولین مرحله‌ی کار پژوهشگر برای حل مسائل علمی چیست؟",
+       options:["طرح پرسش","جمع‌آوری اطلاعات","تهیه گزارش","مرتب کردن اطلاعات"], answer:0},
+      {q:"مراحل کار یک پژوهشگر به ترتیب کدام است؟",
+       options:["طرح پرسش ← جمع‌آوری اطلاعات ← مرتب کردن اطلاعات ← تهیه گزارش",
+                "جمع‌آوری اطلاعات ← طرح پرسش ← تهیه گزارش ← مرتب کردن اطلاعات",
+                "طرح پرسش ← مرتب کردن اطلاعات ← جمع‌آوری اطلاعات ← تهیه گزارش",
+                "تهیه گزارش ← طرح پرسش ← جمع‌آوری اطلاعات ← مرتب کردن اطلاعات"], answer:0},
+      {q:"دانش‌آموزان برای تحقیق خود از چه منابعی استفاده کرده‌اند؟",
+       options:["فقط از فیلم و تلویزیون","سؤال از دانش‌آموزان دیگر و افراد متخصص مثل مربی بهداشت، پزشک و متخصص تغذیه","فقط از حدس و گمان خودشان","فقط از همسایه‌ها و غریبه‌ها"], answer:1},
+      {q:"از چه منابعی می‌توان برای جمع‌آوری اطلاعات استفاده کرد؟",
+       options:["حدس زدن، شایعه و گمان","مشاهده، مصاحبه، پرسش‌نامه و مراجعه به کتابخانه","فقط خوابیدن و بازی کردن","فقط پرسیدن از افراد ناآگاه"], answer:1},
+      {q:"اولین قدم در تحقیق مریم و دوستانش چه بود؟",
+       options:["تهیه گزارش","مرتب کردن اطلاعات","طرح پرسش","نوشتن نتیجه"], answer:2},
+      {q:"در یک پژوهش چرا باید اطلاعات به‌دست‌آمده را یادداشت کرد؟",
+       options:["چون معلم دستور داده است","چون چیزهایی را که به دست آورده‌ایم از یاد نمی‌بریم و آن‌ها را مرتب می‌کنیم","برای اینکه دفترمان پر شود","چون یادداشت کردن لازم نیست"], answer:1},
+      {q:"پرسش‌هایی که در یک پژوهش طرح می‌کنیم باید چگونه باشند؟",
+       options:["هرچه بیشتر بهتر، حتی اگر به مسئله ربطی نداشته باشند","فقط پرسش‌های خیلی سخت و پیچیده","تعدادشان مناسب باشد و هر پرسش ما را به جواب مسئله نزدیک کند","فقط یک پرسش بی‌ربط"], answer:2},
+      {q:"کدام‌یک از موارد زیر جزء منابع اطلاعاتی نیست؟",
+       options:["کتاب","افراد ناآگاه","متخصصان","اینترنت"], answer:1},
+      {q:"مشاهده چیست؟",
+       options:["پرسیدن سؤال از متخصصان","نوشتن گزارش پژوهش","کشیدن جدول","جمع‌آوری اطلاعات درباره‌ی محیط اطراف با استفاده از حواس پنجگانه"], answer:3},
+      {q:"در زنگ‌های تفریح چه غذاهای سالمی می‌توان خورد؟",
+       options:["چیپس و پفک","نوشابه و شکلات","لقمه‌هایی مثل نان و پنیر، نخود و کشمش و انواع میوه","فقط آبنبات"], answer:2},
+      {q:"حواس پنجگانه کدام‌اند؟",
+       options:["لامسه، چشایی، بویایی، بینایی، شنوایی","لامسه، چشایی، بویایی، بینایی، حافظه","بینایی، شنوایی، گویایی، چشایی، لامسه","دیدن، شنیدن، فکر کردن، دویدن، خوابیدن"], answer:0},
+      {q:"به جمع‌آوری اطلاعات از راه حواس پنجگانه چه می‌گویند؟",
+       options:["مصاحبه","پرسش‌نامه","مراجعه به کتابخانه","مشاهده"], answer:3},
+      {q:"در یک تحقیق علمی، برای اینکه اطلاعات را خوب مرتب و با هم مقایسه کنیم، چه کاری از همه مهم‌تر است؟",
+       options:["نوشتن اطلاعات روی کاغذهای جدا و پراکنده","وارد کردن اطلاعات جمع‌آوری‌شده در یک جدول","نگه داشتن اطلاعات در ذهن بدون نوشتن","دور ریختن اطلاعات قدیمی"], answer:1}
+    ]
+  }]
+};
+
+var DATA_FILE = "lessons.json";          /* فایل همه‌ی درس‌ها کنار index.html توی مخزن */
+var CFG_KEY = "quiz-gh-cfg-v1";          /* نام کاربری، مخزن و رمز ویرایش (فقط روی دستگاه خودت) */
+var PENDING_KEY = "quiz-pending-lib-v2"; /* نسخه‌ی تازه‌ذخیره‌شده، برای دیدن سریع روی همین دستگاه */
+var PENDING_MS = 15 * 60 * 1000;
+
+/* ===== ابزارها ===== */
+function $(id){ return document.getElementById(id); }
+function all(sel){ return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function fa(n){ return Number(n).toLocaleString("fa-IR"); }
+function shuffle(a){ a = a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+function delay(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+function toast(t){
+  var d = document.createElement("div"); d.className="toast"; d.textContent=t; document.body.appendChild(d);
+  setTimeout(function(){ d.remove(); }, 3800);
+}
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+function validQuestion(x){
+  return x && typeof x.q === "string" && Array.isArray(x.options) && x.options.length >= 2 &&
+         x.options.every(function(o){ return typeof o === "string"; }) &&
+         Number.isInteger(x.answer) && x.answer >= 0 && x.answer < x.options.length;
+}
+function isSpell(L){ return !!L && L.type === "spell"; }
+function lessonCount(L){ return isSpell(L) ? L.words.length : (isMatch(L) ? L.pairs.length : L.questions.length); }
+function lessonUnit(L){ return isSpell(L) ? "کلمه" : (isMatch(L) ? "جفت" : "سؤال"); }
+function isMatch(L){ return !!L && L.type === "match"; }
+function typeLabel(L){ return isSpell(L) ? "املا" : (isMatch(L) ? "جور کردن" : "چهارگزینه‌ای"); }
+function validMatch(L){
+  return Array.isArray(L.pairs) && L.pairs.length > 0 &&
+         L.pairs.every(function(x){ return x && typeof x.a === "string" && x.a.trim() && typeof x.b === "string" && x.b.trim(); });
+}
+function validSpell(L){
+  return Array.isArray(L.words) && L.words.length > 0 &&
+         L.words.every(function(x){ return x && typeof x.w === "string" && x.w.trim() && (x.audio === undefined || typeof x.audio === "string"); }) &&
+         (L.mode === "listen" || L.mode === "scramble") && isFinite(L.extra) && isFinite(L.seconds);
+}
+function validLib(d){
+  if(!d || !Array.isArray(d.lessons) || !d.lessons.length) return false;
+  return d.lessons.every(function(L){
+    if(!(L && typeof L.id === "string" && L.id && typeof L.title === "string")) return false;
+    if(isSpell(L)) return validSpell(L);
+    if(isMatch(L)) return validMatch(L);
+    return Array.isArray(L.questions) && L.questions.length && L.questions.every(validQuestion);
+  });
+}
+
+/* ===== تصویر توی گزینه‌ها ===== */
+var pendingImgs = {};   /* مسیر ← داده‌ی تصویر (تا وقتی ذخیره نشده، فقط توی حافظه‌ی همین صفحه) */
+var uploadedImgs = {};  /* تصویرهایی که توی این نشست آپلود شدن */
+function isImg(s){ return typeof s === "string" && s.indexOf("img:") === 0; }
+function imgSrc(s){ var p = s.slice(4); return pendingImgs[p] || p; }
+
+/* گزینه رو به یه عنصر (متن یا تصویر) تبدیل می‌کنه */
+function optionNode(t, small){
+  var holder = document.createElement("span"); holder.className = "body";
+  if(isImg(t)){
+    var im = document.createElement("img");
+    im.alt = "تصویر گزینه"; im.src = imgSrc(t);
+    im.onerror = function(){
+      var sp = document.createElement("span");
+      sp.textContent = "🖼️ تصویر هنوز آماده نیست؛ چند دقیقه بعد دوباره امتحان کن";
+      if(im.parentNode) im.parentNode.replaceChild(sp, im);
+    };
+    holder.appendChild(im);
+  } else holder.textContent = t;
+  return holder;
+}
+
+/* ===== رنگ‌بندی تصادفی و ملایم ===== */
+var HUES = [170,195,215,250,275,305,335,10,35,55,90,140], lastHue = -1;
+function applyTheme(){
+  var h;
+  do { h = HUES[Math.floor(Math.random()*HUES.length)]; } while(h === lastHue);
+  lastHue = h;
+  var dark = !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  var h2 = (h + 45) % 360, hi = (h + 170) % 360, st = document.documentElement.style;
+  function set(k,v){ st.setProperty(k,v); }
+  if(dark){
+    set("--bg","hsl("+h+" 30% 10%)"); set("--g1","hsl("+h+" 35% 13%)"); set("--g2","hsl("+h2+" 35% 11%)");
+    set("--paper","hsla("+h+",25%,16%,.82)"); set("--line","hsl("+h+" 25% 30%)");
+    set("--brand","hsl("+h+" 60% 68%)"); set("--brand-press","hsl("+h+" 60% 78%)"); set("--on-brand","hsl("+h+" 40% 10%)");
+    set("--hi","hsl("+hi+" 90% 62%)");
+  } else {
+    set("--bg","hsl("+h+" 60% 93%)"); set("--g1","hsl("+h+" 75% 94%)"); set("--g2","hsl("+h2+" 75% 92%)");
+    set("--paper","rgba(255,255,255,.78)"); set("--line","hsl("+h+" 45% 80%)");
+    set("--brand","hsl("+h+" 55% 30%)"); set("--brand-press","hsl("+h+" 55% 21%)"); set("--on-brand","#ffffff");
+    set("--hi","hsl("+hi+" 95% 74%)");
+  }
+}
+
+/* ===== صدا و موسیقی (همه با کد ساخته می‌شه، بدون فایل) ===== */
+var soundOn = true, actx = null;
+function ctx(){
+  actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+  if(actx.state === "suspended" && actx.resume) actx.resume();
+  return actx;
+}
+function beep(seq){
+  if(!soundOn) return;
+  try{
+    var c = ctx(), t = c.currentTime;
+    seq.forEach(function(n, i){
+      var o = c.createOscillator(), g = c.createGain();
+      o.type = "sine"; o.frequency.value = n[0];
+      g.gain.setValueAtTime(0.0001, t + i*0.14);
+      g.gain.exponentialRampToValueAtTime(0.18, t + i*0.14 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + i*0.14 + n[1]);
+      o.connect(g); g.connect(c.destination);
+      o.start(t + i*0.14); o.stop(t + i*0.14 + n[1] + 0.05);
+    });
+  }catch(e){}
+}
+
+var BEAT = 0.8;
+var CHORDS = [[261.63,329.63,392.00],[220.00,261.63,329.63],[174.61,220.00,261.63],[196.00,246.94,293.66]];
+var PENT = [523.25,587.33,659.25,783.99,880.00,1046.50];
+var music = {on:false, timer:null, step:0, master:null};
+
+function note(freq, t0, dur, type, peak){
+  var c = actx, o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.linearRampToValueAtTime(peak, t0 + Math.min(0.5, dur/3));
+  g.gain.linearRampToValueAtTime(0.0001, t0 + dur);
+  o.connect(g); g.connect(music.master);
+  o.start(t0); o.stop(t0 + dur + 0.05);
+}
+function musicTick(){
+  if(!music.on) return;
+  try{
+    var t = actx.currentTime + 0.05, beat = music.step++;
+    if(beat % 8 === 0){
+      var chord = CHORDS[Math.floor(beat/8) % CHORDS.length];
+      chord.forEach(function(f){ note(f, t, 8*BEAT + 1.5, "sine", 0.045); });
+    }
+    if(Math.random() < 0.6) note(PENT[Math.floor(Math.random()*PENT.length)], t, 1.5, "triangle", 0.06);
+  }catch(e){}
+}
+function startMusic(){
+  if(!soundOn || music.on) return;
+  try{
+    var c = ctx();
+    music.master = c.createGain();
+    music.master.gain.setValueAtTime(0.0001, c.currentTime);
+    music.master.gain.linearRampToValueAtTime(0.7, c.currentTime + 1.5);
+    music.master.connect(c.destination);
+    music.on = true; music.step = 0;
+    musicTick();
+    music.timer = setInterval(musicTick, BEAT * 1000);
+  }catch(e){ music.on = false; }
+}
+function stopMusic(){
+  if(!music.on) return;
+  music.on = false; clearInterval(music.timer);
+  var m = music.master;
+  try{
+    m.gain.cancelScheduledValues(actx.currentTime);
+    m.gain.setValueAtTime(m.gain.value, actx.currentTime);
+    m.gain.linearRampToValueAtTime(0.0001, actx.currentTime + 0.3);
+  }catch(e){}
+  setTimeout(function(){ try{ m.disconnect(); }catch(e){} }, 600);
+}
+all(".snd").forEach(function(b){
+  b.onclick = function(){
+    soundOn = !soundOn;
+    all(".snd").forEach(function(x){ x.textContent = soundOn ? "🔊" : "🔇"; });
+    if(!soundOn) stopMusic(); else if(wantMusic()) startMusic();
+  };
+});
+document.addEventListener("visibilitychange", function(){
+  if(document.hidden) stopMusic(); else if(wantMusic()) startMusic();
+});
+
+/* ===== جابه‌جایی بین صفحه‌ها ===== */
+var inPlay = false;
+/* موسیقی فقط وقتی پخش می‌شه که صدای کلمه‌ی املا رو خراب نکنه */
+function wantMusic(){ return inPlay && !(cur && isSpell(cur) && cur.mode === "listen"); }
+function show(id){
+  ["s-home","s-cat","s-start","s-quiz","s-spell","s-match","s-result","s-board","s-edit"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); });
+  if(id !== "s-spell") spCleanup();
+  inPlay = (id === "s-quiz" || id === "s-spell" || id === "s-match" || id === "s-result");
+  if(wantMusic()) startMusic(); else stopMusic();
+  window.scrollTo(0,0);
+}
+
+/* ===== گرفتن درس‌ها ===== */
+var lib = clone(DEFAULT_LIB);   /* نسخه‌ی در حال استفاده */
+var cur = null;                 /* درس انتخاب‌شده */
+
+function fetchRemote(){
+  var ctl = ("AbortController" in window) ? new AbortController() : null;
+  var to = setTimeout(function(){ if(ctl) ctl.abort(); }, 5000);
+  return fetch(DATA_FILE + "?v=" + Date.now(), {cache:"no-store", signal: ctl ? ctl.signal : undefined})
+    .then(function(r){ if(!r.ok) throw new Error("http"); return r.json(); })
+    .then(function(d){ clearTimeout(to); if(!validLib(d)) throw new Error("bad"); return d; })
+    .catch(function(e){ clearTimeout(to); throw e; });
+}
+function readPending(){
+  var raw = lsGet(PENDING_KEY); if(!raw) return null;
+  try{
+    var p = JSON.parse(raw);
+    if(p && validLib(p.data) && Date.now() - p.t < PENDING_MS) return p.data;
+  }catch(e){}
+  lsDel(PENDING_KEY); return null;
+}
+function findLesson(id){
+  for(var i=0;i<lib.lessons.length;i++) if(lib.lessons[i].id === id) return lib.lessons[i];
+  return null;
+}
+function shareLink(id){ return location.origin + location.pathname + "?q=" + encodeURIComponent(id); }
+
+/* ===== صفحه‌ها ===== */
+function catGroups(){
+  var order = (lib.cats || []).slice(), map = {};
+  lib.lessons.forEach(function(L){
+    var c = (L.cat || "").trim() || "سایر";
+    if(order.indexOf(c) < 0) order.push(c);
+    (map[c] = map[c] || []).push(L);
+  });
+  order.forEach(function(c){ if(!map[c]) map[c] = []; });
+  return {names:order, map:map};
+}
+function lessonButton(L){
+  var b = document.createElement("button"); b.type = "button"; b.className = "lesson-btn";
+  if(L.img){
+    var im = document.createElement("img"); im.className = "th"; im.alt = ""; im.src = fileSrc(L.img);
+    im.onerror = function(){ im.style.display = "none"; };
+    b.appendChild(im);
+  }
+  var t = document.createElement("span"); t.className = "lt"; t.textContent = L.title;
+  var s = document.createElement("small"); s.textContent = fa(lessonCount(L)) + " " + lessonUnit(L);
+  b.appendChild(t); b.appendChild(s);
+  b.onclick = function(){ openLesson(L); };
+  return b;
+}
+function renderHome(){
+  $("home-title").textContent = lib.title || "آزمون‌ها";
+  var g = catGroups(), box = $("lessons"); box.innerHTML = "";
+  /* اگر حتی یک دسته‌ی اصلی تعریف شده باشد، صفحه‌ی اول همیشه منوی دسته‌هاست. */
+  if((lib.cats || []).length > 0 || g.names.length > 1){
+    $("home-sub").textContent = "یک موضوع رو انتخاب کن";
+    g.names.forEach(function(c){
+      var b = document.createElement("button"); b.type = "button"; b.className = "lesson-btn cat-btn";
+      var t = document.createElement("span"); t.className = "lt"; t.textContent = c;
+      var s = document.createElement("small"); s.textContent = fa((g.map[c] || []).length) + " درس";
+      b.appendChild(t); b.appendChild(s);
+      b.onclick = function(){ openCategory(c); };
+      box.appendChild(b);
+    });
+  } else {
+    $("home-sub").textContent = "یک درس رو انتخاب کن";
+    lib.lessons.forEach(function(L){ box.appendChild(lessonButton(L)); });
+  }
+}
+function openCategory(c){
+  applyTheme();
+  $("cat-title").textContent = c;
+  var box = $("cat-lessons"); box.innerHTML = "";
+  (catGroups().map[c] || []).forEach(function(L){ box.appendChild(lessonButton(L)); });
+  show("s-cat");
+}
+/* برگشت از صفحه‌ی درس یا نتیجه به فهرست مناسب */
+function backToList(){
+  var g = catGroups();
+  if(cur && g.names.length > 1) openCategory((cur.cat || "").trim() || "سایر");
+  else goHome();
+}
+function openLesson(L){
+  cur = L;
+  applyTheme();
+  $("title").innerHTML = "";
+  var m = document.createElement("mark"); m.textContent = L.title;
+  $("title").appendChild(m);
+  var cv = $("cover");
+  if(L.img){
+    cv.onerror = function(){ cv.classList.add("hidden"); };
+    cv.src = fileSrc(L.img); cv.classList.remove("hidden");
+  } else cv.classList.add("hidden");
+  $("sub").textContent = isSpell(L)
+    ? "املا · " + (L.mode === "listen" ? "با صدا" : "حروف به‌هم‌ریخته") + " · " + fa(L.words.length) + " کلمه"
+    : isMatch(L)
+    ? "جور کردن · " + fa(L.pairs.length) + " جفت"
+    : "آزمون چندگزینه‌ای · " + fa(L.questions.length) + " سؤال";
+  $("to-lessons").classList.toggle("hidden", lib.lessons.length < 2);
+  show("s-start");
+}
+function goHome(){
+  /* با وجود دسته‌های اصلی، حتی اگر فقط یک درس ساخته شده باشد، به منوی دسته‌ها برگرد. */
+  if((lib.cats || []).length > 0 || lib.lessons.length > 1){
+    applyTheme(); renderHome(); show("s-home");
+  } else if(lib.lessons.length) openLesson(lib.lessons[0]);
+}
+function route(){
+  var id = null;
+  try{ id = new URLSearchParams(location.search).get("q"); }catch(e){}
+  var L = id ? findLesson(id) : null;
+  if(L){ openLesson(L); return; }
+  if(id) toast("این درس پیدا نشد. از فهرست یکی رو انتخاب کن.");
+  goHome();
+}
+
+/* ===== بازی ===== */
+var quiz = [], idx = 0, score = 0, missed = [], locked = false;
+
+function startQuiz(){
+  if(isSpell(cur)){ startSpell(); return; }
+  if(isMatch(cur)){ startMatch(); return; }
+  quiz = shuffle(cur.questions).map(function(x){
+    var opts = x.options.map(function(t,i){ return {t:t, ok:i===x.answer}; });
+    return {q:x.q, opts:shuffle(opts)};
+  });
+  idx = 0; score = 0; missed = []; quizStart = Date.now();
+  $("qtitle").textContent = cur.title;
+  show("s-quiz");
+  renderQ();
+}
+
+function renderQ(){
+  locked = false;
+  var c = quiz[idx];
+  $("count").textContent = fa(idx+1) + " از " + fa(quiz.length);
+  $("bar").style.width = (idx / quiz.length * 100) + "%";
+  $("qtext").textContent = c.q;
+  $("fb").textContent = ""; $("fb").className = "feedback";
+  $("next").classList.add("hidden");
+  var box = $("opts"); box.innerHTML = "";
+  c.opts.forEach(function(o, i){
+    var b = document.createElement("button");
+    b.className = "opt" + (isImg(o.t) ? " img-opt" : ""); b.type = "button";
+    var mk = document.createElement("span"); mk.className = "mark"; mk.textContent = fa(i+1);
+    b.appendChild(mk); b.appendChild(optionNode(o.t));
+    b.onclick = function(){ choose(i, b); };
+    box.appendChild(b);
+  });
+}
+
+function choose(i, btn){
+  if(locked) return; locked = true;
+  var c = quiz[idx], btns = $("opts").children, good = c.opts[i].ok;
+  for(var k=0;k<btns.length;k++){
+    btns[k].disabled = true;
+    if(c.opts[k].ok){ btns[k].classList.add("right"); btns[k].firstChild.textContent = "✓"; }
+    else if(k===i){ btns[k].classList.add("wrong"); btns[k].firstChild.textContent = "✗"; }
+    else btns[k].classList.add("dim");
+  }
+  var fb = $("fb");
+  if(good){
+    score++; fb.textContent = "آفرین! درسته 🎉"; fb.className = "feedback good";
+    beep([[660,.12],[880,.18]]);
+  } else {
+    var right = c.opts.filter(function(o){return o.ok;})[0].t;
+    missed.push({q:c.q, a:right});
+    fb.textContent = "این بار نشد؛ جواب درست با رنگ سبز مشخص شده."; fb.className = "feedback bad";
+    btn.classList.add("shake"); beep([[220,.25]]);
+  }
+  $("bar").style.width = ((idx+1) / quiz.length * 100) + "%";
+  var nx = $("next");
+  nx.textContent = (idx === quiz.length-1) ? "دیدن نتیجه" : "سؤال بعدی";
+  nx.classList.remove("hidden");
+  nx.focus({preventScroll:true});
+}
+
+$("next").onclick = function(){
+  if(idx < quiz.length-1){ idx++; renderQ(); } else finish();
+};
+
+function finish(){
+  show("s-result");
+  var n = quiz.length, pct = score / n;
+  $("score").textContent = fa(score) + " از " + fa(n);
+  var stars = pct >= .9 ? 3 : pct >= .6 ? 2 : pct >= .3 ? 1 : 0;
+  $("stars").textContent = "⭐".repeat(stars) + "☆".repeat(3-stars);
+  $("msg").textContent = pct >= .9 ? "عالی! آفرین، خیلی خوب بلدی 🏆"
+                      : pct >= .6 ? "آفرین! خیلی خوب بود 👏"
+                      : "تلاش خوبی بود، دوباره امتحان کن 💪";
+  var ul = $("review"); ul.innerHTML = "";
+  missed.forEach(function(m){
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(m.q + " ← "));
+    if(isImg(m.a)){
+      var im = document.createElement("img"); im.alt = "جواب درست"; im.src = imgSrc(m.a);
+      li.appendChild(im);
+    } else {
+      var b = document.createElement("b"); b.textContent = m.a; li.appendChild(b);
+    }
+    ul.appendChild(li);
+  });
+  $("review-wrap").classList.toggle("hidden", !missed.length);
+  $("to-home").textContent = lib.lessons.length > 1 ? "همه‌ی درس‌ها" : "صفحه اول";
+  setupBoard(Math.max(1, Math.round((Date.now() - quizStart) / 1000)));
+  if(pct >= .6){ beep([[523,.14],[659,.14],[784,.14],[1047,.3]]); confetti(); }
+}
+
+function confetti(){
+  if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var em = ["🎉","⭐","🌟","📚","🎈"];
+  for(var i=0;i<26;i++){
+    var s = document.createElement("span"); s.className = "fall";
+    s.textContent = em[i % em.length];
+    s.style.left = Math.random()*95 + "vw";
+    s.style.animationDuration = (2.2 + Math.random()*2) + "s";
+    s.style.animationDelay = (Math.random()*0.8) + "s";
+    document.body.appendChild(s);
+    (function(el){ setTimeout(function(){ el.remove(); }, 5500); })(s);
+  }
+}
+
+$("go").onclick = startQuiz;
+$("again").onclick = function(){ applyTheme(); startQuiz(); };
+$("to-home").onclick = backToList;
+$("to-lessons").onclick = backToList;
+$("cat-back").onclick = goHome;
+$("home").onclick = function(){ if(confirm("برگردیم؟ پیشرفت این دور از بین می‌ره.")) goHome(); };
+
+/* ===== بازی جور کردن (مترادف / متضاد) ===== */
+var MT_HUES = [160, 15, 210, 45, 285, 100, 335, 190];
+var mt = {rounds:[], r:0, A:[], B:[], sel:null, done:0, doneAll:0, total:0, locked:false, shake:null, missedIds:{}, ci:0};
+function isDarkMode(){ return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches); }
+
+function startMatch(){
+  var items = shuffle(cur.pairs.map(function(p, i){ return {id:i, a:p.a, b:p.b}; }));
+  mt.rounds = [];
+  for(var i=0;i<items.length;i+=6) mt.rounds.push(items.slice(i, i+6));
+  if(mt.rounds.length > 1 && mt.rounds[mt.rounds.length-1].length < 2){
+    var lastR = mt.rounds.pop(); mt.rounds[mt.rounds.length-1] = mt.rounds[mt.rounds.length-1].concat(lastR);
+  }
+  mt.r = 0; mt.total = items.length; mt.doneAll = 0; mt.missedIds = {};
+  quiz = items; idx = 0; score = 0; missed = []; quizStart = Date.now();
+  $("mtitle").textContent = cur.title;
+  show("s-match");
+  renderMatch();
+}
+function mtProgress(){
+  $("mt-count").textContent = fa(mt.doneAll) + " از " + fa(mt.total);
+  $("mt-bar").style.width = (mt.doneAll / mt.total * 100) + "%";
+}
+function renderMatch(){
+  var round = mt.rounds[mt.r];
+  mt.A = shuffle(round).map(function(p){ return {id:p.id, t:p.a, done:false, hue:0}; });
+  mt.B = shuffle(round).map(function(p){ return {id:p.id, t:p.b, done:false, hue:0}; });
+  mt.sel = null; mt.done = 0; mt.locked = false; mt.shake = null; mt.ci = 0;
+  $("mt-hint").textContent = cur.hint || "کلمه‌های هم‌معنی رو به هم وصل کن";
+  $("mt-fb").textContent = ""; $("mt-fb").className = "feedback";
+  $("mt-next").classList.add("hidden");
+  mtProgress();
+  drawMatch();
+}
+function drawMatch(){
+  [["A","mt-a"],["B","mt-b"]].forEach(function(pr){
+    var side = pr[0], col = $(pr[1]);
+    col.innerHTML = "";
+    mt[side].forEach(function(it, i){
+      var b = document.createElement("button"); b.type = "button"; b.className = "mw";
+      b.textContent = it.t;
+      if(it.done){
+        b.classList.add("done"); b.disabled = true;
+        b.style.background = "hsl(" + it.hue + " 70% " + (isDarkMode() ? "26%" : "86%") + ")";
+        b.style.borderColor = "hsl(" + it.hue + " 55% 45%)";
+      }
+      if(mt.sel && mt.sel.side === side && mt.sel.i === i) b.classList.add("sel");
+      if(mt.shake && mt.shake[side] === i){ b.classList.add("bad"); b.classList.add("shake"); }
+      b.onclick = function(){ mtTap(side, i); };
+      col.appendChild(b);
+    });
+  });
+}
+function mtTap(side, i){
+  if(mt.locked) return;
+  if(mt[side][i].done) return;
+  if(!mt.sel || mt.sel.side === side){ mt.sel = {side:side, i:i}; drawMatch(); return; }
+  var ai = side === "A" ? i : mt.sel.i, bi = side === "B" ? i : mt.sel.i;
+  var a = mt.A[ai], b = mt.B[bi];
+  mt.sel = null;
+  if(a.id === b.id){
+    var hue = MT_HUES[mt.ci++ % MT_HUES.length];
+    a.done = true; b.done = true; a.hue = hue; b.hue = hue;
+    mt.done++; mt.doneAll++;
+    beep([[1400,.06]]);
+    mtProgress(); drawMatch();
+    if(mt.done === mt.A.length) mtRoundDone();
+  } else {
+    if(!mt.missedIds[a.id]){
+      mt.missedIds[a.id] = true;
+      var pr = cur.pairs[a.id]; missed.push({q:pr.a, a:pr.b});
+    }
+    mt.shake = {A:ai, B:bi};
+    beep([[170,.22]]);
+    drawMatch();
+    setTimeout(function(){ mt.shake = null; drawMatch(); }, 450);
+  }
+}
+function mtRoundDone(){
+  mt.locked = true;
+  var fb = $("mt-fb"); fb.textContent = "آفرین! همه رو درست وصل کردی 🎉"; fb.className = "feedback good";
+  beep([[660,.12],[880,.18]]);
+  var nx = $("mt-next");
+  nx.textContent = (mt.r === mt.rounds.length - 1) ? "دیدن نتیجه" : "مرحله‌ی بعد";
+  nx.classList.remove("hidden");
+}
+$("mt-next").onclick = function(){
+  if(mt.r < mt.rounds.length - 1){ mt.r++; renderMatch(); }
+  else { score = mt.total - Object.keys(mt.missedIds).length; finish(); }
+};
+$("mt-home").onclick = function(){ if(confirm("برگردیم؟ پیشرفت این دور از بین می‌ره.")) backToList(); };
+
+/* ===== بازی املا ===== */
+var ALPHA = Array.from("ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیآ");
+var sp = {list:[], tiles:[], slots:[], word:"", locked:false, timer:null, left:0, started:false, audio:null, mark:""};
+
+function normFa(t){
+  return String(t).replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/ى/g,"ی").replace(/\u0627\u0653/g,"آ");
+}
+function letterList(w){ return Array.from(normFa(w).replace(/[\s\u200c\u200d]/g,"")); }
+function fileSrc(p){ return pendingImgs[p] || p; }
+
+function spStopAudio(){
+  if(sp.audio){
+    try{ sp.audio.pause(); }catch(e){}
+    sp.audio.onended = null; sp.audio.onerror = null; sp.audio = null;
+  }
+}
+function spClearTimer(){ if(sp.timer){ clearInterval(sp.timer); sp.timer = null; } }
+function spCleanup(){ spClearTimer(); spStopAudio(); }
+
+function startSpell(){
+  sp.list = shuffle(cur.words);
+  quiz = sp.list; idx = 0; score = 0; missed = []; quizStart = Date.now();
+  $("stitle").textContent = cur.title;
+  show("s-spell");
+  renderSpell();
+}
+
+function drawTimer(){
+  var el = $("sp-timer");
+  el.textContent = "⏱ " + fa(Math.max(0, sp.left)) + " ثانیه";
+  el.classList.toggle("low", sp.left <= 5);
+}
+function spStartTimer(){
+  if(sp.started || sp.locked) return;
+  sp.started = true;
+  if(!(cur.seconds > 0)) return;
+  spClearTimer();
+  sp.timer = setInterval(function(){
+    sp.left--; drawTimer();
+    if(sp.left <= 0){ spClearTimer(); spCheck(true); }
+  }, 1000);
+}
+function spPlay(it, first){
+  spStopAudio();
+  var armed = first && !sp.started;
+  function kick(){ if(armed) spStartTimer(); }
+  if(!it.audio){ kick(); return; }
+  var a = new Audio(fileSrc(it.audio)); sp.audio = a;
+  a.onended = kick;
+  a.onerror = function(){ toast("صدا هنوز آماده نیست؛ چند دقیقه بعد دوباره امتحان کن"); kick(); };
+  var pr = a.play();
+  if(pr && pr.catch) pr.catch(function(){ toast("برای شنیدن کلمه دکمه‌ی «شنیدن کلمه» رو بزن"); });
+}
+
+function renderSpell(){
+  spCleanup();
+  sp.locked = false; sp.started = false; sp.mark = "";
+  var it = sp.list[idx], letters = letterList(it.w);
+  sp.word = letters.join("");
+  var base = letters.map(function(ch){ return {ch:ch, used:false}; });
+  var pool = ALPHA.filter(function(ch){ return letters.indexOf(ch) < 0; });
+  var extras = shuffle(pool).slice(0, Math.max(0, cur.extra || 0)).map(function(ch){ return {ch:ch, used:false}; });
+  var tiles = base.concat(extras), tries = 0;
+  do { tiles = shuffle(tiles); tries++; }
+  while(tries < 12 && !extras.length && letters.length > 1 && tiles.map(function(t){ return t.ch; }).join("") === sp.word);
+  sp.tiles = tiles;
+  sp.slots = letters.map(function(){ return -1; });
+
+  $("sp-count").textContent = fa(idx+1) + " از " + fa(sp.list.length);
+  $("sp-bar").style.width = (idx / sp.list.length * 100) + "%";
+  $("sp-fb").textContent = ""; $("sp-fb").className = "feedback";
+  $("sp-next").classList.add("hidden");
+  var listen = cur.mode === "listen", hasTimer = cur.seconds > 0;
+  $("sp-listen").classList.toggle("hidden", !listen);
+  $("sp-hint").textContent = listen ? "به صدا گوش کن و حروف رو به ترتیب بذار" : "حروف رو سر جاشون بذار تا کلمه درست بشه";
+  $("sp-timer").classList.toggle("hidden", !hasTimer);
+  if(hasTimer){ sp.left = cur.seconds; drawTimer(); }
+  drawSpell();
+  if(listen) spPlay(it, true); else spStartTimer();
+}
+
+function drawSpell(){
+  var tb = $("sp-tiles"), sb = $("sp-slots");
+  tb.innerHTML = ""; sb.innerHTML = "";
+  sp.tiles.forEach(function(t, i){
+    var b = document.createElement("button"); b.type = "button";
+    b.className = "tile" + (t.used ? " used" : "");
+    b.textContent = t.ch; b.disabled = t.used || sp.locked;
+    b.onclick = function(){ spPlace(i); };
+    tb.appendChild(b);
+  });
+  sp.slots.forEach(function(ti, k){
+    var b = document.createElement("button"); b.type = "button";
+    b.className = "slot" + (ti >= 0 ? " filled" : "") + (sp.locked && sp.mark ? " " + sp.mark : "");
+    b.textContent = ti >= 0 ? sp.tiles[ti].ch : "";
+    b.setAttribute("aria-label", "جای خالی " + fa(k+1));
+    b.disabled = sp.locked || ti < 0;
+    b.onclick = function(){ spRemove(k); };
+    sb.appendChild(b);
+  });
+}
+function spPlace(i){
+  if(sp.locked || sp.tiles[i].used) return;
+  var k = sp.slots.indexOf(-1); if(k < 0) return;
+  sp.slots[k] = i; sp.tiles[i].used = true;
+  drawSpell();
+  if(sp.slots.indexOf(-1) < 0) spCheck(false);
+}
+function spRemove(k){
+  if(sp.locked) return;
+  var ti = sp.slots[k]; if(ti < 0) return;
+  sp.tiles[ti].used = false; sp.slots[k] = -1;
+  drawSpell();
+}
+function spCheck(timeout){
+  if(sp.locked) return;
+  sp.locked = true; spClearTimer();
+  var got = sp.slots.map(function(i){ return i >= 0 ? sp.tiles[i].ch : ""; }).join("");
+  var ok = !timeout && got === sp.word, fb = $("sp-fb"), word = sp.list[idx].w.trim();
+  if(ok){
+    score++; sp.mark = "ok";
+    fb.textContent = "آفرین! درسته 🎉"; fb.className = "feedback good";
+    beep([[660,.12],[880,.18]]);
+  } else {
+    sp.mark = "bad"; missed.push({q:"املای درست", a:word});
+    fb.textContent = (timeout ? "وقت تموم شد ⏰ " : "این بار نشد. ") + "املای درست: " + word;
+    fb.className = "feedback bad"; beep([[220,.25]]);
+  }
+  drawSpell();
+  $("sp-bar").style.width = ((idx+1) / sp.list.length * 100) + "%";
+  var nx = $("sp-next");
+  nx.textContent = (idx === sp.list.length-1) ? "دیدن نتیجه" : "کلمه‌ی بعدی";
+  nx.classList.remove("hidden");
+}
+$("sp-listen").onclick = function(){ if(sp.locked) return; spPlay(sp.list[idx], !sp.started); };
+$("sp-next").onclick = function(){
+  if(idx < sp.list.length-1){ idx++; renderSpell(); } else { spCleanup(); finish(); }
+};
+$("sp-home").onclick = function(){ if(confirm("برگردیم؟ پیشرفت این دور از بین می‌ره.")) goHome(); };
+
+/* ===== جدول برتر (فقط روی همین دستگاه ذخیره می‌شه) ===== */
+var BOARD_KEY = "quiz-board-v1", NAME_KEY = "quiz-last-name";
+var boardMem = null, quizStart = Date.now(), lastTime = 0;
+function loadBoards(){
+  var raw = lsGet(BOARD_KEY); if(!raw && boardMem) raw = boardMem;
+  try{ var b = JSON.parse(raw || "{}"); return (b && typeof b === "object") ? b : {}; }catch(e){ return {}; }
+}
+function saveBoards(b){ var s = JSON.stringify(b); boardMem = s; lsSet(BOARD_KEY, s); }
+function sortBoard(a){
+  return a.slice().sort(function(x, y){ return (y.s / y.of) - (x.s / x.of) || x.t - y.t || x.d - y.d; });
+}
+function renderBoard(ol, id, mark){
+  var list = sortBoard(loadBoards()[id] || []).slice(0, 10);
+  ol.innerHTML = "";
+  if(!list.length){
+    var e0 = document.createElement("li"); e0.className = "empty";
+    e0.textContent = "هنوز کسی ثبت نشده. اولین نفر تو باش!"; ol.appendChild(e0); return;
+  }
+  var medals = ["🥇","🥈","🥉"];
+  list.forEach(function(e, i){
+    var li = document.createElement("li"); if(mark && e.d === mark) li.className = "me";
+    var r = document.createElement("span"); r.className = "rk"; r.textContent = medals[i] || fa(i+1);
+    var n = document.createElement("span"); n.className = "nm"; n.textContent = e.n;
+    var sc = document.createElement("span"); sc.className = "sc"; sc.textContent = fa(e.s) + " از " + fa(e.of) + " · " + fa(e.t) + " ثانیه";
+    li.appendChild(r); li.appendChild(n); li.appendChild(sc); ol.appendChild(li);
+  });
+}
+function setupBoard(sec){
+  lastTime = sec;
+  $("lb-name").value = lsGet(NAME_KEY) || "";
+  $("lb-time").textContent = "زمان تو: " + fa(sec) + " ثانیه. اسمت رو بنویس تا توی جدول ثبت بشه.";
+  $("lb-save").classList.remove("hidden");
+  renderBoard($("lb"), cur.id, null);
+}
+$("lb-btn").onclick = function(){
+  var name = $("lb-name").value.trim().slice(0, 20);
+  if(!name){ toast("اسمت رو بنویس"); return; }
+  lsSet(NAME_KEY, name);
+  var b = loadBoards(), arr = b[cur.id] || [];
+  var e = {n:name, s:score, of:quiz.length, t:lastTime, d:Date.now()};
+  arr.push(e); b[cur.id] = sortBoard(arr).slice(0, 50); saveBoards(b);
+  $("lb-save").classList.add("hidden");
+  renderBoard($("lb"), cur.id, e.d);
+  toast("ثبت شد ✓");
+};
+$("open-board").onclick = function(){
+  $("board-title").textContent = cur.title;
+  renderBoard($("lb2"), cur.id, null);
+  show("s-board");
+};
+$("board-back").onclick = function(){ show("s-start"); };
+
+/* ===== اتصال به گیت‌هاب ===== */
+function loadCfg(){ try{ return JSON.parse(lsGet(CFG_KEY) || "null"); }catch(e){ return null; } }
+function saveCfg(c){ lsSet(CFG_KEY, JSON.stringify(c)); }
+
+function guessRepo(){
+  var h = location.hostname, p = location.pathname.split("/").filter(Boolean);
+  if(/\.github\.io$/.test(h)){
+    var first = p[0] && !/\.[a-z0-9]+$/i.test(p[0]) ? p[0] : h;
+    return {owner:h.split(".")[0], repo:first};
+  }
+  return {owner:"", repo:""};
+}
+function gh(cfg, method, path, body){
+  var headers = {
+    "Authorization":"Bearer " + cfg.token,
+    "Accept":"application/vnd.github+json",
+    "X-GitHub-Api-Version":"2022-11-28"
+  };
+  if(body) headers["Content-Type"] = "application/json";
+  return fetch("https://api.github.com/repos/" + encodeURIComponent(cfg.owner) + "/" + encodeURIComponent(cfg.repo) + path, {
+    method:method, headers:headers, body: body ? JSON.stringify(body) : undefined, cache:"no-store"
+  }).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(j){ return {status:r.status, json:j}; });
+  });
+}
+function netErr(){ return "اتصال به گیت‌هاب برقرار نشد. اینترنت رو چک کن؛ اگه گیت‌هاب فیلتر باشه باید با فیلترشکن امتحان کنی (فقط برای ویرایش لازمه، نه برای بازی کردن)."; }
+function toB64(str){
+  var bytes = new TextEncoder().encode(str), bin = "";
+  for(var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+
+/* تصویر انتخاب‌شده رو کوچیک و فشرده می‌کنه (حداکثر ۴۸۰ پیکسل) */
+function compressImage(file){
+  return new Promise(function(res, rej){
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function(){
+      var w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, 480 / Math.max(w, h));
+      var cw = Math.max(1, Math.round(w*k)), ch = Math.max(1, Math.round(h*k));
+      var cv = document.createElement("canvas"); cv.width = cw; cv.height = ch;
+      var cx = cv.getContext("2d"); cx.fillStyle = "#fff"; cx.fillRect(0,0,cw,ch); cx.drawImage(im,0,0,cw,ch);
+      URL.revokeObjectURL(url);
+      res(cv.toDataURL("image/jpeg", 0.82));
+    };
+    im.onerror = function(){ URL.revokeObjectURL(url); rej(new Error("decode")); };
+    im.src = url;
+  });
+}
+
+/* ===== ویرایشگر ===== */
+var cfg = null, elib = null, ei = -1, dirty = false, panel = "login";
+
+function showPanel(p){
+  panel = p;
+  if(recorder){ try{ recorder.mr.stop(); }catch(e){} }
+  ["login","manager","cat","lesson","spell","match"].forEach(function(n){ $("p-" + n).classList.toggle("hidden", n !== p); });
+  $("ed-head").textContent = p === "cat" ? edCat : ((p === "lesson" || p === "spell" || p === "match") ? "ویرایش درس" : "مدیریت درس‌ها");
+  window.scrollTo(0,0);
+}
+
+function openEditor(){
+  cfg = loadCfg();
+  show("s-edit");
+  if(cfg && cfg.token && cfg.owner && cfg.repo) enterManager(); else showLogin();
+}
+function showLogin(){
+  var g = guessRepo();
+  $("ed-owner").value = (cfg && cfg.owner) || g.owner;
+  $("ed-repo").value = (cfg && cfg.repo) || g.repo;
+  $("ed-token").value = "";
+  $("ed-err").textContent = "";
+  showPanel("login");
+}
+function enterManager(){
+  elib = clone(lib); dirty = false;
+  normalizeCats(elib);
+  $("m-site-title").value = elib.title || "";
+  renderManager(); showPanel("manager");
+}
+$("m-site-title").oninput = function(){ if(elib){ elib.title = this.value; dirty = true; } };
+$("m-site-title").oninput = function(){ if(elib){ elib.title = this.value; dirty = true; } };
+
+$("ed-login-btn").onclick = function(){
+  var c = {owner:$("ed-owner").value.trim(), repo:$("ed-repo").value.trim(), token:$("ed-token").value.trim()};
+  var err = $("ed-err");
+  if(!c.owner || !c.repo || !c.token){ err.textContent = "هر سه کادر رو پر کن."; return; }
+  var btn = $("ed-login-btn"); btn.disabled = true; btn.textContent = "در حال بررسی…"; err.textContent = "";
+  gh(c, "GET", "").then(function(r){
+    if(r.status === 200){ cfg = c; saveCfg(c); enterManager(); }
+    else if(r.status === 401) err.textContent = "رمز اشتباهه یا منقضی شده.";
+    else if(r.status === 404) err.textContent = "این مخزن پیدا نشد، یا رمز به اون دسترسی نداره. نام کاربری و مخزن رو چک کن.";
+    else err.textContent = "خطا از طرف گیت‌هاب (" + r.status + "). کمی بعد دوباره امتحان کن.";
+  }).catch(function(){ err.textContent = netErr(); })
+    .then(function(){ btn.disabled = false; btn.textContent = "ورود"; });
+};
+
+/* --- فهرست درس‌ها در بخش مدیریت --- */
+var edCat = "";   /* دسته‌ای که الان توی ویرایشگر بازه */
+
+function normalizeCats(lb){
+  var cats = [];
+  (Array.isArray(lb.cats) ? lb.cats : []).forEach(function(c){
+    c = String(c).trim(); if(c && cats.indexOf(c) < 0) cats.push(c);
+  });
+  lb.lessons.forEach(function(L){
+    var c = (L.cat || "").trim() || "سایر";
+    L.cat = c; if(cats.indexOf(c) < 0) cats.push(c);
+  });
+  lb.cats = cats;
+}
+function mkBtn(row, txt, fn, off){
+  var b = document.createElement("button"); b.type = "button"; b.className = "btn small ghost";
+  b.textContent = txt; b.onclick = fn; if(off) b.disabled = true; row.appendChild(b);
+}
+function catCount(c){ return elib.lessons.filter(function(L){ return L.cat === c; }).length; }
+
+/* فهرست دسته‌ها */
+function renderManager(){
+  var box = $("m-list"); box.innerHTML = "";
+  elib.cats.forEach(function(c, ci){
+    var n = catCount(c);
+    var item = document.createElement("div"); item.className = "m-item";
+    var t = document.createElement("div"); t.className = "t";
+    t.appendChild(document.createTextNode(c + " "));
+    var sm = document.createElement("small"); sm.textContent = "· " + fa(n) + " درس";
+    t.appendChild(sm); item.appendChild(t);
+    var row = document.createElement("div"); row.className = "m-btns";
+    mkBtn(row, "📂 باز کردن", function(){ openCatPanel(c); });
+    mkBtn(row, "✏️ تغییر نام", function(){ renameCat(c); });
+    mkBtn(row, "⬆️", function(){
+      var x = elib.cats[ci]; elib.cats[ci] = elib.cats[ci-1]; elib.cats[ci-1] = x; dirty = true; renderManager();
+    }, ci === 0);
+    mkBtn(row, "⬇️", function(){
+      var x = elib.cats[ci]; elib.cats[ci] = elib.cats[ci+1]; elib.cats[ci+1] = x; dirty = true; renderManager();
+    }, ci === elib.cats.length - 1);
+    mkBtn(row, "🗑️ حذف", function(){
+      if(n > 0){ toast("این دسته درس داره. اول درس‌هاش رو حذف کن یا به دسته‌ی دیگه ببر."); return; }
+      if(!confirm("دسته‌ی «" + c + "» حذف بشه؟")) return;
+      elib.cats.splice(ci, 1); dirty = true; renderManager();
+    });
+    item.appendChild(row); box.appendChild(item);
+  });
+  if(!elib.cats.length){
+    var e = document.createElement("p"); e.className = "hint"; e.textContent = "هنوز دسته‌ای نیست. «➕ دسته‌ی جدید» رو بزن.";
+    box.appendChild(e);
+  }
+}
+function renameCat(c){
+  var nn = window.prompt("اسم جدید دسته:", c);
+  if(nn === null) return;
+  nn = nn.trim(); if(!nn || nn === c) return;
+  if(elib.cats.indexOf(nn) >= 0){ toast("این اسم قبلاً هست"); return; }
+  elib.cats[elib.cats.indexOf(c)] = nn;
+  elib.lessons.forEach(function(L){ if(L.cat === c) L.cat = nn; });
+  dirty = true; renderManager();
+}
+$("m-add-cat").onclick = function(){
+  var nn = window.prompt("اسم دسته‌ی جدید چیه؟ (مثلاً علوم)");
+  if(!nn || !nn.trim()) return;
+  nn = nn.trim();
+  if(elib.cats.indexOf(nn) >= 0){ toast("این دسته قبلاً هست"); return; }
+  elib.cats.push(nn); dirty = true; renderManager();
+  openCatPanel(nn);
+};
+
+/* بسته‌ی قالب‌های بازی؛ برای اضافه کردن بازی تازه کافیه یه مورد به این فهرست اضافه بشه */
+var TEMPLATES = [
+  {icon:"📝", name:"آزمون چهارگزینه‌ای", example:"علوم - درس ۱",
+   desc:"سؤال با چهار گزینه (متن یا تصویر). جواب درست سبز می‌شه.",
+   make:function(){ return {questions:[{q:"", options:["","","",""], answer:0}]}; }},
+  {icon:"🎧", name:"املا با صدا", example:"املا - درس ۲",
+   desc:"صدای کلمه پخش می‌شه، زمان می‌افته و بچه حروف رو می‌چینه (با چند حرف اضافه).",
+   make:function(){ return {type:"spell", mode:"listen", extra:3, seconds:25, words:[{w:"", audio:""}]}; }},
+  {icon:"🔤", name:"املا: حروف به‌هم‌ریخته", example:"املا - درس ۳",
+   desc:"حروف قاطی بالا هستن و بچه اون‌ها رو سر جاشون توی جای خالی‌ها می‌ذاره.",
+   make:function(){ return {type:"spell", mode:"scramble", extra:0, seconds:0, words:[{w:"", audio:""}]}; }},
+  {icon:"🔗", name:"جور کردن (مترادف / متضاد)", example:"مترادف - درس ۱",
+   desc:"دو ستون کلمه؛ بچه جفت هر کلمه رو پیدا می‌کنه و همرنگ می‌شن.",
+   make:function(){ return {type:"match", hint:"کلمه‌های هم‌معنی رو به هم وصل کن", pairs:[{a:"", b:""}, {a:"", b:""}]}; }}
+];
+function showTemplates(on){
+  $("tpl-box").classList.toggle("hidden", !on);
+  $("m-new").classList.toggle("hidden", on);
+  if(on){ window.setTimeout(function(){ $("tpl-title").focus({preventScroll:true}); }, 0); }
+}
+$("m-new").onclick = function(){
+  var box = $("tpl-list"); box.innerHTML = "";
+  TEMPLATES.forEach(function(T){
+    var b = document.createElement("button"); b.type = "button"; b.className = "lesson-btn";
+    var ic = document.createElement("span"); ic.textContent = T.icon; ic.style.fontSize = "30px"; ic.setAttribute("aria-hidden", "true");
+    var tx = document.createElement("span"); tx.className = "lt";
+    var nm = document.createElement("div"); nm.textContent = T.name;
+    var ds = document.createElement("small"); ds.textContent = T.desc; ds.style.whiteSpace = "normal"; ds.style.display = "block";
+    tx.appendChild(nm); tx.appendChild(ds);
+    b.appendChild(ic); b.appendChild(tx);
+    b.onclick = function(){ createFromTemplate(T); };
+    box.appendChild(b);
+  });
+  showTemplates(true);
+  window.scrollTo(0, document.body.scrollHeight);
+};
+$("tpl-cancel").onclick = function(){ showTemplates(false); };
+function createFromTemplate(T){
+  var name = $("tpl-title").value.trim();
+  if(!name){
+    toast("اول نام درس رو بنویس؛ مثلاً درس اول.");
+    $("tpl-title").focus({preventScroll:true});
+    return;
+  }
+  var L = T.make();
+  L.id = "l" + Date.now().toString(36); L.title = name; L.cat = edCat;
+  elib.lessons.push(L); dirty = true;
+  $("tpl-title").value = "";
+  showTemplates(false);
+  editLesson(elib.lessons.length - 1);
+}
+
+/* درس‌های یک دسته */
+function openCatPanel(c){ edCat = c; renderCatPanel(); showPanel("cat"); }
+function backToCat(){ renderCatPanel(); showPanel("cat"); }
+function digitsToInt(t){
+  var map = "۰۱۲۳۴۵۶۷۸۹", map2 = "٠١٢٣٤٥٦٧٨٩";
+  var out = String(t).replace(/[۰-۹٠-٩]/g, function(d){ var i = map.indexOf(d); return i >= 0 ? i : map2.indexOf(d); });
+  return parseInt(out, 10);
+}
+function renderCatPanel(){
+  showTemplates(false);
+  $("c-hint").textContent = "دسته‌ی «" + edCat + "»: درس‌هاش اینجاست. با «درس جدید» یه بازی از قالب‌ها انتخاب کن و بساز.";
+  var box = $("c-list"); box.innerHTML = "";
+  var idxs = [];
+  elib.lessons.forEach(function(L, i){ if(L.cat === edCat) idxs.push(i); });
+  if(!idxs.length){
+    var e = document.createElement("p"); e.className = "hint"; e.textContent = "هنوز درسی توی این دسته نیست.";
+    box.appendChild(e);
+  }
+  idxs.forEach(function(gi, k){
+    var L = elib.lessons[gi];
+    var item = document.createElement("div"); item.className = "m-item";
+    var t = document.createElement("div"); t.className = "t";
+    t.appendChild(document.createTextNode((L.title || "(بدون اسم)") + " "));
+    var sm = document.createElement("small");
+    sm.textContent = "· " + typeLabel(L) + " · " + fa(lessonCount(L)) + " " + lessonUnit(L);
+    t.appendChild(sm); item.appendChild(t);
+    var row = document.createElement("div"); row.className = "m-btns";
+    mkBtn(row, "✏️ ویرایش", function(){ editLesson(gi); });
+    mkBtn(row, "⬆️", function(){
+      var j = idxs[k-1], x = elib.lessons[gi]; elib.lessons[gi] = elib.lessons[j]; elib.lessons[j] = x; dirty = true; renderCatPanel();
+    }, k === 0);
+    mkBtn(row, "⬇️", function(){
+      var j = idxs[k+1], x = elib.lessons[gi]; elib.lessons[gi] = elib.lessons[j]; elib.lessons[j] = x; dirty = true; renderCatPanel();
+    }, k === idxs.length - 1);
+    mkBtn(row, "🔗 کپی لینک", function(){ copyLink(L.id); });
+    mkBtn(row, "↔️ انتقال به دسته‌ی دیگر", function(){
+      var others = elib.cats.filter(function(c){ return c !== edCat; });
+      if(!others.length){ toast("دسته‌ی دیگه‌ای نیست. اول یه دسته‌ی جدید بساز."); return; }
+      var ans = window.prompt("به کدوم دسته ببرم؟ شماره‌ش رو بنویس:\n" + others.map(function(c, i){ return fa(i+1) + ") " + c; }).join("\n"));
+      if(ans === null) return;
+      var n = digitsToInt(ans);
+      if(!(n >= 1 && n <= others.length)){ toast("شماره درست نبود"); return; }
+      L.cat = others[n-1]; dirty = true; renderCatPanel();
+    });
+    mkBtn(row, "🧹 پاک کردن جدول برتر", function(){
+      if(!confirm("جدول برتر این درس روی همین دستگاه پاک بشه؟")) return;
+      var b = loadBoards(); delete b[L.id]; saveBoards(b); toast("جدول این دستگاه پاک شد");
+    });
+    mkBtn(row, "🗑️ حذف", function(){
+      if(elib.lessons.length <= 1){ toast("حداقل یک درس باید بمونه"); return; }
+      if(!confirm("درس «" + (L.title || "بدون اسم") + "» حذف بشه؟ (تا ذخیره نزنی از نسخه اصلی پاک نمی‌شه)")) return;
+      elib.lessons.splice(gi, 1); dirty = true; renderCatPanel();
+    });
+    item.appendChild(row); box.appendChild(item);
+  });
+}
+$("c-back").onclick = function(){ renderManager(); showPanel("manager"); };
+$("c-save").onclick = function(){ commitAll(this); };
+function copyLink(id){
+  var link = shareLink(id);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(link).then(function(){ toast("لینک کپی شد ✓"); },
+      function(){ window.prompt("لینک رو کپی کن:", link); });
+  } else window.prompt("لینک رو کپی کن:", link);
+}
+
+/* --- ویرایش یک درس --- */
+function editLesson(i){
+  ei = i;
+  var L = elib.lessons[i];
+  if(isSpell(L)){ buildSpellEditor(); mountMeta(L, "slot-spell"); showPanel("spell"); }
+  else if(isMatch(L)){ buildMatchEditor(); mountMeta(L, "slot-match"); showPanel("match"); }
+  else { buildLessonEditor(); mountMeta(L, "slot-quiz"); showPanel("lesson"); }
+}
+
+/* یه ردیف گزینه: دایره‌ی جواب درست + متن یا تصویر */
+function optionRow(qi, oi, x){
+  var row = document.createElement("div"); row.className = "ed-opt";
+  var r = document.createElement("input"); r.type = "radio"; r.name = "ans" + qi; r.className = "f-r";
+  r.checked = (x.answer === oi); r.setAttribute("aria-label", "جواب درست");
+  var t = document.createElement("input"); t.type = "text"; t.className = "f-o"; t.value = x.options[oi] || "";
+  var th = document.createElement("img"); th.className = "thumb"; th.alt = "تصویر گزینه";
+  var pk = document.createElement("button"); pk.type = "button"; pk.className = "icon-btn"; pk.textContent = "🖼️";
+  pk.setAttribute("aria-label", "افزودن تصویر");
+  var cl = document.createElement("button"); cl.type = "button"; cl.className = "icon-btn"; cl.textContent = "✕";
+  cl.setAttribute("aria-label", "برگشت به متن");
+
+  function refresh(){
+    var v = t.value;
+    if(isImg(v)){
+      th.src = imgSrc(v);
+      th.classList.remove("hidden"); t.classList.add("hidden"); cl.classList.remove("hidden");
+    } else {
+      th.classList.add("hidden"); t.classList.remove("hidden"); cl.classList.add("hidden");
+    }
+  }
+  pk.onclick = function(){
+    var f = document.createElement("input"); f.type = "file"; f.accept = "image/*";
+    f.onchange = function(){
+      if(!f.files || !f.files[0]) return;
+      compressImage(f.files[0]).then(function(data){
+        var path = "images/" + Date.now().toString(36) + Math.random().toString(36).slice(2,6) + ".jpg";
+        pendingImgs[path] = data;
+        t.value = "img:" + path;
+        refresh();
+      }).catch(function(){ toast("این تصویر باز نشد. یه عکس JPG یا PNG انتخاب کن."); });
+    };
+    f.click();
+  };
+  cl.onclick = function(){ t.value = ""; refresh(); t.focus(); };
+
+  row.appendChild(r); row.appendChild(t); row.appendChild(th); row.appendChild(pk); row.appendChild(cl);
+  refresh();
+  return row;
+}
+
+function buildLessonEditor(){
+  var L = elib.lessons[ei];
+  $("ed-title").value = L.title;
+  var list = $("ed-list"); list.innerHTML = "";
+  L.questions.forEach(function(x, qi){
+    var card = document.createElement("div"); card.className = "ed-q";
+    var h = document.createElement("h3");
+    var sp = document.createElement("span"); sp.textContent = "سؤال " + fa(qi+1);
+    var del = document.createElement("button"); del.type="button"; del.className="del"; del.textContent="حذف";
+    del.onclick = function(){
+      pullLesson();
+      if(L.questions.length <= 1){ toast("حداقل یک سؤال باید بمونه"); return; }
+      L.questions.splice(qi,1); buildLessonEditor();
+    };
+    h.appendChild(sp); h.appendChild(del); card.appendChild(h);
+
+    var l1 = document.createElement("label"); l1.className="lbl"; l1.textContent="متن سؤال"; card.appendChild(l1);
+    var ta = document.createElement("textarea"); ta.className="f-q"; ta.value = x.q; card.appendChild(ta);
+
+    var l2 = document.createElement("label"); l2.className="lbl"; l2.textContent="گزینه‌ها (جواب درست رو علامت بزن)"; card.appendChild(l2);
+    for(var oi=0; oi<4; oi++) card.appendChild(optionRow(qi, oi, x));
+    list.appendChild(card);
+  });
+}
+/* خوندن چیزی که توی صفحه نوشته شده (بدون اعتبارسنجی) */
+function pullQuiz(){
+  pullMeta(elib.lessons[ei]);
+  var L = elib.lessons[ei];
+  L.title = $("ed-title").value;
+  var cards = $("ed-list").children;
+  L.questions = Array.prototype.map.call(cards, function(c){
+    var opts = Array.prototype.map.call(c.querySelectorAll(".f-o"), function(i){ return i.value; });
+    var rs = c.querySelectorAll(".f-r"), ans = -1;
+    for(var i=0;i<rs.length;i++) if(rs[i].checked) ans = i;
+    return {q:c.querySelector(".f-q").value, options:opts, answer:ans};
+  });
+}
+/* تمیز کردن یک درس؛ اگه ایرادی داشته باشه پیام خطا برمی‌گردونه */
+function cleanQuiz(L){
+  var name = (L.title || "").trim();
+  if(!name) return {err:"اسم درس خالیه."};
+  var out = {id:L.id, title:name, cat:(L.cat || "").trim(), img:L.img || undefined, questions:[]};
+  for(var i=0;i<L.questions.length;i++){
+    var x = L.questions[i], n = i+1;
+    if(!x.q.trim()) return {err:"متن سؤال " + fa(n) + " خالیه."};
+    var opts = [], ans = -1;
+    for(var k=0;k<x.options.length;k++){
+      var t = x.options[k].trim();
+      if(t){ if(k === x.answer) ans = opts.length; opts.push(t); }
+    }
+    if(opts.length < 2) return {err:"سؤال " + fa(n) + " حداقل دو گزینه لازم داره."};
+    if(ans < 0) return {err:"برای سؤال " + fa(n) + " جواب درست رو (روی یه گزینه‌ی پرشده) علامت بزن."};
+    out.questions.push({q:x.q.trim(), options:opts, answer:ans});
+  }
+  if(!out.questions.length) return {err:"حداقل یک سؤال لازمه."};
+  return {ok:out};
+}
+/* یکی‌کردن ویرایش درس‌های چهارگزینه‌ای و املا */
+function pullLesson(){ var L = elib.lessons[ei]; if(isSpell(L)) pullSpell(); else if(isMatch(L)) pullMatch(); else pullQuiz(); }
+function cleanLesson(L){ return isSpell(L) ? cleanSpell(L) : (isMatch(L) ? cleanMatch(L) : cleanQuiz(L)); }
+/* ثبت تغییرات درس باز در پیش‌نویس */
+function applyLesson(){
+  pullLesson();
+  var r = cleanLesson(elib.lessons[ei]);
+  if(r.err){ toast(r.err); return false; }
+  elib.lessons[ei] = r.ok; dirty = true;
+  return true;
+}
+
+$("ed-add").onclick = function(){
+  pullLesson();
+  elib.lessons[ei].questions.push({q:"", options:["","","",""], answer:0});
+  buildLessonEditor();
+  var last = $("ed-list").lastElementChild; if(last) last.scrollIntoView({behavior:"smooth", block:"center"});
+};
+$("ed-apply").onclick = function(){
+  if(applyLesson()){ backToCat(); }
+};
+
+/* --- دسته و تصویر درس + ویرایش درس جور کردن --- */
+function mountMeta(L, slotId){
+  $(slotId).appendChild($("lesson-meta"));
+  refreshCover(L);
+}
+function pullMeta(L){ /* دسته از بخش مدیریت تعیین می‌شه، نه از اینجا */ }
+function refreshCover(L){
+  var th = $("lm-thumb");
+  if(L.img){ th.src = fileSrc(L.img); th.classList.remove("hidden"); $("lm-clr").classList.remove("hidden"); }
+  else { th.classList.add("hidden"); $("lm-clr").classList.add("hidden"); }
+}
+$("lm-pick").onclick = function(){
+  var f = document.createElement("input"); f.type = "file"; f.accept = "image/*";
+  f.onchange = function(){
+    if(!f.files || !f.files[0]) return;
+    compressImage(f.files[0]).then(function(data){
+      var path = "images/" + Date.now().toString(36) + Math.random().toString(36).slice(2,6) + ".jpg";
+      pendingImgs[path] = data;
+      var L = elib.lessons[ei]; L.img = path; dirty = true; refreshCover(L);
+    }).catch(function(){ toast("این تصویر باز نشد. یه عکس JPG یا PNG انتخاب کن."); });
+  };
+  f.click();
+};
+$("lm-clr").onclick = function(){ var L = elib.lessons[ei]; delete L.img; dirty = true; refreshCover(L); };
+
+function pairRow(x){
+  var row = document.createElement("div"); row.className = "pair-row";
+  var a = document.createElement("input"); a.type = "text"; a.className = "f-a"; a.value = x.a || ""; a.placeholder = "کلمه (ستون راست)";
+  var b = document.createElement("input"); b.type = "text"; b.className = "f-b"; b.value = x.b || ""; b.placeholder = "جفتش (ستون چپ)";
+  var del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "حذف";
+  del.onclick = function(){
+    pullMatch();
+    var L = elib.lessons[ei];
+    if(L.pairs.length <= 1){ toast("حداقل یک جفت باید بمونه"); return; }
+    var k = Array.prototype.indexOf.call($("me-pairs").children, row);
+    L.pairs.splice(k, 1); buildMatchEditor();
+  };
+  row.appendChild(a); row.appendChild(b); row.appendChild(del);
+  return row;
+}
+function buildMatchEditor(){
+  var L = elib.lessons[ei];
+  $("me-title").value = L.title; $("me-hint").value = L.hint || "";
+  var box = $("me-pairs"); box.innerHTML = "";
+  L.pairs.forEach(function(x){ box.appendChild(pairRow(x)); });
+}
+function pullMatch(){
+  var L = elib.lessons[ei];
+  pullMeta(L);
+  L.title = $("me-title").value; L.hint = $("me-hint").value;
+  L.pairs = Array.prototype.map.call($("me-pairs").children, function(r){
+    return {a:r.querySelector(".f-a").value, b:r.querySelector(".f-b").value};
+  });
+}
+function cleanMatch(L){
+  var name = (L.title || "").trim();
+  if(!name) return {err:"اسم درس خالیه."};
+  var out = {id:L.id, title:name, type:"match", hint:(L.hint || "").trim(), cat:(L.cat || "").trim(), img:L.img || undefined, pairs:[]};
+  var seenA = {}, seenB = {};
+  for(var i=0;i<L.pairs.length;i++){
+    var n = i+1, a = (L.pairs[i].a || "").trim(), b = (L.pairs[i].b || "").trim();
+    if(!a || !b) return {err:"ردیف " + fa(n) + " کامل نیست (هر دو کادر رو پر کن)."};
+    if(seenA[a]) return {err:"کلمه‌ی «" + a + "» توی ستون راست دوبار اومده."};
+    if(seenB[b]) return {err:"کلمه‌ی «" + b + "» توی ستون چپ دوبار اومده."};
+    seenA[a] = true; seenB[b] = true;
+    out.pairs.push({a:a, b:b});
+  }
+  if(out.pairs.length < 2) return {err:"حداقل دو جفت لازمه."};
+  if(out.pairs.length > 40) return {err:"حداکثر ۴۰ جفت."};
+  return {ok:out};
+}
+$("me-add").onclick = function(){
+  pullMatch();
+  elib.lessons[ei].pairs.push({a:"", b:""});
+  buildMatchEditor();
+  var last = $("me-pairs").lastElementChild; if(last) last.scrollIntoView({behavior:"smooth", block:"center"});
+};
+$("me-apply").onclick = function(){ if(applyLesson()){ backToCat(); } };
+$("me-save").onclick = function(){ if(applyLesson()) commitAll(this); };
+
+/* --- ویرایش درس املا --- */
+var recorder = null;   /* ضبط در حال انجام: {mr, card} */
+
+function blobToBuffer(blob){
+  return new Promise(function(res, rej){
+    var fr = new FileReader(); fr.onload = function(){ res(fr.result); }; fr.onerror = rej; fr.readAsArrayBuffer(blob);
+  });
+}
+function blobToDataURL(blob){
+  return new Promise(function(res, rej){
+    var fr = new FileReader(); fr.onload = function(){ res(fr.result); }; fr.onerror = rej; fr.readAsDataURL(blob);
+  });
+}
+function encodeWav(f32, rate){
+  var n = f32.length, buf = new ArrayBuffer(44 + n*2), v = new DataView(buf);
+  function w(o, t){ for(var i=0;i<t.length;i++) v.setUint8(o+i, t.charCodeAt(i)); }
+  w(0,"RIFF"); v.setUint32(4, 36 + n*2, true); w(8,"WAVE"); w(12,"fmt ");
+  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,rate,true); v.setUint32(28,rate*2,true); v.setUint16(32,2,true); v.setUint16(34,16,true);
+  w(36,"data"); v.setUint32(40, n*2, true);
+  for(var i=0;i<n;i++){ var x = Math.max(-1, Math.min(1, f32[i])); v.setInt16(44 + i*2, x < 0 ? x*0x8000 : x*0x7fff, true); }
+  return new Blob([buf], {type:"audio/wav"});
+}
+/* هر صدایی (ضبط یا فایل) رو به WAV تک‌کاناله‌ی ۱۶ کیلوهرتز تبدیل می‌کنه تا روی همه‌ی گوشی‌ها پخش بشه */
+function blobToWav(blob){
+  return blobToBuffer(blob).then(function(buf){
+    var c = ctx();
+    return new Promise(function(res, rej){
+      var p = c.decodeAudioData(buf, res, rej); if(p && p.catch) p.catch(rej);
+    });
+  }).then(function(ab){
+    var OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    var oc = new OAC(1, Math.max(1, Math.ceil(ab.duration * 16000)), 16000), src = oc.createBufferSource();
+    src.buffer = ab; src.connect(oc.destination); src.start(0);
+    return new Promise(function(res, rej){
+      var p = oc.startRendering(); if(p && p.then) p.then(res, rej);
+      oc.oncomplete = function(e){ res(e.renderedBuffer); };
+    });
+  }).then(function(rb){
+    var d = rb.getChannelData(0), n = d.length, a = 0, b = n - 1;
+    while(a < n && Math.abs(d[a]) < 0.02) a++;
+    while(b > a && Math.abs(d[b]) < 0.02) b--;
+    if(a >= b){ a = 0; b = n - 1; }
+    a = Math.max(0, a - 1600); b = Math.min(n - 1, b + 3200);
+    var seg = d.slice(a, b + 1);
+    if(seg.length > 16000 * 8) throw new Error("long");
+    var peak = 0, i;
+    for(i=0;i<seg.length;i++){ var m = Math.abs(seg[i]); if(m > peak) peak = m; }
+    if(peak > 0.01 && peak < 0.5){ var k = Math.min(4, 0.9 / peak); for(i=0;i<seg.length;i++) seg[i] *= k; }
+    return encodeWav(seg, 16000);
+  });
+}
+function newAudioPath(){ return "audio/" + Date.now().toString(36) + Math.random().toString(36).slice(2,6) + ".wav"; }
+
+function setCardAudio(card, blob, ui){
+  ui.status.textContent = "در حال آماده‌سازی صدا…";
+  blobToWav(blob).then(blobToDataURL).then(function(url){
+    var p = newAudioPath(); pendingImgs[p] = url; card._audio = p; ui.refresh();
+  }).catch(function(){
+    ui.refresh(); toast("این صدا آماده نشد. دوباره ضبط کن یا فایل دیگه‌ای انتخاب کن (کوتاه‌تر از ۸ ثانیه).");
+  });
+}
+function toggleRec(card, ui){
+  if(recorder && recorder.card === card){ try{ recorder.mr.stop(); }catch(e){} return; }
+  if(recorder){ toast("اول ضبط قبلی رو تموم کن"); return; }
+  if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || !window.MediaRecorder){
+    toast("این مرورگر ضبط صدا رو پشتیبانی نمی‌کنه. یه فایل صوتی انتخاب کن (📁)."); return;
+  }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    var mr = new MediaRecorder(stream), chunks = [];
+    mr.ondataavailable = function(e){ if(e.data && e.data.size) chunks.push(e.data); };
+    mr.onstop = function(){
+      stream.getTracks().forEach(function(t){ t.stop(); });
+      recorder = null; ui.rec.textContent = "🎤 ضبط";
+      if(!chunks.length){ ui.refresh(); toast("صدایی ضبط نشد"); return; }
+      setCardAudio(card, new Blob(chunks, {type: mr.mimeType || "audio/webm"}), ui);
+    };
+    recorder = {mr:mr, card:card};
+    ui.rec.textContent = "⏹ توقف"; ui.status.textContent = "در حال ضبط… کلمه رو واضح بگو و بعد توقف رو بزن";
+    mr.start();
+  }).catch(function(){ toast("اجازه‌ی میکروفون داده نشد. اجازه رو فعال کن یا فایل صوتی انتخاب کن (📁)."); });
+}
+
+function wordCard(wi, x){
+  var card = document.createElement("div"); card.className = "ed-q"; card._audio = x.audio || "";
+  var h = document.createElement("h3");
+  var sp1 = document.createElement("span"); sp1.textContent = "کلمه " + fa(wi+1);
+  var del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "حذف";
+  del.onclick = function(){
+    pullSpell();
+    var L = elib.lessons[ei];
+    if(L.words.length <= 1){ toast("حداقل یک کلمه باید بمونه"); return; }
+    L.words.splice(wi, 1); buildSpellEditor();
+  };
+  h.appendChild(sp1); h.appendChild(del); card.appendChild(h);
+
+  var l1 = document.createElement("label"); l1.className = "lbl"; l1.textContent = "کلمه (به فارسی)"; card.appendChild(l1);
+  var inp = document.createElement("input"); inp.type = "text"; inp.className = "f-w"; inp.value = x.w || ""; card.appendChild(inp);
+
+  var l2 = document.createElement("label"); l2.className = "lbl"; l2.textContent = "صدای کلمه"; card.appendChild(l2);
+  var row = document.createElement("div"); row.className = "m-btns";
+  function mk(txt){ var b = document.createElement("button"); b.type = "button"; b.className = "btn small ghost"; b.textContent = txt; row.appendChild(b); return b; }
+  var rec = mk("🎤 ضبط"), fileB = mk("📁 فایل"), play = mk("▶️ پخش"), clr = mk("🗑️ حذف صدا");
+  var status = document.createElement("div"); status.className = "hint";
+  var ui = {rec:rec, status:status, refresh:function(){
+    var has = !!card._audio;
+    status.textContent = has ? ("✓ صدا آماده است" + (pendingImgs[card._audio] && !uploadedImgs[card._audio] ? " (هنوز ذخیره نشده)" : "")) : "هنوز صدایی نیست";
+    play.disabled = !has; clr.disabled = !has;
+  }};
+  rec.onclick = function(){ toggleRec(card, ui); };
+  fileB.onclick = function(){
+    var f = document.createElement("input"); f.type = "file"; f.accept = "audio/*";
+    f.onchange = function(){ if(f.files && f.files[0]) setCardAudio(card, f.files[0], ui); };
+    f.click();
+  };
+  play.onclick = function(){
+    if(!card._audio) return;
+    var a = new Audio(fileSrc(card._audio));
+    a.onerror = function(){ toast("صدا هنوز آماده نیست؛ چند دقیقه بعد دوباره امتحان کن"); };
+    var pr = a.play(); if(pr && pr.catch) pr.catch(function(){});
+  };
+  clr.onclick = function(){ card._audio = ""; ui.refresh(); };
+  card.appendChild(row); card.appendChild(status);
+  ui.refresh();
+  return card;
+}
+function buildSpellEditor(){
+  var L = elib.lessons[ei];
+  $("se-title").value = L.title;
+  $("se-mode-listen").checked = (L.mode !== "scramble");
+  $("se-mode-scramble").checked = (L.mode === "scramble");
+  $("se-extra").value = L.extra; $("se-secs").value = L.seconds;
+  var box = $("se-words"); box.innerHTML = "";
+  L.words.forEach(function(x, wi){ box.appendChild(wordCard(wi, x)); });
+}
+function pullSpell(){
+  pullMeta(elib.lessons[ei]);
+  var L = elib.lessons[ei];
+  L.title = $("se-title").value;
+  L.mode = $("se-mode-scramble").checked ? "scramble" : "listen";
+  L.extra = parseInt($("se-extra").value, 10); L.seconds = parseInt($("se-secs").value, 10);
+  L.words = Array.prototype.map.call($("se-words").children, function(c){
+    return {w:c.querySelector(".f-w").value, audio:c._audio || ""};
+  });
+}
+function cleanSpell(L){
+  var name = (L.title || "").trim();
+  if(!name) return {err:"اسم درس خالیه."};
+  var extra = isFinite(L.extra) ? Math.max(0, Math.min(6, L.extra)) : 3;
+  var secs = isFinite(L.seconds) ? Math.max(0, Math.min(120, L.seconds)) : 0;
+  var out = {id:L.id, title:name, type:"spell", mode:(L.mode === "scramble" ? "scramble" : "listen"), extra:extra, seconds:secs, cat:(L.cat || "").trim(), img:L.img || undefined, words:[]};
+  for(var i=0;i<L.words.length;i++){
+    var x = L.words[i], n = i+1, w = normFa((x.w || "").trim());
+    if(!w) return {err:"کلمه‌ی " + fa(n) + " خالیه."};
+    var len = letterList(w).length;
+    if(len < 2) return {err:"کلمه‌ی " + fa(n) + " باید حداقل دو حرف داشته باشه."};
+    if(len > 14) return {err:"کلمه‌ی «" + w + "» خیلی بلنده (حداکثر ۱۴ حرف)."};
+    if(out.mode === "listen" && !x.audio) return {err:"برای کلمه‌ی «" + w + "» صدا ضبط کن یا فایل صوتی انتخاب کن."};
+    out.words.push({w:w, audio:x.audio || ""});
+  }
+  if(!out.words.length) return {err:"حداقل یک کلمه لازمه."};
+  return {ok:out};
+}
+$("se-add").onclick = function(){
+  pullSpell();
+  elib.lessons[ei].words.push({w:"", audio:""});
+  buildSpellEditor();
+  var last = $("se-words").lastElementChild; if(last) last.scrollIntoView({behavior:"smooth", block:"center"});
+};
+$("se-apply").onclick = function(){ if(applyLesson()){ backToCat(); } };
+$("se-save").onclick = function(){ if(applyLesson()) commitAll(this); };
+
+/* --- ذخیره در نسخه اصلی (گیت‌هاب) --- */
+/* تصویرهای تازه رو یکی‌یکی آپلود می‌کنه؛ موفق بشه null، وگرنه جواب خطا رو برمی‌گردونه */
+function uploadImages(paths, onProg){
+  var i = 0;
+  function next(){
+    if(i >= paths.length) return Promise.resolve(null);
+    var p = paths[i++];
+    onProg(i, paths.length);
+    var b64 = pendingImgs[p].split(",")[1];
+    return gh(cfg, "PUT", "/contents/" + p, {message:"Add quiz image", content:b64}).then(function(r){
+      if(r.status === 200 || r.status === 201){ uploadedImgs[p] = true; return delay(700).then(next); }
+      return r;
+    });
+  }
+  return next();
+}
+
+function commitAll(btn){
+  var out = {title:((elib.title || "").trim() || "آزمون‌ها"), lessons:[]};
+  for(var i=0;i<elib.lessons.length;i++){
+    var L = elib.lessons[i], r = cleanLesson(L);
+    if(r.err){ toast("درس «" + ((L.title || "").trim() || ("شماره " + fa(i+1))) + "»: " + r.err); return; }
+    out.lessons.push(r.ok);
+  }
+  var catsOut = [];
+  (elib.cats || []).forEach(function(c){ c = String(c).trim(); if(c && catsOut.indexOf(c) < 0) catsOut.push(c); });
+  out.lessons.forEach(function(L){
+    if(!L.cat) L.cat = "سایر";
+    if(catsOut.indexOf(L.cat) < 0) catsOut.push(L.cat);
+  });
+  out.cats = catsOut;
+  if(!cfg){ showLogin(); return; }
+
+  /* تصویرهای استفاده‌شده‌ای که هنوز آپلود نشدن */
+  var paths = [];
+  out.lessons.forEach(function(L){
+    function add(p){ if(pendingImgs[p] && !uploadedImgs[p] && paths.indexOf(p) < 0) paths.push(p); }
+    if(L.img) add(L.img);
+    if(isSpell(L)){ L.words.forEach(function(x){ if(x.audio) add(x.audio); }); }
+    else if(!isMatch(L)) L.questions.forEach(function(q){ q.options.forEach(function(o){ if(isImg(o)) add(o.slice(4)); }); });
+  });
+
+  var old = btn.textContent; btn.disabled = true; btn.textContent = "در حال ذخیره…";
+  var path = "/contents/" + DATA_FILE;
+  uploadImages(paths, function(i, n){ btn.textContent = "در حال آپلود فایل " + fa(i) + " از " + fa(n) + "…"; })
+  .then(function(failed){
+    if(failed) return failed;
+    btn.textContent = "در حال ذخیره…";
+    return gh(cfg, "GET", path).then(function(g){
+      if(g.status !== 200 && g.status !== 404) return g;
+      var body = {
+        message: "Update quiz lessons",
+        content: toB64(JSON.stringify(out, null, 2) + "\n")
+      };
+      if(g.status === 200 && g.json && g.json.sha) body.sha = g.json.sha;
+      return gh(cfg, "PUT", path, body);
+    });
+  }).then(function(p){
+    if(p.status === 200 || p.status === 201){
+      lib = clone(out); dirty = false;
+      lsSet(PENDING_KEY, JSON.stringify({data:lib, t:Date.now()}));
+      toast("ذخیره شد ✓ تا چند دقیقه‌ی دیگه برای همه اعمال می‌شه (تصویرها و صداها ممکنه کمی دیرتر بیان)");
+      goHome();
+    } else if(p.status === 401){
+      toast("رمز منقضی شده یا اشتباهه. دوباره وارد شو."); lsDel(CFG_KEY); cfg = null; showLogin();
+    } else if(p.status === 403 || p.status === 404){
+      toast("این رمز اجازه‌ی نوشتن توی مخزن رو نداره یا گیت‌هاب موقتاً محدود کرده. دسترسی Contents باید Read and write باشه؛ اگه درسته، چند دقیقه بعد دوباره امتحان کن.");
+    } else if(p.status === 409 || p.status === 422){
+      toast("هم‌زمان تغییری ثبت شده بود. یه بار دوباره ذخیره رو بزن.");
+    } else {
+      toast("ذخیره نشد (خطای " + p.status + "). کمی بعد دوباره امتحان کن.");
+    }
+  }).catch(function(){ toast(netErr()); })
+    .then(function(){ btn.disabled = false; btn.textContent = old; });
+}
+$("m-save").onclick = function(){ commitAll(this); };
+$("ed-save").onclick = function(){ if(applyLesson()) commitAll(this); };
+
+$("m-logout").onclick = function(){
+  if(!confirm("رمز از این دستگاه پاک می‌شه و دفعه‌ی بعد باید دوباره واردش کنی. ادامه بدیم؟")) return;
+  lsDel(CFG_KEY); cfg = null; showLogin();
+};
+
+$("open-ed").onclick = openEditor;
+$("open-ed2").onclick = openEditor;
+$("ed-back").onclick = function(){
+  if(panel === "lesson" || panel === "spell" || panel === "match"){
+    if(confirm("تغییرات این درس ثبت نشه و برگردیم به لیست درس‌ها؟")) backToCat();
+    return;
+  }
+  if(panel === "cat"){ renderManager(); showPanel("manager"); return; }
+  if(panel === "manager" && dirty && !confirm("ذخیره‌نشده‌ها از بین می‌رن. برگردیم؟")) return;
+  goHome();
+};
+
+/* ===== شروع ===== */
+applyTheme();
+fetchRemote().then(function(d){ lib = d; }).catch(function(){})
+  .then(function(){
+    var p = readPending(); if(p) lib = p;
+    route();
+  });
+</script>
+</body>
+</html>
