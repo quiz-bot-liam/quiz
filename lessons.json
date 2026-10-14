@@ -240,6 +240,65 @@
           "b": "مهتاب"
         }
       ]
+    },
+    {
+      "id": "lmv8f6kwg",
+      "title": "املا - خداوند رنگین کمان",
+      "type": "spell",
+      "mode": "listen",
+      "extra": 3,
+      "seconds": 25,
+      "cat": "فارسی",
+      "words": [
+        {
+          "w": "ستایش",
+          "audio": "audio/mv8f7a15wm56.wav"
+        },
+        {
+          "w": "بخشنده ی مهربان",
+          "audio": "audio/mv8f7i8p7ykl.wav"
+        },
+        {
+          "w": "سنجاقک",
+          "audio": "audio/mv8f7yyvym58.wav"
+        },
+        {
+          "w": "رنگین کمان",
+          "audio": "audio/mv8f87wldtoj.wav"
+        },
+        {
+          "w": "صمیمی تر",
+          "audio": "audio/mv8f8ikwnfsw.wav"
+        },
+        {
+          "w": "ساده",
+          "audio": "audio/mv8f8r2kitdc.wav"
+        },
+        {
+          "w": "صاف",
+          "audio": "audio/mv8f8z6f7xfx.wav"
+        },
+        {
+          "w": "بی کینه",
+          "audio": "audio/mv8f96mmbxy6.wav"
+        },
+        {
+          "w": "روشن",
+          "audio": "audio/mv8f9fff6zpc.wav"
+        },
+        {
+          "w": "سبزه",
+          "audio": "audio/mv8f9n7oq7un.wav"
+        },
+        {
+          "w": "آسمانی",
+          "audio": "audio/mv8fa8qfhba7.wav"
+        },
+        {
+          "w": "بهتر",
+          "audio": "audio/mv8fai1ld5zo.wav"
+        }
+      ]
     }
   ],
   "cats": [
