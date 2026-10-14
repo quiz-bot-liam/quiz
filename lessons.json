@@ -171,6 +171,22 @@
           "answer": 0
         }
       ]
+    },
+    {
+      "id": "lmv8entvd",
+      "title": "فارسی درس اول (محله ما)",
+      "type": "spell",
+      "mode": "listen",
+      "extra": 3,
+      "seconds": 25,
+      "cat": "فارسی",
+      "img": "images/mv8epwmtef0k.jpg",
+      "words": [
+        {
+          "w": "گنبد فیروزه ای",
+          "audio": "audio/mv8eqvq7umbi.wav"
+        }
+      ]
     }
   ],
   "cats": [
