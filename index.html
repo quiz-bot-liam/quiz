@@ -125,10 +125,34 @@ h1 mark,.qtitle span{background:var(--hi);color:#12353b;padding:0 10px;border-ra
 .nm-row{display:flex;gap:8px;align-items:center}
 .lb-h{margin:14px 0 0;text-align:center;font-size:19px}
 
+.sp-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;min-height:44px}
+.pill{background:var(--hi);color:#12353b;border-radius:99px;padding:2px 14px;font-weight:bold;font-size:19px;min-width:96px;text-align:center}
+.pill.low{background:var(--bad-bg);color:var(--bad)}
+.sp-hint{color:var(--muted);text-align:center;margin:0 0 14px;font-size:16px}
+.tiles,.slots{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;direction:rtl}
+.tile{
+  width:54px;height:58px;border-radius:12px;border:2px solid var(--line);background:var(--paper);
+  font-size:30px;font-weight:bold;line-height:1;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 0 var(--line);padding:0;
+}
+.tile:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.tile.used{opacity:.22;box-shadow:none}
+.tile:disabled{cursor:default}
+.slots{margin:18px 0 6px;padding:16px 8px 10px;border:3px solid var(--ink);border-radius:18px;background:var(--paper)}
+.slot{
+  width:48px;height:62px;background:none;border:0;border-bottom:5px solid var(--line);border-radius:4px;
+  font-size:32px;font-weight:bold;line-height:1.3;padding:0;
+}
+.slot.filled{border-bottom-color:var(--brand)}
+.slot.ok{color:var(--ok);border-bottom-color:var(--ok)}
+.slot.bad{color:var(--bad);border-bottom-color:var(--bad)}
+.radio-row{display:flex;gap:8px;align-items:center;margin:6px 0;font-size:16px}
+.radio-row input{width:20px;height:20px;accent-color:var(--brand);flex:none}
+
 .ed-q{border:2px solid var(--line);border-radius:16px;padding:12px;margin-bottom:14px;background:var(--paper)}
 .ed-q h3{margin:0 0 8px;font-size:17px;display:flex;justify-content:space-between;align-items:center}
 label.lbl{display:block;font-size:15px;color:var(--muted);margin:8px 0 2px}
-textarea,input[type=text],input[type=password]{
+textarea,input[type=text],input[type=password],input[type=number]{
   width:100%;font:inherit;font-size:17px;padding:8px 10px;border-radius:10px;
   border:2px solid var(--line);background:var(--bg);color:var(--ink);
 }
@@ -226,6 +250,28 @@ textarea{min-height:70px;resize:vertical}
     </div>
   </section>
 
+  <!-- بازی املا -->
+  <section id="s-spell" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="sp-home" aria-label="خانه">🏠</button>
+      <div class="progress" aria-hidden="true"><i id="sp-bar"></i></div>
+      <div class="count" id="sp-count"></div>
+      <button class="icon-btn snd" aria-label="صدا">🔊</button>
+    </div>
+    <div class="qtitle"><span id="stitle"></span></div>
+    <div class="card">
+      <div class="sp-top">
+        <span class="pill hidden" id="sp-timer"></span>
+        <button class="btn small hidden" id="sp-listen" type="button">🔊 شنیدن کلمه</button>
+      </div>
+      <p class="sp-hint" id="sp-hint"></p>
+      <div class="tiles" id="sp-tiles"></div>
+      <div class="slots" id="sp-slots"></div>
+      <div class="feedback" id="sp-fb" aria-live="polite"></div>
+      <button class="btn hidden" id="sp-next">کلمه‌ی بعدی</button>
+    </div>
+  </section>
+
   <!-- جدول برتر -->
   <section id="s-board" class="hidden">
     <div class="top">
@@ -274,9 +320,30 @@ textarea{min-height:70px;resize:vertical}
       <p class="hint">هر درس یه لینک مخصوص خودش داره. بعد از هر تغییر (درس جدید، حذف یا ویرایش) حتماً «ذخیره‌ی همه در نسخه اصلی» رو بزن؛ لینک درس‌های جدید هم بعد از ذخیره کار می‌کنه.</p>
       <div id="m-list"></div>
       <div class="row">
-        <button class="btn ghost" id="m-add">➕ درس جدید</button>
+        <button class="btn ghost" id="m-add">➕ درس چهارگزینه‌ای جدید</button>
+        <button class="btn ghost" id="m-add-spell">➕ درس املای جدید</button>
         <button class="btn" id="m-save">ذخیره‌ی همه در نسخه اصلی</button>
         <button class="btn ghost" id="m-logout">خروج (پاک کردن رمز از این دستگاه)</button>
+      </div>
+    </div>
+
+    <!-- ویرایش درس املا -->
+    <div id="p-spell" class="hidden">
+      <p class="hint">کلمه‌ها رو بنویس. توی حالت «با صدا» برای هر کلمه صدا ضبط کن (🎤) یا فایل صوتی انتخاب کن (📁)؛ بچه فقط صدا رو می‌شنوه و باید حروف رو درست بچینه. توی حالت «حروف به‌هم‌ریخته» صدا لازم نیست.</p>
+      <label class="lbl" for="se-title">اسم درس</label>
+      <input type="text" id="se-title" style="margin-bottom:10px">
+      <label class="lbl">نوع بازی</label>
+      <label class="radio-row"><input type="radio" name="se-mode" id="se-mode-listen" value="listen"> با صدا: فقط جای خالی + صدای کلمه + زمان</label>
+      <label class="radio-row"><input type="radio" name="se-mode" id="se-mode-scramble" value="scramble"> حروف به‌هم‌ریخته بالا + جای خالی</label>
+      <label class="lbl" for="se-extra">تعداد حرف اضافه برای گیج کردن (پیشنهاد: ۳)</label>
+      <input type="number" id="se-extra" min="0" max="6" inputmode="numeric">
+      <label class="lbl" for="se-secs">زمان هر کلمه به ثانیه (۰ یعنی بدون زمان)</label>
+      <input type="number" id="se-secs" min="0" max="120" inputmode="numeric" style="margin-bottom:14px">
+      <div id="se-words"></div>
+      <div class="row">
+        <button class="btn ghost" id="se-add">➕ کلمه‌ی جدید</button>
+        <button class="btn ghost" id="se-apply">تأیید و برگشت به لیست درس‌ها</button>
+        <button class="btn" id="se-save">ذخیره‌ی همه در نسخه اصلی</button>
       </div>
     </div>
 
@@ -363,11 +430,20 @@ function validQuestion(x){
          x.options.every(function(o){ return typeof o === "string"; }) &&
          Number.isInteger(x.answer) && x.answer >= 0 && x.answer < x.options.length;
 }
+function isSpell(L){ return !!L && L.type === "spell"; }
+function lessonCount(L){ return isSpell(L) ? L.words.length : L.questions.length; }
+function lessonUnit(L){ return isSpell(L) ? "کلمه" : "سؤال"; }
+function validSpell(L){
+  return Array.isArray(L.words) && L.words.length > 0 &&
+         L.words.every(function(x){ return x && typeof x.w === "string" && x.w.trim() && (x.audio === undefined || typeof x.audio === "string"); }) &&
+         (L.mode === "listen" || L.mode === "scramble") && isFinite(L.extra) && isFinite(L.seconds);
+}
 function validLib(d){
   if(!d || !Array.isArray(d.lessons) || !d.lessons.length) return false;
   return d.lessons.every(function(L){
-    return L && typeof L.id === "string" && L.id && typeof L.title === "string" &&
-           Array.isArray(L.questions) && L.questions.length && L.questions.every(validQuestion);
+    if(!(L && typeof L.id === "string" && L.id && typeof L.title === "string")) return false;
+    if(isSpell(L)) return validSpell(L);
+    return Array.isArray(L.questions) && L.questions.length && L.questions.every(validQuestion);
   });
 }
 
@@ -491,19 +567,22 @@ all(".snd").forEach(function(b){
   b.onclick = function(){
     soundOn = !soundOn;
     all(".snd").forEach(function(x){ x.textContent = soundOn ? "🔊" : "🔇"; });
-    if(!soundOn) stopMusic(); else if(inPlay) startMusic();
+    if(!soundOn) stopMusic(); else if(wantMusic()) startMusic();
   };
 });
 document.addEventListener("visibilitychange", function(){
-  if(document.hidden) stopMusic(); else if(inPlay) startMusic();
+  if(document.hidden) stopMusic(); else if(wantMusic()) startMusic();
 });
 
 /* ===== جابه‌جایی بین صفحه‌ها ===== */
 var inPlay = false;
+/* موسیقی فقط وقتی پخش می‌شه که صدای کلمه‌ی املا رو خراب نکنه */
+function wantMusic(){ return inPlay && !(cur && isSpell(cur) && cur.mode === "listen"); }
 function show(id){
-  ["s-home","s-start","s-quiz","s-result","s-board","s-edit"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); });
-  inPlay = (id === "s-quiz" || id === "s-result");
-  if(inPlay) startMusic(); else stopMusic();
+  ["s-home","s-start","s-quiz","s-spell","s-result","s-board","s-edit"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); });
+  if(id !== "s-spell") spCleanup();
+  inPlay = (id === "s-quiz" || id === "s-spell" || id === "s-result");
+  if(wantMusic()) startMusic(); else stopMusic();
   window.scrollTo(0,0);
 }
 
@@ -539,7 +618,7 @@ function renderHome(){
   lib.lessons.forEach(function(L){
     var b = document.createElement("button"); b.type = "button"; b.className = "lesson-btn";
     var t = document.createElement("span"); t.textContent = L.title;
-    var s = document.createElement("small"); s.textContent = fa(L.questions.length) + " سؤال";
+    var s = document.createElement("small"); s.textContent = fa(lessonCount(L)) + " " + lessonUnit(L);
     b.appendChild(t); b.appendChild(s);
     b.onclick = function(){ openLesson(L); };
     box.appendChild(b);
@@ -551,7 +630,9 @@ function openLesson(L){
   $("title").innerHTML = "";
   var m = document.createElement("mark"); m.textContent = L.title;
   $("title").appendChild(m);
-  $("sub").textContent = "آزمون چندگزینه‌ای · " + fa(L.questions.length) + " سؤال";
+  $("sub").textContent = isSpell(L)
+    ? "املا · " + (L.mode === "listen" ? "با صدا" : "حروف به‌هم‌ریخته") + " · " + fa(L.words.length) + " کلمه"
+    : "آزمون چندگزینه‌ای · " + fa(L.questions.length) + " سؤال";
   $("to-lessons").classList.toggle("hidden", lib.lessons.length < 2);
   show("s-start");
 }
@@ -572,6 +653,7 @@ function route(){
 var quiz = [], idx = 0, score = 0, missed = [], locked = false;
 
 function startQuiz(){
+  if(isSpell(cur)){ startSpell(); return; }
   quiz = shuffle(cur.questions).map(function(x){
     var opts = x.options.map(function(t,i){ return {t:t, ok:i===x.answer}; });
     return {q:x.q, opts:shuffle(opts)};
@@ -677,6 +759,146 @@ $("again").onclick = function(){ applyTheme(); startQuiz(); };
 $("to-home").onclick = goHome;
 $("to-lessons").onclick = goHome;
 $("home").onclick = function(){ if(confirm("برگردیم؟ پیشرفت این دور از بین می‌ره.")) goHome(); };
+
+/* ===== بازی املا ===== */
+var ALPHA = Array.from("ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیآ");
+var sp = {list:[], tiles:[], slots:[], word:"", locked:false, timer:null, left:0, started:false, audio:null, mark:""};
+
+function normFa(t){
+  return String(t).replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/ى/g,"ی").replace(/\u0627\u0653/g,"آ");
+}
+function letterList(w){ return Array.from(normFa(w).replace(/[\s\u200c\u200d]/g,"")); }
+function fileSrc(p){ return pendingImgs[p] || p; }
+
+function spStopAudio(){
+  if(sp.audio){
+    try{ sp.audio.pause(); }catch(e){}
+    sp.audio.onended = null; sp.audio.onerror = null; sp.audio = null;
+  }
+}
+function spClearTimer(){ if(sp.timer){ clearInterval(sp.timer); sp.timer = null; } }
+function spCleanup(){ spClearTimer(); spStopAudio(); }
+
+function startSpell(){
+  sp.list = shuffle(cur.words);
+  quiz = sp.list; idx = 0; score = 0; missed = []; quizStart = Date.now();
+  $("stitle").textContent = cur.title;
+  show("s-spell");
+  renderSpell();
+}
+
+function drawTimer(){
+  var el = $("sp-timer");
+  el.textContent = "⏱ " + fa(Math.max(0, sp.left)) + " ثانیه";
+  el.classList.toggle("low", sp.left <= 5);
+}
+function spStartTimer(){
+  if(sp.started || sp.locked) return;
+  sp.started = true;
+  if(!(cur.seconds > 0)) return;
+  spClearTimer();
+  sp.timer = setInterval(function(){
+    sp.left--; drawTimer();
+    if(sp.left <= 0){ spClearTimer(); spCheck(true); }
+  }, 1000);
+}
+function spPlay(it, first){
+  spStopAudio();
+  var armed = first && !sp.started;
+  function kick(){ if(armed) spStartTimer(); }
+  if(!it.audio){ kick(); return; }
+  var a = new Audio(fileSrc(it.audio)); sp.audio = a;
+  a.onended = kick;
+  a.onerror = function(){ toast("صدا هنوز آماده نیست؛ چند دقیقه بعد دوباره امتحان کن"); kick(); };
+  var pr = a.play();
+  if(pr && pr.catch) pr.catch(function(){ toast("برای شنیدن کلمه دکمه‌ی «شنیدن کلمه» رو بزن"); });
+}
+
+function renderSpell(){
+  spCleanup();
+  sp.locked = false; sp.started = false; sp.mark = "";
+  var it = sp.list[idx], letters = letterList(it.w);
+  sp.word = letters.join("");
+  var base = letters.map(function(ch){ return {ch:ch, used:false}; });
+  var pool = ALPHA.filter(function(ch){ return letters.indexOf(ch) < 0; });
+  var extras = shuffle(pool).slice(0, Math.max(0, cur.extra || 0)).map(function(ch){ return {ch:ch, used:false}; });
+  var tiles = base.concat(extras), tries = 0;
+  do { tiles = shuffle(tiles); tries++; }
+  while(tries < 12 && !extras.length && letters.length > 1 && tiles.map(function(t){ return t.ch; }).join("") === sp.word);
+  sp.tiles = tiles;
+  sp.slots = letters.map(function(){ return -1; });
+
+  $("sp-count").textContent = fa(idx+1) + " از " + fa(sp.list.length);
+  $("sp-bar").style.width = (idx / sp.list.length * 100) + "%";
+  $("sp-fb").textContent = ""; $("sp-fb").className = "feedback";
+  $("sp-next").classList.add("hidden");
+  var listen = cur.mode === "listen", hasTimer = cur.seconds > 0;
+  $("sp-listen").classList.toggle("hidden", !listen);
+  $("sp-hint").textContent = listen ? "به صدا گوش کن و حروف رو به ترتیب بذار" : "حروف رو سر جاشون بذار تا کلمه درست بشه";
+  $("sp-timer").classList.toggle("hidden", !hasTimer);
+  if(hasTimer){ sp.left = cur.seconds; drawTimer(); }
+  drawSpell();
+  if(listen) spPlay(it, true); else spStartTimer();
+}
+
+function drawSpell(){
+  var tb = $("sp-tiles"), sb = $("sp-slots");
+  tb.innerHTML = ""; sb.innerHTML = "";
+  sp.tiles.forEach(function(t, i){
+    var b = document.createElement("button"); b.type = "button";
+    b.className = "tile" + (t.used ? " used" : "");
+    b.textContent = t.ch; b.disabled = t.used || sp.locked;
+    b.onclick = function(){ spPlace(i); };
+    tb.appendChild(b);
+  });
+  sp.slots.forEach(function(ti, k){
+    var b = document.createElement("button"); b.type = "button";
+    b.className = "slot" + (ti >= 0 ? " filled" : "") + (sp.locked && sp.mark ? " " + sp.mark : "");
+    b.textContent = ti >= 0 ? sp.tiles[ti].ch : "";
+    b.setAttribute("aria-label", "جای خالی " + fa(k+1));
+    b.disabled = sp.locked || ti < 0;
+    b.onclick = function(){ spRemove(k); };
+    sb.appendChild(b);
+  });
+}
+function spPlace(i){
+  if(sp.locked || sp.tiles[i].used) return;
+  var k = sp.slots.indexOf(-1); if(k < 0) return;
+  sp.slots[k] = i; sp.tiles[i].used = true;
+  drawSpell();
+  if(sp.slots.indexOf(-1) < 0) spCheck(false);
+}
+function spRemove(k){
+  if(sp.locked) return;
+  var ti = sp.slots[k]; if(ti < 0) return;
+  sp.tiles[ti].used = false; sp.slots[k] = -1;
+  drawSpell();
+}
+function spCheck(timeout){
+  if(sp.locked) return;
+  sp.locked = true; spClearTimer();
+  var got = sp.slots.map(function(i){ return i >= 0 ? sp.tiles[i].ch : ""; }).join("");
+  var ok = !timeout && got === sp.word, fb = $("sp-fb"), word = sp.list[idx].w.trim();
+  if(ok){
+    score++; sp.mark = "ok";
+    fb.textContent = "آفرین! درسته 🎉"; fb.className = "feedback good";
+    beep([[660,.12],[880,.18]]);
+  } else {
+    sp.mark = "bad"; missed.push({q:"املای درست", a:word});
+    fb.textContent = (timeout ? "وقت تموم شد ⏰ " : "این بار نشد. ") + "املای درست: " + word;
+    fb.className = "feedback bad"; beep([[220,.25]]);
+  }
+  drawSpell();
+  $("sp-bar").style.width = ((idx+1) / sp.list.length * 100) + "%";
+  var nx = $("sp-next");
+  nx.textContent = (idx === sp.list.length-1) ? "دیدن نتیجه" : "کلمه‌ی بعدی";
+  nx.classList.remove("hidden");
+}
+$("sp-listen").onclick = function(){ if(sp.locked) return; spPlay(sp.list[idx], !sp.started); };
+$("sp-next").onclick = function(){
+  if(idx < sp.list.length-1){ idx++; renderSpell(); } else { spCleanup(); finish(); }
+};
+$("sp-home").onclick = function(){ if(confirm("برگردیم؟ پیشرفت این دور از بین می‌ره.")) goHome(); };
 
 /* ===== جدول برتر (فقط روی همین دستگاه ذخیره می‌شه) ===== */
 var BOARD_KEY = "quiz-board-v1", NAME_KEY = "quiz-last-name";
@@ -784,8 +1006,9 @@ var cfg = null, elib = null, ei = -1, dirty = false, panel = "login";
 
 function showPanel(p){
   panel = p;
-  ["login","manager","lesson"].forEach(function(n){ $("p-" + n).classList.toggle("hidden", n !== p); });
-  $("ed-head").textContent = p === "lesson" ? "ویرایش درس" : "مدیریت درس‌ها";
+  if(recorder){ try{ recorder.mr.stop(); }catch(e){} }
+  ["login","manager","lesson","spell"].forEach(function(n){ $("p-" + n).classList.toggle("hidden", n !== p); });
+  $("ed-head").textContent = (p === "lesson" || p === "spell") ? "ویرایش درس" : "مدیریت درس‌ها";
   window.scrollTo(0,0);
 }
 
@@ -828,7 +1051,7 @@ function renderManager(){
     var item = document.createElement("div"); item.className = "m-item";
     var t = document.createElement("div"); t.className = "t";
     t.appendChild(document.createTextNode((L.title || "(بدون اسم)") + " "));
-    var s = document.createElement("small"); s.textContent = "· " + fa(L.questions.length) + " سؤال";
+    var s = document.createElement("small"); s.textContent = "· " + fa(lessonCount(L)) + " " + lessonUnit(L) + (isSpell(L) ? " · املا" : "");
     t.appendChild(s); item.appendChild(t);
 
     var row = document.createElement("div"); row.className = "m-btns";
@@ -872,8 +1095,8 @@ $("m-add").onclick = function(){
 /* --- ویرایش یک درس --- */
 function editLesson(i){
   ei = i;
-  buildLessonEditor();
-  showPanel("lesson");
+  if(isSpell(elib.lessons[i])){ buildSpellEditor(); showPanel("spell"); }
+  else { buildLessonEditor(); showPanel("lesson"); }
 }
 
 /* یه ردیف گزینه: دایره‌ی جواب درست + متن یا تصویر */
@@ -942,7 +1165,7 @@ function buildLessonEditor(){
   });
 }
 /* خوندن چیزی که توی صفحه نوشته شده (بدون اعتبارسنجی) */
-function pullLesson(){
+function pullQuiz(){
   var L = elib.lessons[ei];
   L.title = $("ed-title").value;
   var cards = $("ed-list").children;
@@ -954,7 +1177,7 @@ function pullLesson(){
   });
 }
 /* تمیز کردن یک درس؛ اگه ایرادی داشته باشه پیام خطا برمی‌گردونه */
-function cleanLesson(L){
+function cleanQuiz(L){
   var name = (L.title || "").trim();
   if(!name) return {err:"اسم درس خالیه."};
   var out = {id:L.id, title:name, questions:[]};
@@ -973,6 +1196,9 @@ function cleanLesson(L){
   if(!out.questions.length) return {err:"حداقل یک سؤال لازمه."};
   return {ok:out};
 }
+/* یکی‌کردن ویرایش درس‌های چهارگزینه‌ای و املا */
+function pullLesson(){ if(isSpell(elib.lessons[ei])) pullSpell(); else pullQuiz(); }
+function cleanLesson(L){ return isSpell(L) ? cleanSpell(L) : cleanQuiz(L); }
 /* ثبت تغییرات درس باز در پیش‌نویس */
 function applyLesson(){
   pullLesson();
@@ -991,6 +1217,187 @@ $("ed-add").onclick = function(){
 $("ed-apply").onclick = function(){
   if(applyLesson()){ renderManager(); showPanel("manager"); }
 };
+
+/* --- ویرایش درس املا --- */
+var recorder = null;   /* ضبط در حال انجام: {mr, card} */
+
+function blobToBuffer(blob){
+  return new Promise(function(res, rej){
+    var fr = new FileReader(); fr.onload = function(){ res(fr.result); }; fr.onerror = rej; fr.readAsArrayBuffer(blob);
+  });
+}
+function blobToDataURL(blob){
+  return new Promise(function(res, rej){
+    var fr = new FileReader(); fr.onload = function(){ res(fr.result); }; fr.onerror = rej; fr.readAsDataURL(blob);
+  });
+}
+function encodeWav(f32, rate){
+  var n = f32.length, buf = new ArrayBuffer(44 + n*2), v = new DataView(buf);
+  function w(o, t){ for(var i=0;i<t.length;i++) v.setUint8(o+i, t.charCodeAt(i)); }
+  w(0,"RIFF"); v.setUint32(4, 36 + n*2, true); w(8,"WAVE"); w(12,"fmt ");
+  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,rate,true); v.setUint32(28,rate*2,true); v.setUint16(32,2,true); v.setUint16(34,16,true);
+  w(36,"data"); v.setUint32(40, n*2, true);
+  for(var i=0;i<n;i++){ var x = Math.max(-1, Math.min(1, f32[i])); v.setInt16(44 + i*2, x < 0 ? x*0x8000 : x*0x7fff, true); }
+  return new Blob([buf], {type:"audio/wav"});
+}
+/* هر صدایی (ضبط یا فایل) رو به WAV تک‌کاناله‌ی ۱۶ کیلوهرتز تبدیل می‌کنه تا روی همه‌ی گوشی‌ها پخش بشه */
+function blobToWav(blob){
+  return blobToBuffer(blob).then(function(buf){
+    var c = ctx();
+    return new Promise(function(res, rej){
+      var p = c.decodeAudioData(buf, res, rej); if(p && p.catch) p.catch(rej);
+    });
+  }).then(function(ab){
+    var OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    var oc = new OAC(1, Math.max(1, Math.ceil(ab.duration * 16000)), 16000), src = oc.createBufferSource();
+    src.buffer = ab; src.connect(oc.destination); src.start(0);
+    return new Promise(function(res, rej){
+      var p = oc.startRendering(); if(p && p.then) p.then(res, rej);
+      oc.oncomplete = function(e){ res(e.renderedBuffer); };
+    });
+  }).then(function(rb){
+    var d = rb.getChannelData(0), n = d.length, a = 0, b = n - 1;
+    while(a < n && Math.abs(d[a]) < 0.02) a++;
+    while(b > a && Math.abs(d[b]) < 0.02) b--;
+    if(a >= b){ a = 0; b = n - 1; }
+    a = Math.max(0, a - 1600); b = Math.min(n - 1, b + 3200);
+    var seg = d.slice(a, b + 1);
+    if(seg.length > 16000 * 8) throw new Error("long");
+    var peak = 0, i;
+    for(i=0;i<seg.length;i++){ var m = Math.abs(seg[i]); if(m > peak) peak = m; }
+    if(peak > 0.01 && peak < 0.5){ var k = Math.min(4, 0.9 / peak); for(i=0;i<seg.length;i++) seg[i] *= k; }
+    return encodeWav(seg, 16000);
+  });
+}
+function newAudioPath(){ return "audio/" + Date.now().toString(36) + Math.random().toString(36).slice(2,6) + ".wav"; }
+
+function setCardAudio(card, blob, ui){
+  ui.status.textContent = "در حال آماده‌سازی صدا…";
+  blobToWav(blob).then(blobToDataURL).then(function(url){
+    var p = newAudioPath(); pendingImgs[p] = url; card._audio = p; ui.refresh();
+  }).catch(function(){
+    ui.refresh(); toast("این صدا آماده نشد. دوباره ضبط کن یا فایل دیگه‌ای انتخاب کن (کوتاه‌تر از ۸ ثانیه).");
+  });
+}
+function toggleRec(card, ui){
+  if(recorder && recorder.card === card){ try{ recorder.mr.stop(); }catch(e){} return; }
+  if(recorder){ toast("اول ضبط قبلی رو تموم کن"); return; }
+  if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || !window.MediaRecorder){
+    toast("این مرورگر ضبط صدا رو پشتیبانی نمی‌کنه. یه فایل صوتی انتخاب کن (📁)."); return;
+  }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    var mr = new MediaRecorder(stream), chunks = [];
+    mr.ondataavailable = function(e){ if(e.data && e.data.size) chunks.push(e.data); };
+    mr.onstop = function(){
+      stream.getTracks().forEach(function(t){ t.stop(); });
+      recorder = null; ui.rec.textContent = "🎤 ضبط";
+      if(!chunks.length){ ui.refresh(); toast("صدایی ضبط نشد"); return; }
+      setCardAudio(card, new Blob(chunks, {type: mr.mimeType || "audio/webm"}), ui);
+    };
+    recorder = {mr:mr, card:card};
+    ui.rec.textContent = "⏹ توقف"; ui.status.textContent = "در حال ضبط… کلمه رو واضح بگو و بعد توقف رو بزن";
+    mr.start();
+  }).catch(function(){ toast("اجازه‌ی میکروفون داده نشد. اجازه رو فعال کن یا فایل صوتی انتخاب کن (📁)."); });
+}
+
+function wordCard(wi, x){
+  var card = document.createElement("div"); card.className = "ed-q"; card._audio = x.audio || "";
+  var h = document.createElement("h3");
+  var sp1 = document.createElement("span"); sp1.textContent = "کلمه " + fa(wi+1);
+  var del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "حذف";
+  del.onclick = function(){
+    pullSpell();
+    var L = elib.lessons[ei];
+    if(L.words.length <= 1){ toast("حداقل یک کلمه باید بمونه"); return; }
+    L.words.splice(wi, 1); buildSpellEditor();
+  };
+  h.appendChild(sp1); h.appendChild(del); card.appendChild(h);
+
+  var l1 = document.createElement("label"); l1.className = "lbl"; l1.textContent = "کلمه (به فارسی)"; card.appendChild(l1);
+  var inp = document.createElement("input"); inp.type = "text"; inp.className = "f-w"; inp.value = x.w || ""; card.appendChild(inp);
+
+  var l2 = document.createElement("label"); l2.className = "lbl"; l2.textContent = "صدای کلمه"; card.appendChild(l2);
+  var row = document.createElement("div"); row.className = "m-btns";
+  function mk(txt){ var b = document.createElement("button"); b.type = "button"; b.className = "btn small ghost"; b.textContent = txt; row.appendChild(b); return b; }
+  var rec = mk("🎤 ضبط"), fileB = mk("📁 فایل"), play = mk("▶️ پخش"), clr = mk("🗑️ حذف صدا");
+  var status = document.createElement("div"); status.className = "hint";
+  var ui = {rec:rec, status:status, refresh:function(){
+    var has = !!card._audio;
+    status.textContent = has ? ("✓ صدا آماده است" + (pendingImgs[card._audio] && !uploadedImgs[card._audio] ? " (هنوز ذخیره نشده)" : "")) : "هنوز صدایی نیست";
+    play.disabled = !has; clr.disabled = !has;
+  }};
+  rec.onclick = function(){ toggleRec(card, ui); };
+  fileB.onclick = function(){
+    var f = document.createElement("input"); f.type = "file"; f.accept = "audio/*";
+    f.onchange = function(){ if(f.files && f.files[0]) setCardAudio(card, f.files[0], ui); };
+    f.click();
+  };
+  play.onclick = function(){
+    if(!card._audio) return;
+    var a = new Audio(fileSrc(card._audio));
+    a.onerror = function(){ toast("صدا هنوز آماده نیست؛ چند دقیقه بعد دوباره امتحان کن"); };
+    var pr = a.play(); if(pr && pr.catch) pr.catch(function(){});
+  };
+  clr.onclick = function(){ card._audio = ""; ui.refresh(); };
+  card.appendChild(row); card.appendChild(status);
+  ui.refresh();
+  return card;
+}
+function buildSpellEditor(){
+  var L = elib.lessons[ei];
+  $("se-title").value = L.title;
+  $("se-mode-listen").checked = (L.mode !== "scramble");
+  $("se-mode-scramble").checked = (L.mode === "scramble");
+  $("se-extra").value = L.extra; $("se-secs").value = L.seconds;
+  var box = $("se-words"); box.innerHTML = "";
+  L.words.forEach(function(x, wi){ box.appendChild(wordCard(wi, x)); });
+}
+function pullSpell(){
+  var L = elib.lessons[ei];
+  L.title = $("se-title").value;
+  L.mode = $("se-mode-scramble").checked ? "scramble" : "listen";
+  L.extra = parseInt($("se-extra").value, 10); L.seconds = parseInt($("se-secs").value, 10);
+  L.words = Array.prototype.map.call($("se-words").children, function(c){
+    return {w:c.querySelector(".f-w").value, audio:c._audio || ""};
+  });
+}
+function cleanSpell(L){
+  var name = (L.title || "").trim();
+  if(!name) return {err:"اسم درس خالیه."};
+  var extra = isFinite(L.extra) ? Math.max(0, Math.min(6, L.extra)) : 3;
+  var secs = isFinite(L.seconds) ? Math.max(0, Math.min(120, L.seconds)) : 0;
+  var out = {id:L.id, title:name, type:"spell", mode:(L.mode === "scramble" ? "scramble" : "listen"), extra:extra, seconds:secs, words:[]};
+  for(var i=0;i<L.words.length;i++){
+    var x = L.words[i], n = i+1, w = normFa((x.w || "").trim());
+    if(!w) return {err:"کلمه‌ی " + fa(n) + " خالیه."};
+    var len = letterList(w).length;
+    if(len < 2) return {err:"کلمه‌ی " + fa(n) + " باید حداقل دو حرف داشته باشه."};
+    if(len > 14) return {err:"کلمه‌ی «" + w + "» خیلی بلنده (حداکثر ۱۴ حرف)."};
+    if(out.mode === "listen" && !x.audio) return {err:"برای کلمه‌ی «" + w + "» صدا ضبط کن یا فایل صوتی انتخاب کن."};
+    out.words.push({w:w, audio:x.audio || ""});
+  }
+  if(!out.words.length) return {err:"حداقل یک کلمه لازمه."};
+  return {ok:out};
+}
+$("m-add-spell").onclick = function(){
+  var name = window.prompt("اسم درس املا چیه؟ (مثلاً: املا - درس ۲ فارسی)");
+  if(!name || !name.trim()) return;
+  elib.lessons.push({
+    id: "l" + Date.now().toString(36), title: name.trim(), type: "spell",
+    mode: "listen", extra: 3, seconds: 25, words: [{w:"", audio:""}]
+  });
+  dirty = true;
+  editLesson(elib.lessons.length - 1);
+};
+$("se-add").onclick = function(){
+  pullSpell();
+  elib.lessons[ei].words.push({w:"", audio:""});
+  buildSpellEditor();
+  var last = $("se-words").lastElementChild; if(last) last.scrollIntoView({behavior:"smooth", block:"center"});
+};
+$("se-apply").onclick = function(){ if(applyLesson()){ renderManager(); showPanel("manager"); } };
+$("se-save").onclick = function(){ if(applyLesson()) commitAll(this); };
 
 /* --- ذخیره در نسخه اصلی (گیت‌هاب) --- */
 /* تصویرهای تازه رو یکی‌یکی آپلود می‌کنه؛ موفق بشه null، وگرنه جواب خطا رو برمی‌گردونه */
@@ -1020,16 +1427,15 @@ function commitAll(btn){
 
   /* تصویرهای استفاده‌شده‌ای که هنوز آپلود نشدن */
   var paths = [];
-  out.lessons.forEach(function(L){ L.questions.forEach(function(q){ q.options.forEach(function(o){
-    if(isImg(o)){
-      var p = o.slice(4);
-      if(pendingImgs[p] && !uploadedImgs[p] && paths.indexOf(p) < 0) paths.push(p);
-    }
-  }); }); });
+  out.lessons.forEach(function(L){
+    function add(p){ if(pendingImgs[p] && !uploadedImgs[p] && paths.indexOf(p) < 0) paths.push(p); }
+    if(isSpell(L)){ L.words.forEach(function(x){ if(x.audio) add(x.audio); }); }
+    else L.questions.forEach(function(q){ q.options.forEach(function(o){ if(isImg(o)) add(o.slice(4)); }); });
+  });
 
   var old = btn.textContent; btn.disabled = true; btn.textContent = "در حال ذخیره…";
   var path = "/contents/" + DATA_FILE;
-  uploadImages(paths, function(i, n){ btn.textContent = "در حال آپلود تصویر " + fa(i) + " از " + fa(n) + "…"; })
+  uploadImages(paths, function(i, n){ btn.textContent = "در حال آپلود فایل " + fa(i) + " از " + fa(n) + "…"; })
   .then(function(failed){
     if(failed) return failed;
     btn.textContent = "در حال ذخیره…";
@@ -1046,7 +1452,7 @@ function commitAll(btn){
     if(p.status === 200 || p.status === 201){
       lib = clone(out); dirty = false;
       lsSet(PENDING_KEY, JSON.stringify({data:lib, t:Date.now()}));
-      toast("ذخیره شد ✓ تا چند دقیقه‌ی دیگه برای همه اعمال می‌شه (تصویرها ممکنه کمی دیرتر بیان)");
+      toast("ذخیره شد ✓ تا چند دقیقه‌ی دیگه برای همه اعمال می‌شه (تصویرها و صداها ممکنه کمی دیرتر بیان)");
       goHome();
     } else if(p.status === 401){
       toast("رمز منقضی شده یا اشتباهه. دوباره وارد شو."); lsDel(CFG_KEY); cfg = null; showLogin();
@@ -1071,7 +1477,7 @@ $("m-logout").onclick = function(){
 $("open-ed").onclick = openEditor;
 $("open-ed2").onclick = openEditor;
 $("ed-back").onclick = function(){
-  if(panel === "lesson"){
+  if(panel === "lesson" || panel === "spell"){
     if(confirm("تغییرات این درس ثبت نشه و برگردیم به لیست درس‌ها؟")){ renderManager(); showPanel("manager"); }
     return;
   }
