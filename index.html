@@ -179,6 +179,7 @@ textarea{min-height:70px;resize:vertical}
       <div class="row"><button class="btn ghost" id="open-board">🏆 جدول برتر</button></div>
     </div>
     <button class="link" id="to-lessons">همه‌ی درس‌ها</button>
+    <button class="link" id="open-ed2">✏️ مدیریت درس‌ها و سؤال‌ها</button>
   </section>
 
   <!-- سؤال‌ها -->
@@ -1068,6 +1069,7 @@ $("m-logout").onclick = function(){
 };
 
 $("open-ed").onclick = openEditor;
+$("open-ed2").onclick = openEditor;
 $("ed-back").onclick = function(){
   if(panel === "lesson"){
     if(confirm("تغییرات این درس ثبت نشه و برگردیم به لیست درس‌ها؟")){ renderManager(); showPanel("manager"); }
