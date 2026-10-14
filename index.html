@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>آزمون‌های چهارگزینه‌ای</title>
+<style>
+:root{
+  --bg:#e6f2f1; --g1:#e9f6f5; --g2:#f4f0fb;
+  --paper:rgba(255,255,255,.8); --ink:#12353b; --muted:#4f6f74;
+  --brand:#0e6670; --brand-press:#0a4e56; --on-brand:#ffffff;
+  --hi:#ffd84d; --line:#c9dedd;
+  --ok:#1f7a45; --ok-bg:#d9f4e4; --bad:#b3262b; --bad-bg:#fde3e3;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0c1d20; --g1:#10282c; --g2:#161b30;
+    --paper:rgba(20,43,47,.82); --ink:#eaf6f5; --muted:#9bbcbc;
+    --brand:#5cc7d1; --brand-press:#8adbe3; --on-brand:#08262a;
+    --hi:#ffd84d; --line:#2a4b50;
+    --ok:#6fe0a0; --ok-bg:#16402a; --bad:#ff9a9d; --bad-bg:#4a1c1e;
+    color-scheme: dark;
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{
+  background-color:var(--bg);
+  background-image:linear-gradient(135deg,var(--g1),var(--g2));
+  background-attachment:fixed;
+  color:var(--ink);
+  font-family:Tahoma,"Segoe UI","Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif;
+  line-height:1.9; font-size:18px;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  transition:background-color .4s;
+}
+.app{max-width:600px;margin:0 auto;padding:16px}
+.hidden{display:none !important}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.icon-btn{background:var(--paper);border:2px solid var(--line);border-radius:12px;min-width:44px;height:44px;font-size:20px}
+
+.card{
+  background:var(--paper);border:2px solid var(--line);border-radius:20px;
+  padding:22px 18px;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.card.ruled{
+  background-image:repeating-linear-gradient(transparent 0 33px,var(--line) 33px 34px);
+  background-position:0 6px;
+}
+
+.lens{font-size:72px;line-height:1;text-align:center;margin:4px 0 8px}
+h1{font-size:30px;line-height:1.5;margin:0 0 8px;text-align:center}
+h1 mark,.qtitle span{background:var(--hi);color:#12353b;padding:0 10px;border-radius:8px}
+.sub{text-align:center;color:var(--muted);margin:0 0 20px}
+.btn{
+  display:block;width:100%;border:0;border-radius:16px;padding:14px 18px;
+  background:var(--brand);color:var(--on-brand);font-weight:bold;font-size:20px;
+  box-shadow:0 4px 0 var(--brand-press);transition:transform .08s,box-shadow .08s;
+}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--brand-press)}
+.btn:disabled{opacity:.6;cursor:default}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line);box-shadow:none;font-size:17px}
+.btn.small{display:inline-block;width:auto;font-size:15px;padding:6px 14px;border-radius:12px}
+.link{background:none;border:0;color:var(--muted);text-decoration:underline;display:block;margin:18px auto 0;font-size:15px}
+
+.lessons{display:grid;gap:10px}
+.lesson-btn{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:right;
+  background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:14px 16px;
+  font-size:20px;font-weight:bold;line-height:1.6;
+}
+.lesson-btn:hover{border-color:var(--brand)}
+.lesson-btn small{color:var(--muted);font-weight:normal;font-size:15px;white-space:nowrap}
+
+.progress{height:14px;background:var(--line);border-radius:99px;overflow:hidden;flex:1}
+.progress i{display:block;height:100%;width:0;background:var(--brand);border-radius:99px;transition:width .35s}
+.count{font-weight:bold;min-width:70px;text-align:left;color:var(--muted);font-size:16px}
+.qtitle{text-align:center;font-weight:bold;font-size:19px;margin:0 0 12px;line-height:1.7}
+.qtext{font-size:22px;font-weight:bold;line-height:1.9;margin:0 0 18px}
+.opts{display:grid;gap:10px}
+.opt{
+  text-align:right;background:var(--paper);border:2px solid var(--line);border-radius:14px;
+  padding:12px 14px;font-size:19px;line-height:1.7;width:100%;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.opt:hover:not(:disabled){border-color:var(--brand)}
+.opt .mark{flex:none;width:28px;text-align:center}
+.opt .body{flex:1;min-width:0}
+.opt.img-opt{align-items:center}
+.opt.img-opt .body{text-align:center}
+.opt img{display:block;max-width:100%;max-height:150px;margin:0 auto;border-radius:10px;object-fit:contain;background:#fff}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:bold}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.opt:disabled{cursor:default;opacity:1}
+.opt.dim{opacity:.6}
+.feedback{min-height:32px;margin:14px 0 4px;font-weight:bold;font-size:19px}
+.feedback.good{color:var(--ok)} .feedback.bad{color:var(--bad)}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(6px)}50%{transform:translateX(-6px)}75%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}.btn,.progress i,body{transition:none}}
+
+.score{font-size:56px;font-weight:bold;text-align:center;line-height:1.4;margin:0}
+.stars{text-align:center;font-size:40px;letter-spacing:6px;margin:4px 0}
+.msg{text-align:center;font-size:21px;margin:6px 0 16px}
+.review{margin:16px 0 0;padding:0;list-style:none}
+.review li{background:var(--bad-bg);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:16px;line-height:1.8}
+.review b{color:var(--ok)}
+.review img{height:56px;vertical-align:middle;border-radius:8px;background:#fff}
+.row{display:grid;gap:10px;margin-top:14px}
+
+.lb{list-style:none;margin:10px 0 0;padding:0}
+.lb li{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:var(--paper);border:2px solid var(--line);margin-bottom:6px;font-size:17px}
+.lb li.me{border-color:var(--brand);background:var(--hi);color:#12353b}
+.lb li.empty{justify-content:center;color:var(--muted)}
+.lb .rk{width:34px;text-align:center;font-weight:bold;flex:none}
+.lb .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb .sc{font-size:14px;color:var(--muted);white-space:nowrap}
+.lb li.me .sc{color:#12353b}
+.lbsave{margin:10px 0}
+.nm-row{display:flex;gap:8px;align-items:center}
+.lb-h{margin:14px 0 0;text-align:center;font-size:19px}
+
+.ed-q{border:2px solid var(--line);border-radius:16px;padding:12px;margin-bottom:14px;background:var(--paper)}
+.ed-q h3{margin:0 0 8px;font-size:17px;display:flex;justify-content:space-between;align-items:center}
+label.lbl{display:block;font-size:15px;color:var(--muted);margin:8px 0 2px}
+textarea,input[type=text],input[type=password]{
+  width:100%;font:inherit;font-size:17px;padding:8px 10px;border-radius:10px;
+  border:2px solid var(--line);background:var(--bg);color:var(--ink);
+}
+textarea{min-height:70px;resize:vertical}
+.ltr{direction:ltr;text-align:left}
+.ed-opt{display:flex;gap:6px;align-items:center;margin-top:6px}
+.ed-opt input[type=radio]{width:22px;height:22px;flex:none;accent-color:var(--brand)}
+.ed-opt input[type=text]{flex:1;min-width:0}
+.ed-opt .thumb{flex:1;height:48px;min-width:0;object-fit:contain;object-position:right;border-radius:8px;background:#fff;border:2px solid var(--line)}
+.ed-opt .icon-btn{min-width:40px;height:40px;font-size:18px;padding:0}
+.del{background:var(--bad-bg);color:var(--bad);border:0;border-radius:10px;padding:4px 12px;font-size:15px}
+.hint{font-size:15px;color:var(--muted);margin:4px 0 10px}
+.hint ol{margin:6px 0;padding-inline-start:22px}
+.err{color:var(--bad);font-weight:bold;font-size:16px;min-height:26px;margin:8px 0 0}
+.m-item{border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:10px;background:var(--paper)}
+.m-item .t{font-weight:bold;font-size:19px}
+.m-item .t small{color:var(--muted);font-weight:normal;font-size:15px}
+.m-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);
+  padding:10px 18px;border-radius:12px;font-size:16px;z-index:20;max-width:90vw;text-align:center}
+.fall{position:fixed;top:-40px;font-size:28px;pointer-events:none;z-index:10;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- فهرست درس‌ها -->
+  <section id="s-home">
+    <div class="top"><span></span><button class="icon-btn snd" aria-label="صدا">🔊</button></div>
+    <div class="card">
+      <div class="lens" aria-hidden="true">🔍</div>
+      <h1>آزمون‌ها</h1>
+      <p class="sub">یک درس رو انتخاب کن</p>
+      <div class="lessons" id="lessons">در حال آماده‌سازی…</div>
+    </div>
+    <button class="link" id="open-ed">✏️ مدیریت درس‌ها و سؤال‌ها</button>
+  </section>
+
+  <!-- شروع یک درس -->
+  <section id="s-start" class="hidden">
+    <div class="top"><span></span><button class="icon-btn snd" aria-label="صدا">🔊</button></div>
+    <div class="card">
+      <div class="lens" aria-hidden="true">🔍</div>
+      <h1 id="title"></h1>
+      <p class="sub" id="sub"></p>
+      <button class="btn" id="go">شروع آزمون</button>
+      <div class="row"><button class="btn ghost" id="open-board">🏆 جدول برتر</button></div>
+    </div>
+    <button class="link" id="to-lessons">همه‌ی درس‌ها</button>
+    <button class="link" id="open-ed2">✏️ مدیریت درس‌ها و سؤال‌ها</button>
+  </section>
+
+  <!-- سؤال‌ها -->
+  <section id="s-quiz" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="home" aria-label="خانه">🏠</button>
+      <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+      <div class="count" id="count"></div>
+      <button class="icon-btn snd" aria-label="صدا">🔊</button>
+    </div>
+    <div class="qtitle"><span id="qtitle"></span></div>
+    <div class="card ruled">
+      <p class="qtext" id="qtext"></p>
+      <div class="opts" id="opts"></div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <button class="btn hidden" id="next">سؤال بعدی</button>
+    </div>
+  </section>
+
+  <!-- نتیجه -->
+  <section id="s-result" class="hidden">
+    <div class="top"><span></span><button class="icon-btn snd" aria-label="صدا">🔊</button></div>
+    <div class="card">
+      <div class="stars" id="stars" aria-hidden="true"></div>
+      <p class="score" id="score"></p>
+      <p class="msg" id="msg"></p>
+      <div id="lb-save" class="lbsave hidden">
+        <p class="hint" id="lb-time"></p>
+        <div class="nm-row">
+          <input type="text" id="lb-name" maxlength="20" placeholder="اسمت رو بنویس" autocomplete="off">
+          <button class="btn small" id="lb-btn">ثبت</button>
+        </div>
+      </div>
+      <h3 class="lb-h">🏆 جدول برتر این دستگاه</h3>
+      <ol class="lb" id="lb"></ol>
+      <div id="review-wrap" class="hidden">
+        <p class="hint">این سؤال‌ها رو دوباره مرور کن:</p>
+        <ul class="review" id="review"></ul>
+      </div>
+      <div class="row">
+        <button class="btn" id="again">بازی دوباره</button>
+        <button class="btn ghost" id="to-home">همه‌ی درس‌ها</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- جدول برتر -->
+  <section id="s-board" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="board-back" aria-label="بازگشت">➡️</button>
+      <strong id="board-title"></strong><span></span>
+    </div>
+    <div class="card">
+      <h3 class="lb-h" style="margin-top:0">🏆 جدول برتر این دستگاه</h3>
+      <ol class="lb" id="lb2"></ol>
+    </div>
+  </section>
+
+  <!-- ویرایش -->
+  <section id="s-edit" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="ed-back" aria-label="بازگشت">➡️</button>
+      <strong id="ed-head">مدیریت درس‌ها</strong><span></span>
+    </div>
+
+    <!-- ورود با رمز -->
+    <div id="p-login" class="hidden">
+      <div class="card">
+        <p class="hint">برای ویرایش، «رمز ویرایش» لازمه. این رمز یه توکن گیت‌هابه که فقط تو داری و فقط یک بار می‌سازیش:</p>
+        <div class="hint">
+          <ol>
+            <li>وارد github.com شو و از منوی پروفایل بزن: Settings</li>
+            <li>پایین منو: Developer settings ← Personal access tokens ← Fine-grained tokens ← Generate new token</li>
+            <li>Repository access: «Only select repositories» و فقط مخزن همین بازی رو انتخاب کن</li>
+            <li>Permissions ← Add permissions ← Contents ← «Read and write»</li>
+            <li>بساز و کدی که نشون می‌ده رو همین‌جا بچسبون (بعداً دیگه نشون داده نمی‌شه)</li>
+          </ol>
+        </div>
+        <label class="lbl" for="ed-owner">نام کاربری گیت‌هاب</label>
+        <input type="text" id="ed-owner" class="ltr" autocapitalize="off" autocomplete="off">
+        <label class="lbl" for="ed-repo">نام مخزن (repository)</label>
+        <input type="text" id="ed-repo" class="ltr" autocapitalize="off" autocomplete="off">
+        <label class="lbl" for="ed-token">رمز ویرایش (توکن)</label>
+        <input type="password" id="ed-token" class="ltr" autocapitalize="off" autocomplete="off">
+        <div class="err" id="ed-err" role="alert"></div>
+        <div class="row"><button class="btn" id="ed-login-btn">ورود</button></div>
+      </div>
+    </div>
+
+    <!-- فهرست درس‌ها برای مدیریت -->
+    <div id="p-manager" class="hidden">
+      <p class="hint">هر درس یه لینک مخصوص خودش داره. بعد از هر تغییر (درس جدید، حذف یا ویرایش) حتماً «ذخیره‌ی همه در نسخه اصلی» رو بزن؛ لینک درس‌های جدید هم بعد از ذخیره کار می‌کنه.</p>
+      <div id="m-list"></div>
+      <div class="row">
+        <button class="btn ghost" id="m-add">➕ درس جدید</button>
+        <button class="btn" id="m-save">ذخیره‌ی همه در نسخه اصلی</button>
+        <button class="btn ghost" id="m-logout">خروج (پاک کردن رمز از این دستگاه)</button>
+      </div>
+    </div>
+
+    <!-- ویرایش یک درس -->
+    <div id="p-lesson" class="hidden">
+      <p class="hint">برای هر سؤال، دایره‌ی کنار جواب درست رو انتخاب کن. هر گزینه یا متنه یا تصویر: با دکمه‌ی 🖼️ تصویر بذار و با ✕ برش گردون. گزینه‌ی خالی نادیده گرفته می‌شه (حداقل ۲ گزینه لازمه).</p>
+      <label class="lbl" for="ed-title">اسم درس (بالای آزمون و توی فهرست نشون داده می‌شه)</label>
+      <input type="text" id="ed-title" style="margin-bottom:14px">
+      <div id="ed-list"></div>
+      <div class="row">
+        <button class="btn ghost" id="ed-add">➕ سؤال جدید</button>
+        <button class="btn ghost" id="ed-apply">تأیید و برگشت به لیست درس‌ها</button>
+        <button class="btn" id="ed-save">ذخیره‌ی همه در نسخه اصلی</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ===== درس اول (اگه lessons.json خونده نشد، از این استفاده می‌شه) =====
+   answer = شماره‌ی گزینه‌ی درست (از ۰ شروع می‌شه)
+   گزینه‌ی تصویری با "img:مسیر" ذخیره می‌شه */
+var DEFAULT_LIB = {
+  lessons: [{
+    id: "pajoohesh",
+    title: "پژوهشگر کوچک",
+    questions: [
+      {q:"اولین مرحله‌ی کار پژوهشگر برای حل مسائل علمی چیست؟",
+       options:["طرح پرسش","جمع‌آوری اطلاعات","تهیه گزارش","مرتب کردن اطلاعات"], answer:0},
+      {q:"مراحل کار یک پژوهشگر به ترتیب کدام است؟",
+       options:["طرح پرسش ← جمع‌آوری اطلاعات ← مرتب کردن اطلاعات ← تهیه گزارش",
+                "جمع‌آوری اطلاعات ← طرح پرسش ← تهیه گزارش ← مرتب کردن اطلاعات",
+                "طرح پرسش ← مرتب کردن اطلاعات ← جمع‌آوری اطلاعات ← تهیه گزارش",
+                "تهیه گزارش ← طرح پرسش ← جمع‌آوری اطلاعات ← مرتب کردن اطلاعات"], answer:0},
+      {q:"دانش‌آموزان برای تحقیق خود از چه منابعی استفاده کرده‌اند؟",
+       options:["فقط از فیلم و تلویزیون","سؤال از دانش‌آموزان دیگر و افراد متخصص مثل مربی بهداشت، پزشک و متخصص تغذیه","فقط از حدس و گمان خودشان","فقط از همسایه‌ها و غریبه‌ها"], answer:1},
+      {q:"از چه منابعی می‌توان برای جمع‌آوری اطلاعات استفاده کرد؟",
+       options:["حدس زدن، شایعه و گمان","مشاهده، مصاحبه، پرسش‌نامه و مراجعه به کتابخانه","فقط خوابیدن و بازی کردن","فقط پرسیدن از افراد ناآگاه"], answer:1},
+      {q:"اولین قدم در تحقیق مریم و دوستانش چه بود؟",
+       options:["تهیه گزارش","مرتب کردن اطلاعات","طرح پرسش","نوشتن نتیجه"], answer:2},
+      {q:"در یک پژوهش چرا باید اطلاعات به‌دست‌آمده را یادداشت کرد؟",
+       options:["چون معلم دستور داده است","چون چیزهایی را که به دست آورده‌ایم از یاد نمی‌بریم و آن‌ها را مرتب می‌کنیم","برای اینکه دفترمان پر شود","چون یادداشت کردن لازم نیست"], answer:1},
+      {q:"پرسش‌هایی که در یک پژوهش طرح می‌کنیم باید چگونه باشند؟",
+       options:["هرچه بیشتر بهتر، حتی اگر به مسئله ربطی نداشته باشند","فقط پرسش‌های خیلی سخت و پیچیده","تعدادشان مناسب باشد و هر پرسش ما را به جواب مسئله نزدیک کند","فقط یک پرسش بی‌ربط"], answer:2},
+      {q:"کدام‌یک از موارد زیر جزء منابع اطلاعاتی نیست؟",
+       options:["کتاب","افراد ناآگاه","متخصصان","اینترنت"], answer:1},
+      {q:"مشاهده چیست؟",
+       options:["پرسیدن سؤال از متخصصان","نوشتن گزارش پژوهش","کشیدن جدول","جمع‌آوری اطلاعات درباره‌ی محیط اطراف با استفاده از حواس پنجگانه"], answer:3},
+      {q:"در زنگ‌های تفریح چه غذاهای سالمی می‌توان خورد؟",
+       options:["چیپس و پفک","نوشابه و شکلات","لقمه‌هایی مثل نان و پنیر، نخود و کشمش و انواع میوه","فقط آبنبات"], answer:2},
+      {q:"حواس پنجگانه کدام‌اند؟",
+       options:["لامسه، چشایی، بویایی، بینایی، شنوایی","لامسه، چشایی، بویایی، بینایی، حافظه","بینایی، شنوایی، گویایی، چشایی، لامسه","دیدن، شنیدن، فکر کردن، دویدن، خوابیدن"], answer:0},
+      {q:"به جمع‌آوری اطلاعات از راه حواس پنجگانه چه می‌گویند؟",
+       options:["مصاحبه","پرسش‌نامه","مراجعه به کتابخانه","مشاهده"], answer:3},
+      {q:"در یک تحقیق علمی، برای اینکه اطلاعات را خوب مرتب و با هم مقایسه کنیم، چه کاری از همه مهم‌تر است؟",
+       options:["نوشتن اطلاعات روی کاغذهای جدا و پراکنده","وارد کردن اطلاعات جمع‌آوری‌شده در یک جدول","نگه داشتن اطلاعات در ذهن بدون نوشتن","دور ریختن اطلاعات قدیمی"], answer:1}
+    ]
+  }]
+};
+
+var DATA_FILE = "lessons.json";          /* فایل همه‌ی درس‌ها کنار index.html توی مخزن */
+var CFG_KEY = "quiz-gh-cfg-v1";          /* نام کاربری، مخزن و رمز ویرایش (فقط روی دستگاه خودت) */
+var PENDING_KEY = "quiz-pending-lib-v2"; /* نسخه‌ی تازه‌ذخیره‌شده، برای دیدن سریع روی همین دستگاه */
+var PENDING_MS = 15 * 60 * 1000;
+
+/* ===== ابزارها ===== */
+function $(id){ return document.getElementById(id); }
+function all(sel){ return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function fa(n){ return Number(n).toLocaleString("fa-IR"); }
+function shuffle(a){ a = a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+function delay(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+function toast(t){
+  var d = document.createElement("div"); d.className="toast"; d.textContent=t; document.body.appendChild(d);
+  setTimeout(function(){ d.remove(); }, 3800);
+}
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+function validQuestion(x){
+  return x && typeof x.q === "string" && Array.isArray(x.options) && x.options.length >= 2 &&
+         x.options.every(function(o){ return typeof o === "string"; }) &&
+         Number.isInteger(x.answer) && x.answer >= 0 && x.answer < x.options.length;
+}
+function validLib(d){
+  if(!d || !Array.isArray(d.lessons) || !d.lessons.length) return false;
+  return d.lessons.every(function(L){
+    return L && typeof L.id === "string" && L.id && typeof L.title === "string" &&
+           Array.isArray(L.questions) && L.questions.length && L.questions.every(validQuestion);
+  });
+}
+
+/* ===== تصویر توی گزینه‌ها ===== */
+var pendingImgs = {};   /* مسیر ← داده‌ی تصویر (تا وقتی ذخیره نشده، فقط توی حافظه‌ی همین صفحه) */
+var uploadedImgs = {};  /* تصویرهایی که توی این نشست آپلود شدن */
+function isImg(s){ return typeof s === "string" && s.indexOf("img:") === 0; }
+function imgSrc(s){ var p = s.slice(4); return pendingImgs[p] || p; }
+
+/* گزینه رو به یه عنصر (متن یا تصویر) تبدیل می‌کنه */
+function optionNode(t, small){
+  var holder = document.createElement("span"); holder.className = "body";
+  if(isImg(t)){
+    var im = document.createElement("img");
+    im.alt = "تصویر گزینه"; im.src = imgSrc(t);
+    im.onerror = function(){
+      var sp = document.createElement("span");
+      sp.textContent = "🖼️ تصویر هنوز آماده نیست؛ چند دقیقه بعد دوباره امتحان کن";
+      if(im.parentNode) im.parentNode.replaceChild(sp, im);
+    };
+    holder.appendChild(im);
+  } else holder.textContent = t;
+  return holder;
+}
+
+/* ===== رنگ‌بندی تصادفی و ملایم ===== */
+var HUES = [170,195,215,250,275,305,335,10,35,55,90,140], lastHue = -1;
+function applyTheme(){
+  var h;
+  do { h = HUES[Math.floor(Math.random()*HUES.length)]; } while(h === lastHue);
+  lastHue = h;
+  var dark = !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  var h2 = (h + 45) % 360, hi = (h + 170) % 360, st = document.documentElement.style;
+  function set(k,v){ st.setProperty(k,v); }
+  if(dark){
+    set("--bg","hsl("+h+" 30% 10%)"); set("--g1","hsl("+h+" 35% 13%)"); set("--g2","hsl("+h2+" 35% 11%)");
+    set("--paper","hsla("+h+",25%,16%,.82)"); set("--line","hsl("+h+" 25% 30%)");
+    set("--brand","hsl("+h+" 60% 68%)"); set("--brand-press","hsl("+h+" 60% 78%)"); set("--on-brand","hsl("+h+" 40% 10%)");
+    set("--hi","hsl("+hi+" 90% 62%)");
+  } else {
+    set("--bg","hsl("+h+" 60% 93%)"); set("--g1","hsl("+h+" 75% 94%)"); set("--g2","hsl("+h2+" 75% 92%)");
+    set("--paper","rgba(255,255,255,.78)"); set("--line","hsl("+h+" 45% 80%)");
+    set("--brand","hsl("+h+" 55% 30%)"); set("--brand-press","hsl("+h+" 55% 21%)"); set("--on-brand","#ffffff");
+    set("--hi","hsl("+hi+" 95% 74%)");
+  }
+}
+
+/* ===== صدا و موسیقی (همه با کد ساخته می‌شه، بدون فایل) ===== */
+var soundOn = true, actx = null;
+function ctx(){
+  actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+  if(actx.state === "suspended" && actx.resume) actx.resume();
+  return actx;
+}
+function beep(seq){
+  if(!soundOn) return;
+  try{
+    var c = ctx(), t = c.currentTime;
+    seq.forEach(function(n, i){
+      var o = c.createOscillator(), g = c.createGain();
+      o.type = "sine"; o.frequency.value = n[0];
+      g.gain.setValueAtTime(0.0001, t + i*0.14);
+      g.gain.exponentialRampToValueAtTime(0.18, t + i*0.14 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + i*0.14 + n[1]);
+      o.connect(g); g.connect(c.destination);
+      o.start(t + i*0.14); o.stop(t + i*0.14 + n[1] + 0.05);
+    });
+  }catch(e){}
+}
+
+var BEAT = 0.8;
+var CHORDS = [[261.63,329.63,392.00],[220.00,261.63,329.63],[174.61,220.00,261.63],[196.00,246.94,293.66]];
+var PENT = [523.25,587.33,659.25,783.99,880.00,1046.50];
+var music = {on:false, timer:null, step:0, master:null};
+
+function note(freq, t0, dur, type, peak){
+  var c = actx, o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.linearRampToValueAtTime(peak, t0 + Math.min(0.5, dur/3));
+  g.gain.linearRampToValueAtTime(0.0001, t0 + dur);
+  o.connect(g); g.connect(music.master);
+  o.start(t0); o.stop(t0 + dur + 0.05);
+}
+function musicTick(){
+  if(!music.on) return;
+  try{
+    var t = actx.currentTime + 0.05, beat = music.step++;
+    if(beat % 8 === 0){
+      var chord = CHORDS[Math.floor(beat/8) % CHORDS.length];
+      chord.forEach(function(f){ note(f, t, 8*BEAT + 1.5, "sine", 0.045); });
+    }
+    if(Math.random() < 0.6) note(PENT[Math.floor(Math.random()*PENT.length)], t, 1.5, "triangle", 0.06);
+  }catch(e){}
+}
+function startMusic(){
+  if(!soundOn || music.on) return;
+  try{
+    var c = ctx();
+    music.master = c.createGain();
+    music.master.gain.setValueAtTime(0.0001, c.currentTime);
+    music.master.gain.linearRampToValueAtTime(0.7, c.currentTime + 1.5);
+    music.master.connect(c.destination);
+    music.on = true; music.step = 0;
+    musicTick();
+    music.timer = setInterval(musicTick, BEAT * 1000);
+  }catch(e){ music.on = false; }
+}
+function stopMusic(){
+  if(!music.on) return;
+  music.on = false; clearInterval(music.timer);
+  var m = music.master;
+  try{
+    m.gain.cancelScheduledValues(actx.currentTime);
+    m.gain.setValueAtTime(m.gain.value, actx.currentTime);
+    m.gain.linearRampToValueAtTime(0.0001, actx.currentTime + 0.3);
+  }catch(e){}
+  setTimeout(function(){ try{ m.disconnect(); }catch(e){} }, 600);
+}
+all(".snd").forEach(function(b){
+  b.onclick = function(){
+    soundOn = !soundOn;
+    all(".snd").forEach(function(x){ x.textContent = soundOn ? "🔊" : "🔇"; });
+    if(!soundOn) stopMusic(); else if(inPlay) startMusic();
+  };
+});
+document.addEventListener("visibilitychange", function(){
+  if(document.hidden) stopMusic(); else if(inPlay) startMusic();
+});
+
+/* ===== جابه‌جایی بین صفحه‌ها ===== */
+var inPlay = false;
+function show(id){
+  ["s-home","s-start","s-quiz","s-result","s-board","s-edit"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); });
+  inPlay = (id === "s-quiz" || id === "s-result");
+  if(inPlay) startMusic(); else stopMusic();
+  window.scrollTo(0,0);
+}
+
+/* ===== گرفتن درس‌ها ===== */
+var lib = clone(DEFAULT_LIB);   /* نسخه‌ی در حال استفاده */
+var cur = null;                 /* درس انتخاب‌شده */
+
+function fetchRemote(){
+  var ctl = ("AbortController" in window) ? new AbortController() : null;
+  var to = setTimeout(function(){ if(ctl) ctl.abort(); }, 5000);
+  return fetch(DATA_FILE + "?v=" + Date.now(), {cache:"no-store", signal: ctl ? ctl.signal : undefined})
+    .then(function(r){ if(!r.ok) throw new Error("http"); return r.json(); })
+    .then(function(d){ clearTimeout(to); if(!validLib(d)) throw new Error("bad"); return d; })
+    .catch(function(e){ clearTimeout(to); throw e; });
+}
+function readPending(){
+  var raw = lsGet(PENDING_KEY); if(!raw) return null;
+  try{
+    var p = JSON.parse(raw);
+    if(p && validLib(p.data) && Date.now() - p.t < PENDING_MS) return p.data;
+  }catch(e){}
+  lsDel(PENDING_KEY); return null;
+}
+function findLesson(id){
+  for(var i=0;i<lib.lessons.length;i++) if(lib.lessons[i].id === id) return lib.lessons[i];
+  return null;
+}
+function shareLink(id){ return location.origin + location.pathname + "?q=" + encodeURIComponent(id); }
+
+/* ===== صفحه‌ها ===== */
+function renderHome(){
+  var box = $("lessons"); box.innerHTML = "";
+  lib.lessons.forEach(function(L){
+    var b = document.createElement("button"); b.type = "button"; b.className = "lesson-btn";
+    var t = document.createElement("span"); t.textContent = L.title;
+    var s = document.createElement("small"); s.textContent = fa(L.questions.length) + " سؤال";
+    b.appendChild(t); b.appendChild(s);
+    b.onclick = function(){ openLesson(L); };
+    box.appendChild(b);
+  });
+}
+function openLesson(L){
+  cur = L;
+  applyTheme();
+  $("title").innerHTML = "";
+  var m = document.createElement("mark"); m.textContent = L.title;
+  $("title").appendChild(m);
+  $("sub").textContent = "آزمون چندگزینه‌ای · " + fa(L.questions.length) + " سؤال";
+  $("to-lessons").classList.toggle("hidden", lib.lessons.length < 2);
+  show("s-start");
+}
+function goHome(){
+  if(lib.lessons.length > 1){ applyTheme(); renderHome(); show("s-home"); }
+  else openLesson(lib.lessons[0]);
+}
+function route(){
+  var id = null;
+  try{ id = new URLSearchParams(location.search).get("q"); }catch(e){}
+  var L = id ? findLesson(id) : null;
+  if(L){ openLesson(L); return; }
+  if(id) toast("این درس پیدا نشد. از فهرست یکی رو انتخاب کن.");
+  goHome();
+}
+
+/* ===== بازی ===== */
+var quiz = [], idx = 0, score = 0, missed = [], locked = false;
+
+function startQuiz(){
+  quiz = shuffle(cur.questions).map(function(x){
+    var opts = x.options.map(function(t,i){ return {t:t, ok:i===x.answer}; });
+    return {q:x.q, opts:shuffle(opts)};
+  });
+  idx = 0; score = 0; missed = []; quizStart = Date.now();
+  $("qtitle").textContent = cur.title;
+  show("s-quiz");
+  renderQ();
+}
+
+function renderQ(){
+  locked = false;
+  var c = quiz[idx];
+  $("count").textContent = fa(idx+1) + " از " + fa(quiz.length);
+  $("bar").style.width = (idx / quiz.length * 100) + "%";
+  $("qtext").textContent = c.q;
+  $("fb").textContent = ""; $("fb").className = "feedback";
+  $("next").classList.add("hidden");
+  var box = $("opts"); box.innerHTML = "";
+  c.opts.forEach(function(o, i){
+    var b = document.createElement("button");
+    b.className = "opt" + (isImg(o.t) ? " img-opt" : ""); b.type = "button";
+    var mk = document.createElement("span"); mk.className = "mark"; mk.textContent = fa(i+1);
+    b.appendChild(mk); b.appendChild(optionNode(o.t));
+    b.onclick = function(){ choose(i, b); };
+    box.appendChild(b);
+  });
+}
+
+function choose(i, btn){
+  if(locked) return; locked = true;
+  var c = quiz[idx], btns = $("opts").children, good = c.opts[i].ok;
+  for(var k=0;k<btns.length;k++){
+    btns[k].disabled = true;
+    if(c.opts[k].ok){ btns[k].classList.add("right"); btns[k].firstChild.textContent = "✓"; }
+    else if(k===i){ btns[k].classList.add("wrong"); btns[k].firstChild.textContent = "✗"; }
+    else btns[k].classList.add("dim");
+  }
+  var fb = $("fb");
+  if(good){
+    score++; fb.textContent = "آفرین! درسته 🎉"; fb.className = "feedback good";
+    beep([[660,.12],[880,.18]]);
+  } else {
+    var right = c.opts.filter(function(o){return o.ok;})[0].t;
+    missed.push({q:c.q, a:right});
+    fb.textContent = "این بار نشد؛ جواب درست با رنگ سبز مشخص شده."; fb.className = "feedback bad";
+    btn.classList.add("shake"); beep([[220,.25]]);
+  }
+  $("bar").style.width = ((idx+1) / quiz.length * 100) + "%";
+  var nx = $("next");
+  nx.textContent = (idx === quiz.length-1) ? "دیدن نتیجه" : "سؤال بعدی";
+  nx.classList.remove("hidden");
+  nx.focus({preventScroll:true});
+}
+
+$("next").onclick = function(){
+  if(idx < quiz.length-1){ idx++; renderQ(); } else finish();
+};
+
+function finish(){
+  show("s-result");
+  var n = quiz.length, pct = score / n;
+  $("score").textContent = fa(score) + " از " + fa(n);
+  var stars = pct >= .9 ? 3 : pct >= .6 ? 2 : pct >= .3 ? 1 : 0;
+  $("stars").textContent = "⭐".repeat(stars) + "☆".repeat(3-stars);
+  $("msg").textContent = pct >= .9 ? "عالی! آفرین، خیلی خوب بلدی 🏆"
+                      : pct >= .6 ? "آفرین! خیلی خوب بود 👏"
+                      : "تلاش خوبی بود، دوباره امتحان کن 💪";
+  var ul = $("review"); ul.innerHTML = "";
+  missed.forEach(function(m){
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(m.q + " ← "));
+    if(isImg(m.a)){
+      var im = document.createElement("img"); im.alt = "جواب درست"; im.src = imgSrc(m.a);
+      li.appendChild(im);
+    } else {
+      var b = document.createElement("b"); b.textContent = m.a; li.appendChild(b);
+    }
+    ul.appendChild(li);
+  });
+  $("review-wrap").classList.toggle("hidden", !missed.length);
+  $("to-home").textContent = lib.lessons.length > 1 ? "همه‌ی درس‌ها" : "صفحه اول";
+  setupBoard(Math.max(1, Math.round((Date.now() - quizStart) / 1000)));
+  if(pct >= .6){ beep([[523,.14],[659,.14],[784,.14],[1047,.3]]); confetti(); }
+}
+
+function confetti(){
+  if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var em = ["🎉","⭐","🔍","📚","🎈"];
+  for(var i=0;i<26;i++){
+    var s = document.createElement("span"); s.className = "fall";
+    s.textContent = em[i % em.length];
+    s.style.left = Math.random()*95 + "vw";
+    s.style.animationDuration = (2.2 + Math.random()*2) + "s";
+    s.style.animationDelay = (Math.random()*0.8) + "s";
+    document.body.appendChild(s);
+    (function(el){ setTimeout(function(){ el.remove(); }, 5500); })(s);
+  }
+}
+
+$("go").onclick = startQuiz;
+$("again").onclick = function(){ applyTheme(); startQuiz(); };
+$("to-home").onclick = goHome;
+$("to-lessons").onclick = goHome;
+$("home").onclick = function(){ if(confirm("برگردیم؟ پیشرفت این دور از بین می‌ره.")) goHome(); };
+
+/* ===== جدول برتر (فقط روی همین دستگاه ذخیره می‌شه) ===== */
+var BOARD_KEY = "quiz-board-v1", NAME_KEY = "quiz-last-name";
+var boardMem = null, quizStart = Date.now(), lastTime = 0;
+function loadBoards(){
+  var raw = lsGet(BOARD_KEY); if(!raw && boardMem) raw = boardMem;
+  try{ var b = JSON.parse(raw || "{}"); return (b && typeof b === "object") ? b : {}; }catch(e){ return {}; }
+}
+function saveBoards(b){ var s = JSON.stringify(b); boardMem = s; lsSet(BOARD_KEY, s); }
+function sortBoard(a){
+  return a.slice().sort(function(x, y){ return (y.s / y.of) - (x.s / x.of) || x.t - y.t || x.d - y.d; });
+}
+function renderBoard(ol, id, mark){
+  var list = sortBoard(loadBoards()[id] || []).slice(0, 10);
+  ol.innerHTML = "";
+  if(!list.length){
+    var e0 = document.createElement("li"); e0.className = "empty";
+    e0.textContent = "هنوز کسی ثبت نشده. اولین نفر تو باش!"; ol.appendChild(e0); return;
+  }
+  var medals = ["🥇","🥈","🥉"];
+  list.forEach(function(e, i){
+    var li = document.createElement("li"); if(mark && e.d === mark) li.className = "me";
+    var r = document.createElement("span"); r.className = "rk"; r.textContent = medals[i] || fa(i+1);
+    var n = document.createElement("span"); n.className = "nm"; n.textContent = e.n;
+    var sc = document.createElement("span"); sc.className = "sc"; sc.textContent = fa(e.s) + " از " + fa(e.of) + " · " + fa(e.t) + " ثانیه";
+    li.appendChild(r); li.appendChild(n); li.appendChild(sc); ol.appendChild(li);
+  });
+}
+function setupBoard(sec){
+  lastTime = sec;
+  $("lb-name").value = lsGet(NAME_KEY) || "";
+  $("lb-time").textContent = "زمان تو: " + fa(sec) + " ثانیه. اسمت رو بنویس تا توی جدول ثبت بشه.";
+  $("lb-save").classList.remove("hidden");
+  renderBoard($("lb"), cur.id, null);
+}
+$("lb-btn").onclick = function(){
+  var name = $("lb-name").value.trim().slice(0, 20);
+  if(!name){ toast("اسمت رو بنویس"); return; }
+  lsSet(NAME_KEY, name);
+  var b = loadBoards(), arr = b[cur.id] || [];
+  var e = {n:name, s:score, of:quiz.length, t:lastTime, d:Date.now()};
+  arr.push(e); b[cur.id] = sortBoard(arr).slice(0, 50); saveBoards(b);
+  $("lb-save").classList.add("hidden");
+  renderBoard($("lb"), cur.id, e.d);
+  toast("ثبت شد ✓");
+};
+$("open-board").onclick = function(){
+  $("board-title").textContent = cur.title;
+  renderBoard($("lb2"), cur.id, null);
+  show("s-board");
+};
+$("board-back").onclick = function(){ show("s-start"); };
+
+/* ===== اتصال به گیت‌هاب ===== */
+function loadCfg(){ try{ return JSON.parse(lsGet(CFG_KEY) || "null"); }catch(e){ return null; } }
+function saveCfg(c){ lsSet(CFG_KEY, JSON.stringify(c)); }
+
+function guessRepo(){
+  var h = location.hostname, p = location.pathname.split("/").filter(Boolean);
+  if(/\.github\.io$/.test(h)){
+    var first = p[0] && !/\.[a-z0-9]+$/i.test(p[0]) ? p[0] : h;
+    return {owner:h.split(".")[0], repo:first};
+  }
+  return {owner:"", repo:""};
+}
+function gh(cfg, method, path, body){
+  var headers = {
+    "Authorization":"Bearer " + cfg.token,
+    "Accept":"application/vnd.github+json",
+    "X-GitHub-Api-Version":"2022-11-28"
+  };
+  if(body) headers["Content-Type"] = "application/json";
+  return fetch("https://api.github.com/repos/" + encodeURIComponent(cfg.owner) + "/" + encodeURIComponent(cfg.repo) + path, {
+    method:method, headers:headers, body: body ? JSON.stringify(body) : undefined, cache:"no-store"
+  }).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(j){ return {status:r.status, json:j}; });
+  });
+}
+function netErr(){ return "اتصال به گیت‌هاب برقرار نشد. اینترنت رو چک کن؛ اگه گیت‌هاب فیلتر باشه باید با فیلترشکن امتحان کنی (فقط برای ویرایش لازمه، نه برای بازی کردن)."; }
+function toB64(str){
+  var bytes = new TextEncoder().encode(str), bin = "";
+  for(var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+
+/* تصویر انتخاب‌شده رو کوچیک و فشرده می‌کنه (حداکثر ۴۸۰ پیکسل) */
+function compressImage(file){
+  return new Promise(function(res, rej){
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function(){
+      var w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, 480 / Math.max(w, h));
+      var cw = Math.max(1, Math.round(w*k)), ch = Math.max(1, Math.round(h*k));
+      var cv = document.createElement("canvas"); cv.width = cw; cv.height = ch;
+      var cx = cv.getContext("2d"); cx.fillStyle = "#fff"; cx.fillRect(0,0,cw,ch); cx.drawImage(im,0,0,cw,ch);
+      URL.revokeObjectURL(url);
+      res(cv.toDataURL("image/jpeg", 0.82));
+    };
+    im.onerror = function(){ URL.revokeObjectURL(url); rej(new Error("decode")); };
+    im.src = url;
+  });
+}
+
+/* ===== ویرایشگر ===== */
+var cfg = null, elib = null, ei = -1, dirty = false, panel = "login";
+
+function showPanel(p){
+  panel = p;
+  ["login","manager","lesson"].forEach(function(n){ $("p-" + n).classList.toggle("hidden", n !== p); });
+  $("ed-head").textContent = p === "lesson" ? "ویرایش درس" : "مدیریت درس‌ها";
+  window.scrollTo(0,0);
+}
+
+function openEditor(){
+  cfg = loadCfg();
+  show("s-edit");
+  if(cfg && cfg.token && cfg.owner && cfg.repo) enterManager(); else showLogin();
+}
+function showLogin(){
+  var g = guessRepo();
+  $("ed-owner").value = (cfg && cfg.owner) || g.owner;
+  $("ed-repo").value = (cfg && cfg.repo) || g.repo;
+  $("ed-token").value = "";
+  $("ed-err").textContent = "";
+  showPanel("login");
+}
+function enterManager(){
+  elib = clone(lib); dirty = false;
+  renderManager(); showPanel("manager");
+}
+
+$("ed-login-btn").onclick = function(){
+  var c = {owner:$("ed-owner").value.trim(), repo:$("ed-repo").value.trim(), token:$("ed-token").value.trim()};
+  var err = $("ed-err");
+  if(!c.owner || !c.repo || !c.token){ err.textContent = "هر سه کادر رو پر کن."; return; }
+  var btn = $("ed-login-btn"); btn.disabled = true; btn.textContent = "در حال بررسی…"; err.textContent = "";
+  gh(c, "GET", "").then(function(r){
+    if(r.status === 200){ cfg = c; saveCfg(c); enterManager(); }
+    else if(r.status === 401) err.textContent = "رمز اشتباهه یا منقضی شده.";
+    else if(r.status === 404) err.textContent = "این مخزن پیدا نشد، یا رمز به اون دسترسی نداره. نام کاربری و مخزن رو چک کن.";
+    else err.textContent = "خطا از طرف گیت‌هاب (" + r.status + "). کمی بعد دوباره امتحان کن.";
+  }).catch(function(){ err.textContent = netErr(); })
+    .then(function(){ btn.disabled = false; btn.textContent = "ورود"; });
+};
+
+/* --- فهرست درس‌ها در بخش مدیریت --- */
+function renderManager(){
+  var box = $("m-list"); box.innerHTML = "";
+  elib.lessons.forEach(function(L, i){
+    var item = document.createElement("div"); item.className = "m-item";
+    var t = document.createElement("div"); t.className = "t";
+    t.appendChild(document.createTextNode((L.title || "(بدون اسم)") + " "));
+    var s = document.createElement("small"); s.textContent = "· " + fa(L.questions.length) + " سؤال";
+    t.appendChild(s); item.appendChild(t);
+
+    var row = document.createElement("div"); row.className = "m-btns";
+    function mk(txt, fn){
+      var b = document.createElement("button"); b.type = "button"; b.className = "btn small ghost";
+      b.textContent = txt; b.onclick = fn; row.appendChild(b);
+    }
+    mk("✏️ ویرایش", function(){ editLesson(i); });
+    mk("🔗 کپی لینک", function(){ copyLink(L.id); });
+    mk("🧹 پاک کردن جدول برتر", function(){
+      if(!confirm("جدول برتر این درس روی همین دستگاه پاک بشه؟")) return;
+      var b = loadBoards(); delete b[L.id]; saveBoards(b); toast("جدول این دستگاه پاک شد");
+    });
+    mk("🗑️ حذف", function(){
+      if(elib.lessons.length <= 1){ toast("حداقل یک درس باید بمونه"); return; }
+      if(!confirm("درس «" + (L.title || "بدون اسم") + "» حذف بشه؟ (تا ذخیره نزنی از نسخه اصلی پاک نمی‌شه)")) return;
+      elib.lessons.splice(i, 1); dirty = true; renderManager();
+    });
+    item.appendChild(row); box.appendChild(item);
+  });
+}
+function copyLink(id){
+  var link = shareLink(id);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(link).then(function(){ toast("لینک کپی شد ✓"); },
+      function(){ window.prompt("لینک رو کپی کن:", link); });
+  } else window.prompt("لینک رو کپی کن:", link);
+}
+$("m-add").onclick = function(){
+  var name = window.prompt("اسم درس جدید چیه؟ (مثلاً: علوم - درس ۳)");
+  if(!name || !name.trim()) return;
+  elib.lessons.push({
+    id: "l" + Date.now().toString(36),
+    title: name.trim(),
+    questions: [{q:"", options:["","","",""], answer:0}]
+  });
+  dirty = true;
+  editLesson(elib.lessons.length - 1);
+};
+
+/* --- ویرایش یک درس --- */
+function editLesson(i){
+  ei = i;
+  buildLessonEditor();
+  showPanel("lesson");
+}
+
+/* یه ردیف گزینه: دایره‌ی جواب درست + متن یا تصویر */
+function optionRow(qi, oi, x){
+  var row = document.createElement("div"); row.className = "ed-opt";
+  var r = document.createElement("input"); r.type = "radio"; r.name = "ans" + qi; r.className = "f-r";
+  r.checked = (x.answer === oi); r.setAttribute("aria-label", "جواب درست");
+  var t = document.createElement("input"); t.type = "text"; t.className = "f-o"; t.value = x.options[oi] || "";
+  var th = document.createElement("img"); th.className = "thumb"; th.alt = "تصویر گزینه";
+  var pk = document.createElement("button"); pk.type = "button"; pk.className = "icon-btn"; pk.textContent = "🖼️";
+  pk.setAttribute("aria-label", "افزودن تصویر");
+  var cl = document.createElement("button"); cl.type = "button"; cl.className = "icon-btn"; cl.textContent = "✕";
+  cl.setAttribute("aria-label", "برگشت به متن");
+
+  function refresh(){
+    var v = t.value;
+    if(isImg(v)){
+      th.src = imgSrc(v);
+      th.classList.remove("hidden"); t.classList.add("hidden"); cl.classList.remove("hidden");
+    } else {
+      th.classList.add("hidden"); t.classList.remove("hidden"); cl.classList.add("hidden");
+    }
+  }
+  pk.onclick = function(){
+    var f = document.createElement("input"); f.type = "file"; f.accept = "image/*";
+    f.onchange = function(){
+      if(!f.files || !f.files[0]) return;
+      compressImage(f.files[0]).then(function(data){
+        var path = "images/" + Date.now().toString(36) + Math.random().toString(36).slice(2,6) + ".jpg";
+        pendingImgs[path] = data;
+        t.value = "img:" + path;
+        refresh();
+      }).catch(function(){ toast("این تصویر باز نشد. یه عکس JPG یا PNG انتخاب کن."); });
+    };
+    f.click();
+  };
+  cl.onclick = function(){ t.value = ""; refresh(); t.focus(); };
+
+  row.appendChild(r); row.appendChild(t); row.appendChild(th); row.appendChild(pk); row.appendChild(cl);
+  refresh();
+  return row;
+}
+
+function buildLessonEditor(){
+  var L = elib.lessons[ei];
+  $("ed-title").value = L.title;
+  var list = $("ed-list"); list.innerHTML = "";
+  L.questions.forEach(function(x, qi){
+    var card = document.createElement("div"); card.className = "ed-q";
+    var h = document.createElement("h3");
+    var sp = document.createElement("span"); sp.textContent = "سؤال " + fa(qi+1);
+    var del = document.createElement("button"); del.type="button"; del.className="del"; del.textContent="حذف";
+    del.onclick = function(){
+      pullLesson();
+      if(L.questions.length <= 1){ toast("حداقل یک سؤال باید بمونه"); return; }
+      L.questions.splice(qi,1); buildLessonEditor();
+    };
+    h.appendChild(sp); h.appendChild(del); card.appendChild(h);
+
+    var l1 = document.createElement("label"); l1.className="lbl"; l1.textContent="متن سؤال"; card.appendChild(l1);
+    var ta = document.createElement("textarea"); ta.className="f-q"; ta.value = x.q; card.appendChild(ta);
+
+    var l2 = document.createElement("label"); l2.className="lbl"; l2.textContent="گزینه‌ها (جواب درست رو علامت بزن)"; card.appendChild(l2);
+    for(var oi=0; oi<4; oi++) card.appendChild(optionRow(qi, oi, x));
+    list.appendChild(card);
+  });
+}
+/* خوندن چیزی که توی صفحه نوشته شده (بدون اعتبارسنجی) */
+function pullLesson(){
+  var L = elib.lessons[ei];
+  L.title = $("ed-title").value;
+  var cards = $("ed-list").children;
+  L.questions = Array.prototype.map.call(cards, function(c){
+    var opts = Array.prototype.map.call(c.querySelectorAll(".f-o"), function(i){ return i.value; });
+    var rs = c.querySelectorAll(".f-r"), ans = -1;
+    for(var i=0;i<rs.length;i++) if(rs[i].checked) ans = i;
+    return {q:c.querySelector(".f-q").value, options:opts, answer:ans};
+  });
+}
+/* تمیز کردن یک درس؛ اگه ایرادی داشته باشه پیام خطا برمی‌گردونه */
+function cleanLesson(L){
+  var name = (L.title || "").trim();
+  if(!name) return {err:"اسم درس خالیه."};
+  var out = {id:L.id, title:name, questions:[]};
+  for(var i=0;i<L.questions.length;i++){
+    var x = L.questions[i], n = i+1;
+    if(!x.q.trim()) return {err:"متن سؤال " + fa(n) + " خالیه."};
+    var opts = [], ans = -1;
+    for(var k=0;k<x.options.length;k++){
+      var t = x.options[k].trim();
+      if(t){ if(k === x.answer) ans = opts.length; opts.push(t); }
+    }
+    if(opts.length < 2) return {err:"سؤال " + fa(n) + " حداقل دو گزینه لازم داره."};
+    if(ans < 0) return {err:"برای سؤال " + fa(n) + " جواب درست رو (روی یه گزینه‌ی پرشده) علامت بزن."};
+    out.questions.push({q:x.q.trim(), options:opts, answer:ans});
+  }
+  if(!out.questions.length) return {err:"حداقل یک سؤال لازمه."};
+  return {ok:out};
+}
+/* ثبت تغییرات درس باز در پیش‌نویس */
+function applyLesson(){
+  pullLesson();
+  var r = cleanLesson(elib.lessons[ei]);
+  if(r.err){ toast(r.err); return false; }
+  elib.lessons[ei] = r.ok; dirty = true;
+  return true;
+}
+
+$("ed-add").onclick = function(){
+  pullLesson();
+  elib.lessons[ei].questions.push({q:"", options:["","","",""], answer:0});
+  buildLessonEditor();
+  var last = $("ed-list").lastElementChild; if(last) last.scrollIntoView({behavior:"smooth", block:"center"});
+};
+$("ed-apply").onclick = function(){
+  if(applyLesson()){ renderManager(); showPanel("manager"); }
+};
+
+/* --- ذخیره در نسخه اصلی (گیت‌هاب) --- */
+/* تصویرهای تازه رو یکی‌یکی آپلود می‌کنه؛ موفق بشه null، وگرنه جواب خطا رو برمی‌گردونه */
+function uploadImages(paths, onProg){
+  var i = 0;
+  function next(){
+    if(i >= paths.length) return Promise.resolve(null);
+    var p = paths[i++];
+    onProg(i, paths.length);
+    var b64 = pendingImgs[p].split(",")[1];
+    return gh(cfg, "PUT", "/contents/" + p, {message:"Add quiz image", content:b64}).then(function(r){
+      if(r.status === 200 || r.status === 201){ uploadedImgs[p] = true; return delay(700).then(next); }
+      return r;
+    });
+  }
+  return next();
+}
+
+function commitAll(btn){
+  var out = {lessons:[]};
+  for(var i=0;i<elib.lessons.length;i++){
+    var L = elib.lessons[i], r = cleanLesson(L);
+    if(r.err){ toast("درس «" + ((L.title || "").trim() || ("شماره " + fa(i+1))) + "»: " + r.err); return; }
+    out.lessons.push(r.ok);
+  }
+  if(!cfg){ showLogin(); return; }
+
+  /* تصویرهای استفاده‌شده‌ای که هنوز آپلود نشدن */
+  var paths = [];
+  out.lessons.forEach(function(L){ L.questions.forEach(function(q){ q.options.forEach(function(o){
+    if(isImg(o)){
+      var p = o.slice(4);
+      if(pendingImgs[p] && !uploadedImgs[p] && paths.indexOf(p) < 0) paths.push(p);
+    }
+  }); }); });
+
+  var old = btn.textContent; btn.disabled = true; btn.textContent = "در حال ذخیره…";
+  var path = "/contents/" + DATA_FILE;
+  uploadImages(paths, function(i, n){ btn.textContent = "در حال آپلود تصویر " + fa(i) + " از " + fa(n) + "…"; })
+  .then(function(failed){
+    if(failed) return failed;
+    btn.textContent = "در حال ذخیره…";
+    return gh(cfg, "GET", path).then(function(g){
+      if(g.status !== 200 && g.status !== 404) return g;
+      var body = {
+        message: "Update quiz lessons",
+        content: toB64(JSON.stringify(out, null, 2) + "\n")
+      };
+      if(g.status === 200 && g.json && g.json.sha) body.sha = g.json.sha;
+      return gh(cfg, "PUT", path, body);
+    });
+  }).then(function(p){
+    if(p.status === 200 || p.status === 201){
+      lib = clone(out); dirty = false;
+      lsSet(PENDING_KEY, JSON.stringify({data:lib, t:Date.now()}));
+      toast("ذخیره شد ✓ تا چند دقیقه‌ی دیگه برای همه اعمال می‌شه (تصویرها ممکنه کمی دیرتر بیان)");
+      goHome();
+    } else if(p.status === 401){
+      toast("رمز منقضی شده یا اشتباهه. دوباره وارد شو."); lsDel(CFG_KEY); cfg = null; showLogin();
+    } else if(p.status === 403 || p.status === 404){
+      toast("این رمز اجازه‌ی نوشتن توی مخزن رو نداره یا گیت‌هاب موقتاً محدود کرده. دسترسی Contents باید Read and write باشه؛ اگه درسته، چند دقیقه بعد دوباره امتحان کن.");
+    } else if(p.status === 409 || p.status === 422){
+      toast("هم‌زمان تغییری ثبت شده بود. یه بار دوباره ذخیره رو بزن.");
+    } else {
+      toast("ذخیره نشد (خطای " + p.status + "). کمی بعد دوباره امتحان کن.");
+    }
+  }).catch(function(){ toast(netErr()); })
+    .then(function(){ btn.disabled = false; btn.textContent = old; });
+}
+$("m-save").onclick = function(){ commitAll(this); };
+$("ed-save").onclick = function(){ if(applyLesson()) commitAll(this); };
+
+$("m-logout").onclick = function(){
+  if(!confirm("رمز از این دستگاه پاک می‌شه و دفعه‌ی بعد باید دوباره واردش کنی. ادامه بدیم؟")) return;
+  lsDel(CFG_KEY); cfg = null; showLogin();
+};
+
+$("open-ed").onclick = openEditor;
+$("open-ed2").onclick = openEditor;
+$("ed-back").onclick = function(){
+  if(panel === "lesson"){
+    if(confirm("تغییرات این درس ثبت نشه و برگردیم به لیست درس‌ها؟")){ renderManager(); showPanel("manager"); }
+    return;
+  }
+  if(panel === "manager" && dirty && !confirm("ذخیره‌نشده‌ها از بین می‌رن. برگردیم؟")) return;
+  goHome();
+};
+
+/* ===== شروع ===== */
+applyTheme();
+fetchRemote().then(function(d){ lib = d; }).catch(function(){})
+  .then(function(){
+    var p = readPending(); if(p) lib = p;
+    route();
+  });
+</script>
+</body>
+</html>
