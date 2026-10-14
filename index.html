@@ -125,6 +125,22 @@ h1 mark,.qtitle span{background:var(--hi);color:#12353b;padding:0 10px;border-ra
 .nm-row{display:flex;gap:8px;align-items:center}
 .lb-h{margin:14px 0 0;text-align:center;font-size:19px}
 
+.cover{display:block;margin:0 auto 12px;max-width:100%;max-height:170px;border-radius:16px;object-fit:contain;background:#fff;border:2px solid var(--line)}
+.lesson-btn .th{width:56px;height:56px;border-radius:12px;object-fit:cover;flex:none;background:#fff;border:2px solid var(--line)}
+.lesson-btn .lt{flex:1;min-width:0}
+.cat-btn{font-size:22px;padding:18px 16px}
+.meta{margin:12px 0}
+.cover-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.cover-row .thumb{width:64px;height:64px;object-fit:cover;border-radius:12px;background:#fff;border:2px solid var(--line)}
+.pair-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.pair-row input{flex:1;min-width:0}
+.mt-cols{display:flex;gap:12px;direction:rtl;align-items:flex-start}
+.mt-col{flex:1;min-width:0;display:grid;gap:10px}
+.mw{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:12px 8px;font-size:19px;font-weight:bold;line-height:1.5;min-height:52px;word-break:break-word}
+.mw.sel{border-color:var(--brand);box-shadow:0 0 0 3px var(--hi)}
+.mw.done{cursor:default}
+.mw:disabled{color:var(--ink);opacity:1}
+.mw.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
 .sp-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;min-height:44px}
 .pill{background:var(--hi);color:#12353b;border-radius:99px;padding:2px 14px;font-weight:bold;font-size:19px;min-width:96px;text-align:center}
 .pill.low{background:var(--bad-bg);color:var(--bad)}
@@ -184,9 +200,8 @@ textarea{min-height:70px;resize:vertical}
   <section id="s-home">
     <div class="top"><span></span><button class="icon-btn snd" aria-label="صدا">🔊</button></div>
     <div class="card">
-      <div class="lens" aria-hidden="true">🔍</div>
-      <h1>آزمون‌ها</h1>
-      <p class="sub">یک درس رو انتخاب کن</p>
+      <h1 id="home-title">آزمون‌ها</h1>
+      <p class="sub" id="home-sub">یک درس رو انتخاب کن</p>
       <div class="lessons" id="lessons">در حال آماده‌سازی…</div>
     </div>
     <button class="link" id="open-ed">✏️ مدیریت درس‌ها و سؤال‌ها</button>
@@ -196,7 +211,7 @@ textarea{min-height:70px;resize:vertical}
   <section id="s-start" class="hidden">
     <div class="top"><span></span><button class="icon-btn snd" aria-label="صدا">🔊</button></div>
     <div class="card">
-      <div class="lens" aria-hidden="true">🔍</div>
+      <img class="cover hidden" id="cover" alt="">
       <h1 id="title"></h1>
       <p class="sub" id="sub"></p>
       <button class="btn" id="go">شروع آزمون</button>
@@ -247,6 +262,32 @@ textarea{min-height:70px;resize:vertical}
         <button class="btn" id="again">بازی دوباره</button>
         <button class="btn ghost" id="to-home">همه‌ی درس‌ها</button>
       </div>
+    </div>
+  </section>
+
+  <!-- فهرست درس‌های یک موضوع -->
+  <section id="s-cat" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="cat-back" aria-label="بازگشت">➡️</button>
+      <strong id="cat-title"></strong><span></span>
+    </div>
+    <div class="card"><div class="lessons" id="cat-lessons"></div></div>
+  </section>
+
+  <!-- بازی جور کردن -->
+  <section id="s-match" class="hidden">
+    <div class="top">
+      <button class="icon-btn" id="mt-home" aria-label="خانه">🏠</button>
+      <div class="progress" aria-hidden="true"><i id="mt-bar"></i></div>
+      <div class="count" id="mt-count"></div>
+      <button class="icon-btn snd" aria-label="صدا">🔊</button>
+    </div>
+    <div class="qtitle"><span id="mtitle"></span></div>
+    <div class="card">
+      <p class="sp-hint" id="mt-hint"></p>
+      <div class="mt-cols"><div class="mt-col" id="mt-a"></div><div class="mt-col" id="mt-b"></div></div>
+      <div class="feedback" id="mt-fb" aria-live="polite"></div>
+      <button class="btn hidden" id="mt-next">مرحله‌ی بعد</button>
     </div>
   </section>
 
@@ -318,12 +359,31 @@ textarea{min-height:70px;resize:vertical}
     <!-- فهرست درس‌ها برای مدیریت -->
     <div id="p-manager" class="hidden">
       <p class="hint">هر درس یه لینک مخصوص خودش داره. بعد از هر تغییر (درس جدید، حذف یا ویرایش) حتماً «ذخیره‌ی همه در نسخه اصلی» رو بزن؛ لینک درس‌های جدید هم بعد از ذخیره کار می‌کنه.</p>
+      <label class="lbl" for="m-site-title">عنوان کلی صفحه‌ی اول</label>
+      <input type="text" id="m-site-title" maxlength="40" style="margin-bottom:12px">
       <div id="m-list"></div>
       <div class="row">
         <button class="btn ghost" id="m-add">➕ درس چهارگزینه‌ای جدید</button>
         <button class="btn ghost" id="m-add-spell">➕ درس املای جدید</button>
+        <button class="btn ghost" id="m-add-match">➕ درس جور کردن (مترادف / متضاد)</button>
         <button class="btn" id="m-save">ذخیره‌ی همه در نسخه اصلی</button>
         <button class="btn ghost" id="m-logout">خروج (پاک کردن رمز از این دستگاه)</button>
+      </div>
+    </div>
+
+    <!-- ویرایش درس جور کردن -->
+    <div id="p-match" class="hidden">
+      <p class="hint">برای هر ردیف، یه کلمه توی کادر اول (ستون راست) و جفتش (مترادف یا متضادش) توی کادر دوم (ستون چپ) بنویس. بازی خودش کلمه‌ها رو قاطی می‌کنه. هر کلمه فقط یک بار توی هر ستون بیاد.</p>
+      <label class="lbl" for="me-title">اسم درس</label>
+      <input type="text" id="me-title" style="margin-bottom:10px">
+      <label class="lbl" for="me-hint">راهنمای بالای بازی (مثلاً: کلمه‌های هم‌معنی رو به هم وصل کن)</label>
+      <input type="text" id="me-hint" style="margin-bottom:10px">
+      <div id="slot-match"></div>
+      <div id="me-pairs"></div>
+      <div class="row">
+        <button class="btn ghost" id="me-add">➕ جفت جدید</button>
+        <button class="btn ghost" id="me-apply">تأیید و برگشت به لیست درس‌ها</button>
+        <button class="btn" id="me-save">ذخیره‌ی همه در نسخه اصلی</button>
       </div>
     </div>
 
@@ -339,6 +399,7 @@ textarea{min-height:70px;resize:vertical}
       <input type="number" id="se-extra" min="0" max="6" inputmode="numeric">
       <label class="lbl" for="se-secs">زمان هر کلمه به ثانیه (۰ یعنی بدون زمان)</label>
       <input type="number" id="se-secs" min="0" max="120" inputmode="numeric" style="margin-bottom:14px">
+      <div id="slot-spell"></div>
       <div id="se-words"></div>
       <div class="row">
         <button class="btn ghost" id="se-add">➕ کلمه‌ی جدید</button>
@@ -352,6 +413,7 @@ textarea{min-height:70px;resize:vertical}
       <p class="hint">برای هر سؤال، دایره‌ی کنار جواب درست رو انتخاب کن. هر گزینه یا متنه یا تصویر: با دکمه‌ی 🖼️ تصویر بذار و با ✕ برش گردون. گزینه‌ی خالی نادیده گرفته می‌شه (حداقل ۲ گزینه لازمه).</p>
       <label class="lbl" for="ed-title">اسم درس (بالای آزمون و توی فهرست نشون داده می‌شه)</label>
       <input type="text" id="ed-title" style="margin-bottom:14px">
+      <div id="slot-quiz"></div>
       <div id="ed-list"></div>
       <div class="row">
         <button class="btn ghost" id="ed-add">➕ سؤال جدید</button>
@@ -361,6 +423,21 @@ textarea{min-height:70px;resize:vertical}
     </div>
   </section>
 
+</div>
+
+<!-- دسته و تصویر درس؛ توی پنل ویرایشِ درس باز قرار می‌گیره -->
+<div id="meta-holder" class="hidden">
+  <div id="lesson-meta" class="m-item meta">
+    <label class="lbl" for="lm-cat">موضوع / دسته (مثلاً علوم، فارسی، اجتماعی)</label>
+    <input type="text" id="lm-cat" list="lm-cats" maxlength="30" autocomplete="off">
+    <datalist id="lm-cats"></datalist>
+    <label class="lbl">تصویر درس (کنار اسم درس نشون داده می‌شه)</label>
+    <div class="cover-row">
+      <img id="lm-thumb" class="thumb hidden" alt="">
+      <button type="button" class="btn small ghost" id="lm-pick">🖼️ انتخاب تصویر</button>
+      <button type="button" class="btn small ghost hidden" id="lm-clr">✕ حذف تصویر</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -431,8 +508,14 @@ function validQuestion(x){
          Number.isInteger(x.answer) && x.answer >= 0 && x.answer < x.options.length;
 }
 function isSpell(L){ return !!L && L.type === "spell"; }
-function lessonCount(L){ return isSpell(L) ? L.words.length : L.questions.length; }
-function lessonUnit(L){ return isSpell(L) ? "کلمه" : "سؤال"; }
+function lessonCount(L){ return isSpell(L) ? L.words.length : (isMatch(L) ? L.pairs.length : L.questions.length); }
+function lessonUnit(L){ return isSpell(L) ? "کلمه" : (isMatch(L) ? "جفت" : "سؤال"); }
+function isMatch(L){ return !!L && L.type === "match"; }
+function typeLabel(L){ return isSpell(L) ? "املا" : (isMatch(L) ? "جور کردن" : "چهارگزینه‌ای"); }
+function validMatch(L){
+  return Array.isArray(L.pairs) && L.pairs.length > 0 &&
+         L.pairs.every(function(x){ return x && typeof x.a === "string" && x.a.trim() && typeof x.b === "string" && x.b.trim(); });
+}
 function validSpell(L){
   return Array.isArray(L.words) && L.words.length > 0 &&
          L.words.every(function(x){ return x && typeof x.w === "string" && x.w.trim() && (x.audio === undefined || typeof x.audio === "string"); }) &&
@@ -443,6 +526,7 @@ function validLib(d){
   return d.lessons.every(function(L){
     if(!(L && typeof L.id === "string" && L.id && typeof L.title === "string")) return false;
     if(isSpell(L)) return validSpell(L);
+    if(isMatch(L)) return validMatch(L);
     return Array.isArray(L.questions) && L.questions.length && L.questions.every(validQuestion);
   });
 }
@@ -579,9 +663,9 @@ var inPlay = false;
 /* موسیقی فقط وقتی پخش می‌شه که صدای کلمه‌ی املا رو خراب نکنه */
 function wantMusic(){ return inPlay && !(cur && isSpell(cur) && cur.mode === "listen"); }
 function show(id){
-  ["s-home","s-start","s-quiz","s-spell","s-result","s-board","s-edit"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); });
+  ["s-home","s-cat","s-start","s-quiz","s-spell","s-match","s-result","s-board","s-edit"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); });
   if(id !== "s-spell") spCleanup();
-  inPlay = (id === "s-quiz" || id === "s-spell" || id === "s-result");
+  inPlay = (id === "s-quiz" || id === "s-spell" || id === "s-match" || id === "s-result");
   if(wantMusic()) startMusic(); else stopMusic();
   window.scrollTo(0,0);
 }
@@ -613,16 +697,58 @@ function findLesson(id){
 function shareLink(id){ return location.origin + location.pathname + "?q=" + encodeURIComponent(id); }
 
 /* ===== صفحه‌ها ===== */
-function renderHome(){
-  var box = $("lessons"); box.innerHTML = "";
+function catGroups(){
+  var names = [], map = {};
   lib.lessons.forEach(function(L){
-    var b = document.createElement("button"); b.type = "button"; b.className = "lesson-btn";
-    var t = document.createElement("span"); t.textContent = L.title;
-    var s = document.createElement("small"); s.textContent = fa(lessonCount(L)) + " " + lessonUnit(L);
-    b.appendChild(t); b.appendChild(s);
-    b.onclick = function(){ openLesson(L); };
-    box.appendChild(b);
+    var c = (L.cat || "").trim() || "سایر";
+    if(!map[c]){ map[c] = []; names.push(c); }
+    map[c].push(L);
   });
+  return {names:names, map:map};
+}
+function lessonButton(L){
+  var b = document.createElement("button"); b.type = "button"; b.className = "lesson-btn";
+  if(L.img){
+    var im = document.createElement("img"); im.className = "th"; im.alt = ""; im.src = fileSrc(L.img);
+    im.onerror = function(){ im.style.display = "none"; };
+    b.appendChild(im);
+  }
+  var t = document.createElement("span"); t.className = "lt"; t.textContent = L.title;
+  var s = document.createElement("small"); s.textContent = fa(lessonCount(L)) + " " + lessonUnit(L);
+  b.appendChild(t); b.appendChild(s);
+  b.onclick = function(){ openLesson(L); };
+  return b;
+}
+function renderHome(){
+  $("home-title").textContent = lib.title || "آزمون‌ها";
+  var g = catGroups(), box = $("lessons"); box.innerHTML = "";
+  if(g.names.length > 1){
+    $("home-sub").textContent = "یک موضوع رو انتخاب کن";
+    g.names.forEach(function(c){
+      var b = document.createElement("button"); b.type = "button"; b.className = "lesson-btn cat-btn";
+      var t = document.createElement("span"); t.className = "lt"; t.textContent = c;
+      var s = document.createElement("small"); s.textContent = fa(g.map[c].length) + " درس";
+      b.appendChild(t); b.appendChild(s);
+      b.onclick = function(){ openCategory(c); };
+      box.appendChild(b);
+    });
+  } else {
+    $("home-sub").textContent = "یک درس رو انتخاب کن";
+    lib.lessons.forEach(function(L){ box.appendChild(lessonButton(L)); });
+  }
+}
+function openCategory(c){
+  applyTheme();
+  $("cat-title").textContent = c;
+  var box = $("cat-lessons"); box.innerHTML = "";
+  (catGroups().map[c] || []).forEach(function(L){ box.appendChild(lessonButton(L)); });
+  show("s-cat");
+}
+/* برگشت از صفحه‌ی درس یا نتیجه به فهرست مناسب */
+function backToList(){
+  var g = catGroups();
+  if(cur && g.names.length > 1) openCategory((cur.cat || "").trim() || "سایر");
+  else goHome();
 }
 function openLesson(L){
   cur = L;
@@ -630,8 +756,15 @@ function openLesson(L){
   $("title").innerHTML = "";
   var m = document.createElement("mark"); m.textContent = L.title;
   $("title").appendChild(m);
+  var cv = $("cover");
+  if(L.img){
+    cv.onerror = function(){ cv.classList.add("hidden"); };
+    cv.src = fileSrc(L.img); cv.classList.remove("hidden");
+  } else cv.classList.add("hidden");
   $("sub").textContent = isSpell(L)
     ? "املا · " + (L.mode === "listen" ? "با صدا" : "حروف به‌هم‌ریخته") + " · " + fa(L.words.length) + " کلمه"
+    : isMatch(L)
+    ? "جور کردن · " + fa(L.pairs.length) + " جفت"
     : "آزمون چندگزینه‌ای · " + fa(L.questions.length) + " سؤال";
   $("to-lessons").classList.toggle("hidden", lib.lessons.length < 2);
   show("s-start");
@@ -654,6 +787,7 @@ var quiz = [], idx = 0, score = 0, missed = [], locked = false;
 
 function startQuiz(){
   if(isSpell(cur)){ startSpell(); return; }
+  if(isMatch(cur)){ startMatch(); return; }
   quiz = shuffle(cur.questions).map(function(x){
     var opts = x.options.map(function(t,i){ return {t:t, ok:i===x.answer}; });
     return {q:x.q, opts:shuffle(opts)};
@@ -742,7 +876,7 @@ function finish(){
 
 function confetti(){
   if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var em = ["🎉","⭐","🔍","📚","🎈"];
+  var em = ["🎉","⭐","🌟","📚","🎈"];
   for(var i=0;i<26;i++){
     var s = document.createElement("span"); s.className = "fall";
     s.textContent = em[i % em.length];
@@ -756,9 +890,101 @@ function confetti(){
 
 $("go").onclick = startQuiz;
 $("again").onclick = function(){ applyTheme(); startQuiz(); };
-$("to-home").onclick = goHome;
-$("to-lessons").onclick = goHome;
+$("to-home").onclick = backToList;
+$("to-lessons").onclick = backToList;
+$("cat-back").onclick = goHome;
 $("home").onclick = function(){ if(confirm("برگردیم؟ پیشرفت این دور از بین می‌ره.")) goHome(); };
+
+/* ===== بازی جور کردن (مترادف / متضاد) ===== */
+var MT_HUES = [160, 15, 210, 45, 285, 100, 335, 190];
+var mt = {rounds:[], r:0, A:[], B:[], sel:null, done:0, doneAll:0, total:0, locked:false, shake:null, missedIds:{}, ci:0};
+function isDarkMode(){ return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches); }
+
+function startMatch(){
+  var items = shuffle(cur.pairs.map(function(p, i){ return {id:i, a:p.a, b:p.b}; }));
+  mt.rounds = [];
+  for(var i=0;i<items.length;i+=6) mt.rounds.push(items.slice(i, i+6));
+  if(mt.rounds.length > 1 && mt.rounds[mt.rounds.length-1].length < 2){
+    var lastR = mt.rounds.pop(); mt.rounds[mt.rounds.length-1] = mt.rounds[mt.rounds.length-1].concat(lastR);
+  }
+  mt.r = 0; mt.total = items.length; mt.doneAll = 0; mt.missedIds = {};
+  quiz = items; idx = 0; score = 0; missed = []; quizStart = Date.now();
+  $("mtitle").textContent = cur.title;
+  show("s-match");
+  renderMatch();
+}
+function mtProgress(){
+  $("mt-count").textContent = fa(mt.doneAll) + " از " + fa(mt.total);
+  $("mt-bar").style.width = (mt.doneAll / mt.total * 100) + "%";
+}
+function renderMatch(){
+  var round = mt.rounds[mt.r];
+  mt.A = shuffle(round).map(function(p){ return {id:p.id, t:p.a, done:false, hue:0}; });
+  mt.B = shuffle(round).map(function(p){ return {id:p.id, t:p.b, done:false, hue:0}; });
+  mt.sel = null; mt.done = 0; mt.locked = false; mt.shake = null; mt.ci = 0;
+  $("mt-hint").textContent = cur.hint || "کلمه‌های هم‌معنی رو به هم وصل کن";
+  $("mt-fb").textContent = ""; $("mt-fb").className = "feedback";
+  $("mt-next").classList.add("hidden");
+  mtProgress();
+  drawMatch();
+}
+function drawMatch(){
+  [["A","mt-a"],["B","mt-b"]].forEach(function(pr){
+    var side = pr[0], col = $(pr[1]);
+    col.innerHTML = "";
+    mt[side].forEach(function(it, i){
+      var b = document.createElement("button"); b.type = "button"; b.className = "mw";
+      b.textContent = it.t;
+      if(it.done){
+        b.classList.add("done"); b.disabled = true;
+        b.style.background = "hsl(" + it.hue + " 70% " + (isDarkMode() ? "26%" : "86%") + ")";
+        b.style.borderColor = "hsl(" + it.hue + " 55% 45%)";
+      }
+      if(mt.sel && mt.sel.side === side && mt.sel.i === i) b.classList.add("sel");
+      if(mt.shake && mt.shake[side] === i){ b.classList.add("bad"); b.classList.add("shake"); }
+      b.onclick = function(){ mtTap(side, i); };
+      col.appendChild(b);
+    });
+  });
+}
+function mtTap(side, i){
+  if(mt.locked) return;
+  if(mt[side][i].done) return;
+  if(!mt.sel || mt.sel.side === side){ mt.sel = {side:side, i:i}; drawMatch(); return; }
+  var ai = side === "A" ? i : mt.sel.i, bi = side === "B" ? i : mt.sel.i;
+  var a = mt.A[ai], b = mt.B[bi];
+  mt.sel = null;
+  if(a.id === b.id){
+    var hue = MT_HUES[mt.ci++ % MT_HUES.length];
+    a.done = true; b.done = true; a.hue = hue; b.hue = hue;
+    mt.done++; mt.doneAll++;
+    beep([[1400,.06]]);
+    mtProgress(); drawMatch();
+    if(mt.done === mt.A.length) mtRoundDone();
+  } else {
+    if(!mt.missedIds[a.id]){
+      mt.missedIds[a.id] = true;
+      var pr = cur.pairs[a.id]; missed.push({q:pr.a, a:pr.b});
+    }
+    mt.shake = {A:ai, B:bi};
+    beep([[170,.22]]);
+    drawMatch();
+    setTimeout(function(){ mt.shake = null; drawMatch(); }, 450);
+  }
+}
+function mtRoundDone(){
+  mt.locked = true;
+  var fb = $("mt-fb"); fb.textContent = "آفرین! همه رو درست وصل کردی 🎉"; fb.className = "feedback good";
+  beep([[660,.12],[880,.18]]);
+  var nx = $("mt-next");
+  nx.textContent = (mt.r === mt.rounds.length - 1) ? "دیدن نتیجه" : "مرحله‌ی بعد";
+  nx.classList.remove("hidden");
+}
+$("mt-next").onclick = function(){
+  if(mt.r < mt.rounds.length - 1){ mt.r++; renderMatch(); }
+  else { score = mt.total - Object.keys(mt.missedIds).length; finish(); }
+};
+$("mt-home").onclick = function(){ if(confirm("برگردیم؟ پیشرفت این دور از بین می‌ره.")) backToList(); };
 
 /* ===== بازی املا ===== */
 var ALPHA = Array.from("ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیآ");
@@ -1007,8 +1233,8 @@ var cfg = null, elib = null, ei = -1, dirty = false, panel = "login";
 function showPanel(p){
   panel = p;
   if(recorder){ try{ recorder.mr.stop(); }catch(e){} }
-  ["login","manager","lesson","spell"].forEach(function(n){ $("p-" + n).classList.toggle("hidden", n !== p); });
-  $("ed-head").textContent = (p === "lesson" || p === "spell") ? "ویرایش درس" : "مدیریت درس‌ها";
+  ["login","manager","lesson","spell","match"].forEach(function(n){ $("p-" + n).classList.toggle("hidden", n !== p); });
+  $("ed-head").textContent = (p === "lesson" || p === "spell" || p === "match") ? "ویرایش درس" : "مدیریت درس‌ها";
   window.scrollTo(0,0);
 }
 
@@ -1027,8 +1253,10 @@ function showLogin(){
 }
 function enterManager(){
   elib = clone(lib); dirty = false;
+  $("m-site-title").value = elib.title || "";
   renderManager(); showPanel("manager");
 }
+$("m-site-title").oninput = function(){ if(elib){ elib.title = this.value; dirty = true; } };
 
 $("ed-login-btn").onclick = function(){
   var c = {owner:$("ed-owner").value.trim(), repo:$("ed-repo").value.trim(), token:$("ed-token").value.trim()};
@@ -1051,15 +1279,22 @@ function renderManager(){
     var item = document.createElement("div"); item.className = "m-item";
     var t = document.createElement("div"); t.className = "t";
     t.appendChild(document.createTextNode((L.title || "(بدون اسم)") + " "));
-    var s = document.createElement("small"); s.textContent = "· " + fa(lessonCount(L)) + " " + lessonUnit(L) + (isSpell(L) ? " · املا" : "");
+    var s = document.createElement("small");
+    s.textContent = "· " + ((L.cat || "").trim() || "سایر") + " · " + typeLabel(L) + " · " + fa(lessonCount(L)) + " " + lessonUnit(L);
     t.appendChild(s); item.appendChild(t);
 
     var row = document.createElement("div"); row.className = "m-btns";
-    function mk(txt, fn){
+    function mk(txt, fn, off){
       var b = document.createElement("button"); b.type = "button"; b.className = "btn small ghost";
-      b.textContent = txt; b.onclick = fn; row.appendChild(b);
+      b.textContent = txt; b.onclick = fn; if(off) b.disabled = true; row.appendChild(b);
     }
     mk("✏️ ویرایش", function(){ editLesson(i); });
+    mk("⬆️", function(){
+      var x = elib.lessons[i]; elib.lessons[i] = elib.lessons[i-1]; elib.lessons[i-1] = x; dirty = true; renderManager();
+    }, i === 0);
+    mk("⬇️", function(){
+      var x = elib.lessons[i]; elib.lessons[i] = elib.lessons[i+1]; elib.lessons[i+1] = x; dirty = true; renderManager();
+    }, i === elib.lessons.length - 1);
     mk("🔗 کپی لینک", function(){ copyLink(L.id); });
     mk("🧹 پاک کردن جدول برتر", function(){
       if(!confirm("جدول برتر این درس روی همین دستگاه پاک بشه؟")) return;
@@ -1095,8 +1330,10 @@ $("m-add").onclick = function(){
 /* --- ویرایش یک درس --- */
 function editLesson(i){
   ei = i;
-  if(isSpell(elib.lessons[i])){ buildSpellEditor(); showPanel("spell"); }
-  else { buildLessonEditor(); showPanel("lesson"); }
+  var L = elib.lessons[i];
+  if(isSpell(L)){ buildSpellEditor(); mountMeta(L, "slot-spell"); showPanel("spell"); }
+  else if(isMatch(L)){ buildMatchEditor(); mountMeta(L, "slot-match"); showPanel("match"); }
+  else { buildLessonEditor(); mountMeta(L, "slot-quiz"); showPanel("lesson"); }
 }
 
 /* یه ردیف گزینه: دایره‌ی جواب درست + متن یا تصویر */
@@ -1166,6 +1403,7 @@ function buildLessonEditor(){
 }
 /* خوندن چیزی که توی صفحه نوشته شده (بدون اعتبارسنجی) */
 function pullQuiz(){
+  pullMeta(elib.lessons[ei]);
   var L = elib.lessons[ei];
   L.title = $("ed-title").value;
   var cards = $("ed-list").children;
@@ -1180,7 +1418,7 @@ function pullQuiz(){
 function cleanQuiz(L){
   var name = (L.title || "").trim();
   if(!name) return {err:"اسم درس خالیه."};
-  var out = {id:L.id, title:name, questions:[]};
+  var out = {id:L.id, title:name, cat:(L.cat || "").trim(), img:L.img || undefined, questions:[]};
   for(var i=0;i<L.questions.length;i++){
     var x = L.questions[i], n = i+1;
     if(!x.q.trim()) return {err:"متن سؤال " + fa(n) + " خالیه."};
@@ -1197,8 +1435,8 @@ function cleanQuiz(L){
   return {ok:out};
 }
 /* یکی‌کردن ویرایش درس‌های چهارگزینه‌ای و املا */
-function pullLesson(){ if(isSpell(elib.lessons[ei])) pullSpell(); else pullQuiz(); }
-function cleanLesson(L){ return isSpell(L) ? cleanSpell(L) : cleanQuiz(L); }
+function pullLesson(){ var L = elib.lessons[ei]; if(isSpell(L)) pullSpell(); else if(isMatch(L)) pullMatch(); else pullQuiz(); }
+function cleanLesson(L){ return isSpell(L) ? cleanSpell(L) : (isMatch(L) ? cleanMatch(L) : cleanQuiz(L)); }
 /* ثبت تغییرات درس باز در پیش‌نویس */
 function applyLesson(){
   pullLesson();
@@ -1217,6 +1455,103 @@ $("ed-add").onclick = function(){
 $("ed-apply").onclick = function(){
   if(applyLesson()){ renderManager(); showPanel("manager"); }
 };
+
+/* --- دسته و تصویر درس + ویرایش درس جور کردن --- */
+function mountMeta(L, slotId){
+  $(slotId).appendChild($("lesson-meta"));
+  $("lm-cat").value = L.cat || "";
+  var dl = $("lm-cats"); dl.innerHTML = "";
+  var seen = {};
+  elib.lessons.forEach(function(x){
+    var c = (x.cat || "").trim();
+    if(c && !seen[c]){ seen[c] = true; var o = document.createElement("option"); o.value = c; dl.appendChild(o); }
+  });
+  refreshCover(L);
+}
+function pullMeta(L){ L.cat = $("lm-cat").value; }
+function refreshCover(L){
+  var th = $("lm-thumb");
+  if(L.img){ th.src = fileSrc(L.img); th.classList.remove("hidden"); $("lm-clr").classList.remove("hidden"); }
+  else { th.classList.add("hidden"); $("lm-clr").classList.add("hidden"); }
+}
+$("lm-pick").onclick = function(){
+  var f = document.createElement("input"); f.type = "file"; f.accept = "image/*";
+  f.onchange = function(){
+    if(!f.files || !f.files[0]) return;
+    compressImage(f.files[0]).then(function(data){
+      var path = "images/" + Date.now().toString(36) + Math.random().toString(36).slice(2,6) + ".jpg";
+      pendingImgs[path] = data;
+      var L = elib.lessons[ei]; L.img = path; dirty = true; refreshCover(L);
+    }).catch(function(){ toast("این تصویر باز نشد. یه عکس JPG یا PNG انتخاب کن."); });
+  };
+  f.click();
+};
+$("lm-clr").onclick = function(){ var L = elib.lessons[ei]; delete L.img; dirty = true; refreshCover(L); };
+
+function pairRow(x){
+  var row = document.createElement("div"); row.className = "pair-row";
+  var a = document.createElement("input"); a.type = "text"; a.className = "f-a"; a.value = x.a || ""; a.placeholder = "کلمه (ستون راست)";
+  var b = document.createElement("input"); b.type = "text"; b.className = "f-b"; b.value = x.b || ""; b.placeholder = "جفتش (ستون چپ)";
+  var del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "حذف";
+  del.onclick = function(){
+    pullMatch();
+    var L = elib.lessons[ei];
+    if(L.pairs.length <= 1){ toast("حداقل یک جفت باید بمونه"); return; }
+    var k = Array.prototype.indexOf.call($("me-pairs").children, row);
+    L.pairs.splice(k, 1); buildMatchEditor();
+  };
+  row.appendChild(a); row.appendChild(b); row.appendChild(del);
+  return row;
+}
+function buildMatchEditor(){
+  var L = elib.lessons[ei];
+  $("me-title").value = L.title; $("me-hint").value = L.hint || "";
+  var box = $("me-pairs"); box.innerHTML = "";
+  L.pairs.forEach(function(x){ box.appendChild(pairRow(x)); });
+}
+function pullMatch(){
+  var L = elib.lessons[ei];
+  pullMeta(L);
+  L.title = $("me-title").value; L.hint = $("me-hint").value;
+  L.pairs = Array.prototype.map.call($("me-pairs").children, function(r){
+    return {a:r.querySelector(".f-a").value, b:r.querySelector(".f-b").value};
+  });
+}
+function cleanMatch(L){
+  var name = (L.title || "").trim();
+  if(!name) return {err:"اسم درس خالیه."};
+  var out = {id:L.id, title:name, type:"match", hint:(L.hint || "").trim(), cat:(L.cat || "").trim(), img:L.img || undefined, pairs:[]};
+  var seenA = {}, seenB = {};
+  for(var i=0;i<L.pairs.length;i++){
+    var n = i+1, a = (L.pairs[i].a || "").trim(), b = (L.pairs[i].b || "").trim();
+    if(!a || !b) return {err:"ردیف " + fa(n) + " کامل نیست (هر دو کادر رو پر کن)."};
+    if(seenA[a]) return {err:"کلمه‌ی «" + a + "» توی ستون راست دوبار اومده."};
+    if(seenB[b]) return {err:"کلمه‌ی «" + b + "» توی ستون چپ دوبار اومده."};
+    seenA[a] = true; seenB[b] = true;
+    out.pairs.push({a:a, b:b});
+  }
+  if(out.pairs.length < 2) return {err:"حداقل دو جفت لازمه."};
+  if(out.pairs.length > 40) return {err:"حداکثر ۴۰ جفت."};
+  return {ok:out};
+}
+$("m-add-match").onclick = function(){
+  var name = window.prompt("اسم درس جور کردن چیه؟ (مثلاً: مترادف - درس ۱)");
+  if(!name || !name.trim()) return;
+  elib.lessons.push({
+    id: "l" + Date.now().toString(36), title: name.trim(), type: "match",
+    hint: "کلمه‌های هم‌معنی رو به هم وصل کن", pairs: [{a:"", b:""}, {a:"", b:""}]
+  });
+  dirty = true;
+  editLesson(elib.lessons.length - 1);
+};
+$("me-add").onclick = function(){
+  pullMatch();
+  elib.lessons[ei].pairs.push({a:"", b:""});
+  buildMatchEditor();
+  var last = $("me-pairs").lastElementChild; if(last) last.scrollIntoView({behavior:"smooth", block:"center"});
+};
+$("me-apply").onclick = function(){ if(applyLesson()){ renderManager(); showPanel("manager"); } };
+$("me-save").onclick = function(){ if(applyLesson()) commitAll(this); };
 
 /* --- ویرایش درس املا --- */
 var recorder = null;   /* ضبط در حال انجام: {mr, card} */
@@ -1354,6 +1689,7 @@ function buildSpellEditor(){
   L.words.forEach(function(x, wi){ box.appendChild(wordCard(wi, x)); });
 }
 function pullSpell(){
+  pullMeta(elib.lessons[ei]);
   var L = elib.lessons[ei];
   L.title = $("se-title").value;
   L.mode = $("se-mode-scramble").checked ? "scramble" : "listen";
@@ -1367,7 +1703,7 @@ function cleanSpell(L){
   if(!name) return {err:"اسم درس خالیه."};
   var extra = isFinite(L.extra) ? Math.max(0, Math.min(6, L.extra)) : 3;
   var secs = isFinite(L.seconds) ? Math.max(0, Math.min(120, L.seconds)) : 0;
-  var out = {id:L.id, title:name, type:"spell", mode:(L.mode === "scramble" ? "scramble" : "listen"), extra:extra, seconds:secs, words:[]};
+  var out = {id:L.id, title:name, type:"spell", mode:(L.mode === "scramble" ? "scramble" : "listen"), extra:extra, seconds:secs, cat:(L.cat || "").trim(), img:L.img || undefined, words:[]};
   for(var i=0;i<L.words.length;i++){
     var x = L.words[i], n = i+1, w = normFa((x.w || "").trim());
     if(!w) return {err:"کلمه‌ی " + fa(n) + " خالیه."};
@@ -1417,7 +1753,7 @@ function uploadImages(paths, onProg){
 }
 
 function commitAll(btn){
-  var out = {lessons:[]};
+  var out = {title:((elib.title || "").trim() || "آزمون‌ها"), lessons:[]};
   for(var i=0;i<elib.lessons.length;i++){
     var L = elib.lessons[i], r = cleanLesson(L);
     if(r.err){ toast("درس «" + ((L.title || "").trim() || ("شماره " + fa(i+1))) + "»: " + r.err); return; }
@@ -1429,8 +1765,9 @@ function commitAll(btn){
   var paths = [];
   out.lessons.forEach(function(L){
     function add(p){ if(pendingImgs[p] && !uploadedImgs[p] && paths.indexOf(p) < 0) paths.push(p); }
+    if(L.img) add(L.img);
     if(isSpell(L)){ L.words.forEach(function(x){ if(x.audio) add(x.audio); }); }
-    else L.questions.forEach(function(q){ q.options.forEach(function(o){ if(isImg(o)) add(o.slice(4)); }); });
+    else if(!isMatch(L)) L.questions.forEach(function(q){ q.options.forEach(function(o){ if(isImg(o)) add(o.slice(4)); }); });
   });
 
   var old = btn.textContent; btn.disabled = true; btn.textContent = "در حال ذخیره…";
@@ -1477,7 +1814,7 @@ $("m-logout").onclick = function(){
 $("open-ed").onclick = openEditor;
 $("open-ed2").onclick = openEditor;
 $("ed-back").onclick = function(){
-  if(panel === "lesson" || panel === "spell"){
+  if(panel === "lesson" || panel === "spell" || panel === "match"){
     if(confirm("تغییرات این درس ثبت نشه و برگردیم به لیست درس‌ها؟")){ renderManager(); showPanel("manager"); }
     return;
   }
