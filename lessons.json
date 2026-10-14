@@ -161,6 +161,20 @@
           "answer": 0
         }
       ]
+    },
+    {
+      "id": "lmv7t7nb4",
+      "title": "فارسی درس اول",
+      "type": "spell",
+      "mode": "listen",
+      "extra": 3,
+      "seconds": 25,
+      "words": [
+        {
+          "w": "عادت",
+          "audio": "audio/mv7tazwca3e0.wav"
+        }
+      ]
     }
   ]
 }
