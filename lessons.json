@@ -948,6 +948,189 @@
           "b": "روشن"
         }
       ]
+    },
+    {
+      "id": "lmv8hqngz",
+      "title": "املای درس دوم  زنگ ورزش",
+      "type": "spell",
+      "mode": "listen",
+      "extra": 3,
+      "seconds": 25,
+      "cat": "فارسی",
+      "words": [
+        {
+          "w": "نرم نرمک",
+          "audio": "audio/mv8hry6737y5.wav"
+        },
+        {
+          "w": "موضوع",
+          "audio": "audio/mv8htkljhxtr.wav"
+        },
+        {
+          "w": "بحث",
+          "audio": "audio/mv8hu16wxub3.wav"
+        },
+        {
+          "w": "نظم",
+          "audio": "audio/mv8hufu627ie.wav"
+        },
+        {
+          "w": "ترتیب",
+          "audio": "audio/mv8huyybhi2n.wav"
+        },
+        {
+          "w": "پیوسته",
+          "audio": "audio/mv8hviqwnqjn.wav"
+        },
+        {
+          "w": "حرفه ای",
+          "audio": "audio/mv8hvv5ur3in.wav"
+        },
+        {
+          "w": "تعطیل",
+          "audio": "audio/mv8hw41rxofb.wav"
+        },
+        {
+          "w": "گفت و گو",
+          "audio": "audio/mv8hwem34ppz.wav"
+        },
+        {
+          "w": "تصمیم",
+          "audio": "audio/mv8hwr8gtlak.wav"
+        },
+        {
+          "w": "نظر",
+          "audio": "audio/mv8hx43a0w8s.wav"
+        },
+        {
+          "w": "بیاموزید",
+          "audio": "audio/mv8hyd48rduy.wav"
+        },
+        {
+          "w": "محلّ مخصوص",
+          "audio": "audio/mv8hyxsckzg3.wav"
+        },
+        {
+          "w": "سالن اصلی",
+          "audio": "audio/mv8hzelwdun3.wav"
+        },
+        {
+          "w": "جنب و جوش",
+          "audio": "audio/mv8hzqbgtw06.wav"
+        },
+        {
+          "w": "ماهرانه",
+          "audio": "audio/mv8i00zgucbe.wav"
+        },
+        {
+          "w": "مرّبی",
+          "audio": "audio/mv8i0ep1taxq.wav"
+        },
+        {
+          "w": "راهنمایی",
+          "audio": "audio/mv8i1bscvjt7.wav"
+        },
+        {
+          "w": "صحبت",
+          "audio": "audio/mv8i7f101v18.wav"
+        },
+        {
+          "w": "مدّت",
+          "audio": "audio/mv8i7hveqji6.wav"
+        },
+        {
+          "w": "برگزار",
+          "audio": "audio/mv8i7kjxs1k2.wav"
+        },
+        {
+          "w": "صنوبر",
+          "audio": "audio/mv8i7nhvg8qv.wav"
+        },
+        {
+          "w": "بیشه",
+          "audio": "audio/mv8i7qi3h1wn.wav"
+        },
+        {
+          "w": "صورتی",
+          "audio": "audio/mv8i7teymn4b.wav"
+        },
+        {
+          "w": "تنگ بلور",
+          "audio": "audio/mv8i7wk8aa2y.wav"
+        },
+        {
+          "w": "قوری",
+          "audio": "audio/mv8i7yz83zxy.wav"
+        },
+        {
+          "w": "تخت خواب",
+          "audio": "audio/mv8i826gwy2k.wav"
+        },
+        {
+          "w": "سماور",
+          "audio": "audio/mv8i854b9py6.wav"
+        },
+        {
+          "w": "ظرف سفالی",
+          "audio": "audio/mv8i88jymu4k.wav"
+        },
+        {
+          "w": "موزه",
+          "audio": "audio/mv8i8b3bulyz.wav"
+        },
+        {
+          "w": "حیرت",
+          "audio": "audio/mv8i8dngmvaa.wav"
+        },
+        {
+          "w": "گنجینه",
+          "audio": "audio/mv8i8g8aihrg.wav"
+        },
+        {
+          "w": "بازدید",
+          "audio": "audio/mv8i8im8bxxd.wav"
+        },
+        {
+          "w": "باستان شناسان",
+          "audio": "audio/mv8i8mhl272g.wav"
+        },
+        {
+          "w": "ضرب المثل",
+          "audio": "audio/mv8i8puoem7a.wav"
+        },
+        {
+          "w": "حاکم",
+          "audio": "audio/mv8i8sdl1ppt.wav"
+        },
+        {
+          "w": "مأمور",
+          "audio": "audio/mv8i8vbdg88t.wav"
+        },
+        {
+          "w": "پخت و پز",
+          "audio": "audio/mv8i8xokxb5d.wav"
+        },
+        {
+          "w": "بگو مگو",
+          "audio": "audio/mv8i906begsw.wav"
+        },
+        {
+          "w": "عصبانی",
+          "audio": "audio/mv8i92z0dlxc.wav"
+        },
+        {
+          "w": "حکیم",
+          "audio": "audio/mv8i95jgdusf.wav"
+        },
+        {
+          "w": "طبیب",
+          "audio": "audio/mv8i98rsih08.wav"
+        },
+        {
+          "w": "مثال",
+          "audio": "audio/mv8i9ar941w4.wav"
+        }
+      ]
     }
   ],
   "cats": [
